@@ -1,7 +1,10 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useSelector } from "react-redux";
+const CartScreen = ({ navigation }) => {
+  const state = useSelector((state) => state);
+  const [cartItems, setCartItems] = useState(state.cart.items);
 
-const CartScreen = ({ cartItems }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Your Cart</Text>
@@ -10,19 +13,28 @@ const CartScreen = ({ cartItems }) => {
       ) : (
         <View>
           {cartItems.map((item) => (
-            <View key={item.foodItem.id} style={styles.cartItem}>
+            <View key={item._id} style={styles.cartItem}>
               <View style={styles.itemInfo}>
-                <Text style={styles.itemName}>{item.foodItem.name}</Text>
-                <Text style={styles.itemPrice}>Price: ${item.foodItem.price}</Text>
+                <Text style={styles.itemName}>{item.name}</Text>
+                <Text style={styles.itemPrice}>Price: ${item.price}</Text>
               </View>
               <View style={styles.quantityContainer}>
-                <Text style={styles.itemQuantity}>Quantity: {item.quantity}</Text>
+                <Text style={styles.itemQuantity}>
+                  Quantity: {item.quantity}
+                </Text>
               </View>
             </View>
           ))}
           <Text style={styles.totalText}>
-            Total Items: {cartItems.reduce((total, item) => total + item.quantity, 0)}
+            Total Items:{" "}
+            {cartItems.reduce((total, item) => total + item.quantity, 0)}
           </Text>
+          <TouchableOpacity
+            style={styles.addToCartButton}
+            onPress={() => navigation.navigate("PlaceOrder")}
+          >
+            <Text style={styles.addToCartButtonText}>Pace Order</Text>
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -33,29 +45,29 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#f9f9f9',
+    backgroundColor: "#f9f9f9",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16,
-    textAlign: 'center',
+    textAlign: "center",
   },
   emptyCartText: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 16,
   },
   cartItem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 8,
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 8,
-    backgroundColor: '#fff',
-    shadowColor: '#000',
+    backgroundColor: "#fff",
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
@@ -67,29 +79,40 @@ const styles = StyleSheet.create({
   },
   itemName: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
   },
   itemPrice: {
     fontSize: 14,
-    color: '#666',
+    color: "#666",
   },
   quantityContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     width: 80,
   },
   itemQuantity: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
   },
   totalText: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 16,
-    textAlign: 'center',
+    textAlign: "center",
+  },
+  addToCartButton: {
+    backgroundColor: "#3377FF",
+    borderRadius: 8,
+    paddingVertical: 8,
+    alignItems: "center",
+  },
+  addToCartButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff",
   },
 });
 

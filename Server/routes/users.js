@@ -5,13 +5,24 @@ const User = require("../structure/user");
 const jwt = require("jsonwebtoken");
 const e = require("express");
 const auth = require("../middlewares/auth");
-const Kitchen = require("../structure/kitchen");
+//const Kitchen = require("../structure/kitchen");
 
 //Authentication routes
 router.post("/register", async (req, res) => {
   try {
-    const { fullName, email, address, phoneNumber, password, userType, image, expertise, experience, CNIC, vehicleNumber} =
-      req.body;
+    const {
+      fullName,
+      email,
+      address,
+      phoneNumber,
+      password,
+      userType,
+      image,
+      expertise,
+      experience,
+      CNIC,
+      vehicleNumber,
+    } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -33,7 +44,7 @@ router.post("/register", async (req, res) => {
       expertise,
       experience,
       vehicleNumber,
-      CNIC
+      CNIC,
     });
 
     // Save the user to MongoDB
@@ -45,10 +56,10 @@ router.post("/register", async (req, res) => {
     // Register kitchen if user type is kitchen
     if (userType === "kitchen") {
       // Create a new kitchen document
-      const kitchen = new Kitchen({ fullName, image, expertise, address});
+      const kitchen = new Kitchen({ fullName, image, expertise, address });
       await kitchen.save();
 
-      response.message = 'Kitchen registered successfully';
+      response.message = "Kitchen registered successfully";
     }
 
     res.status(200).json(response);
@@ -57,7 +68,6 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ error: "Registration failed" });
   }
 });
-
 
 // Login user
 
@@ -80,7 +90,14 @@ router.post("/login", async (req, res) => {
   const userId = user._id;
   const profilePicture = user.image;
 
-  return res.send({ message: "Logged in successfully", token , userId, profilePicture});
+  return res.send({
+    message: "Logged in successfully",
+    token,
+    userId,
+    name: user.fullName,
+    address: user.address,
+    profilePicture,
+  });
 });
 
 //get single record

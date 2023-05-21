@@ -7,7 +7,7 @@
     "start": "nodemon app.js",
     "server": "nodemon app.js"
   },
-  "author": "Marwa",
+  "author": "Hasnan",
   "license": "ISC",
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.18.1",
@@ -20,9 +20,10 @@
     "mongodb": "^4.5.0",
     "mongoose": "^6.3.1",
     "multer": "^1.4.4",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "stringify": "^5.2.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.22"
   }
 }

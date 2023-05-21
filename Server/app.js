@@ -52,11 +52,13 @@ db.once("open", () => {
 const foodsRouter = require("./routes/foods");
 const usersRouter = require("./routes/users");
 const kitchensRouter = require("./routes/kitchens");
+const ordersRouter = require("./routes/orders");
 
 //add middleware.. for all requests,send to router
 app.use("/food", foodsRouter);
 app.use("/user", usersRouter);
 app.use("/kitchen", kitchensRouter);
+app.use("/orders", ordersRouter);
 
 //listen to server after starting
 

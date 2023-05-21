@@ -1,31 +1,38 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
-import axios from 'axios';
+import React, { useState } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { login } from "../../features/UserSlice";
+const CustomerLoginForm = ({ navigation }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-const CustomerLoginForm = ({navigation}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-    const handleLogin = async() => {
-      const data = {
-        email: email,
-        password: password,
-      }
-
-      try{
-        const res = await axios.post("http://localhost:3500/user/login", data);
-        console.log(res.data);
-  
-        await AsyncStorage.setItem("profilePicture", res.data.profilePicture);
-
-          navigation.navigate('CustomerScreen');
-        
-      }catch(err){
-        console.log("error: " + err.message);
-  
-      }
+  const handleLogin = async () => {
+    const data = {
+      email: email,
+      password: password,
     };
+
+    try {
+      const res = await axios.post("http://localhost:3500/user/login", data);
+      dispatch(login(res.data));
+
+      await AsyncStorage.setItem("profilePicture", res.data.profilePicture);
+
+      navigation.navigate("CustomerScreen");
+    } catch (err) {
+      console.log("error: " + err.message);
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -34,7 +41,7 @@ const CustomerLoginForm = ({navigation}) => {
         style={styles.input}
         value={email}
         onChangeText={setEmail}
-        placeholder="Enter your email"
+        placeholder='Enter your email'
       />
 
       <Text style={styles.label}>Password:</Text>
@@ -43,13 +50,19 @@ const CustomerLoginForm = ({navigation}) => {
         value={password}
         onChangeText={setPassword}
         secureTextEntry={true}
-        placeholder="Enter your password"
+        placeholder='Enter your password'
       />
 
-      <Button title="Login" onPress={handleLogin} />
-      <TouchableOpacity onPress={()=>{{navigation.navigate("CustomerRegister")}}}>
-            <Text> New to Bawarchi? Register!</Text>
-        </TouchableOpacity>
+      <Button title='Login' onPress={handleLogin} />
+      <TouchableOpacity
+        onPress={() => {
+          {
+            navigation.navigate("CustomerRegister");
+          }
+        }}
+      >
+        <Text> New to Bawarchi? Register!</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -60,12 +73,12 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   label: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 4,
     padding: 10,
     marginBottom: 10,

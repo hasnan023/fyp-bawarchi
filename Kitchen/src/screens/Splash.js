@@ -1,30 +1,36 @@
-import React from 'react';
-import { View, Text, StyleSheet, Touchable } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, Touchable } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-const Splash = ({navigation}) => {
+const Splash = ({ navigation }) => {
+  useEffect(() => {
+    setTimeout(() => {
+      navigation.navigate("Home");
+    }, 1000);
+  });
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress = {()=> {(navigation.navigate('Home'))}}>
-        <Text style={styles.text}>Bawarchi</Text>
+      <TouchableOpacity>
+        <Text style={styles.text}>BAWARCHI</Text>
       </TouchableOpacity>
-      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#FE724C',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
-    text: {
-      fontSize: 32,
-      fontWeight: 'bold',
-      color: 'white',
-    },
-  });
+  container: {
+    flex: 1,
+    backgroundColor: "#FE724C",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  text: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "white",
+    textTransform: "capitalize",
+    letterSpacing: 2,
+  },
+});
 
-export default Splash
+export default Splash;

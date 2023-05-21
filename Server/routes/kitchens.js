@@ -1,16 +1,15 @@
 const express = require("express");
 const router = express.Router();
 const Kitchen = require("../structure/user");
-const Food = require("../structure/detail")
+const Food = require("../structure/detail");
 
 router.get("/", async (req, res) => {
   //fetch all food and send
   try {
-    const kitchen = await Kitchen.find();
+    const kitchen = await Kitchen.find({ userType: "kitchen" });
     //send in json format.. .send will send in text form
     res.json(kitchen);
     console.log("Get Request Worked");
-    
   } catch (err) {
     res.send("Error: " + err);
   }
@@ -25,7 +24,10 @@ router.get("/:id", async (req, res) => {
       return res.status(404).json({ error: "Kitchen not found" });
     }
 
-    const foodItems = await Food.find({ userId: kitchenId, addedBy: kitchenId });
+    const foodItems = await Food.find({
+      userId: kitchenId,
+      addedBy: kitchenId,
+    });
 
     res.json({
       kitchen,
@@ -36,6 +38,5 @@ router.get("/:id", async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
-
 
 module.exports = router;

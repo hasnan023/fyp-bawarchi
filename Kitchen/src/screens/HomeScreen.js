@@ -1,21 +1,37 @@
-import React from 'react';
-import { StyleSheet, View, ImageBackground, Text, TouchableOpacity } from 'react-native';
+import React from "react";
+import {
+  StyleSheet,
+  View,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 
 // const backgroundImage = require('../images/images.jpeg');
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       {/* <ImageBackground source={backgroundImage} style={styles.background}> */}
-        <Text style={styles.text}>Welcome to Bawarchi</Text>
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress = {()=> {(navigation.navigate('Signup'))}}>
-            <Text style={styles.buttonText}>Signup</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress = {()=> {(navigation.navigate('Signin'))}}>
-            <Text style={styles.buttonText}>Signin</Text>
-          </TouchableOpacity>
-        </View>
+      <Text style={styles.text}>Welcome to Bawarchi</Text>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("Signup");
+          }}
+        >
+          <Text style={styles.buttonText}>Sign Up</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate("Signin");
+          }}
+        >
+          <Text style={styles.buttonText}>Sign In</Text>
+        </TouchableOpacity>
+      </View>
       {/* </ImageBackground> */}
     </View>
   );
@@ -24,12 +40,13 @@ const HomeScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#fff",
   },
   background: {
     flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
+    resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "flex-end",
     paddingHorizontal: 20,
   },
   // overlay: {
@@ -38,28 +55,33 @@ const styles = StyleSheet.create({
   // },
   text: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: 'black',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "black",
+    textAlign: "center",
     marginTop: "40%",
   },
   buttonContainer: {
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    marginTop: 'auto',
-    marginBottom:"40%"
+    alignItems: "center",
+    justifyContent: "flex-end",
+    marginTop: "auto",
+    marginBottom: "80%",
   },
   button: {
-    backgroundColor: '#FE724C',
+    backgroundColor: "#FE724C",
     borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: 20,
+    display: "flex",
+    width: 120,
     marginHorizontal: 10,
+    marginTop: 10,
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonText: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
+    fontWeight: "bold",
+    color: "#FFFFFF",
+    letterSpacing: 2,
   },
 });
 
