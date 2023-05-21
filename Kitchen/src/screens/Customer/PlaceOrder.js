@@ -22,6 +22,7 @@ export default function PlaceOrder({ navigation }) {
             0
           ),
           kitchenName: state.cart.items[0].kitchen.fullName,
+          paymentMethod,
         })
         .then((response) => {
           console.log(response.data);
