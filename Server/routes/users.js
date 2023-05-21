@@ -5,7 +5,7 @@ const User = require("../structure/user");
 const jwt = require("jsonwebtoken");
 const e = require("express");
 const auth = require("../middlewares/auth");
-const Kitchen = require("../structure/kitchen");
+// const Kitchen = require("../structure/kitchen");
 
 //Authentication routes
 router.post("/register", async (req, res) => {
@@ -42,19 +42,19 @@ router.post("/register", async (req, res) => {
     // Registration successful
     let response = { message: "Registration successful" };
 
-    // Register kitchen if user type is kitchen
-    if (userType === "kitchen") {
-      // Create a new kitchen document
-      const kitchen = new Kitchen({ fullName, image, expertise, address});
-      await kitchen.save();
+    // // Register kitchen if user type is kitchen
+    // if (userType === "kitchen") {
+    //   // Create a new kitchen document
+    //   const kitchen = new Kitchen({ fullName, image, expertise, address});
+    //   await kitchen.save();
 
-      response.message = 'Kitchen registered successfully';
-    }
+    //   response.message = 'Kitchen registered successfully';
+    // }
 
-    res.status(200).json(response);
+    // res.status(200).json(response);
   } catch (error) {
     console.error("Error registering user:", error);
-    res.status(500).json({ error: "Registration failed" });
+    // res.status(500).json({ error: "Registration failed" });
   }
 });
 
