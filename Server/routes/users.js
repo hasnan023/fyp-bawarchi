@@ -56,16 +56,16 @@ router.post("/register", async (req, res) => {
     // Register kitchen if user type is kitchen
     if (userType === "kitchen") {
       // Create a new kitchen document
-      const kitchen = new Kitchen({ fullName, image, expertise, address });
+      const kitchen = new Kitchen({ fullName, image, expertise, address});
       await kitchen.save();
 
-      response.message = "Kitchen registered successfully";
+      response.message = 'Kitchen registered successfully';
     }
 
-    res.status(200).json(response);
+    // res.status(200).json(response);
   } catch (error) {
     console.error("Error registering user:", error);
-    res.status(500).json({ error: "Registration failed" });
+    // res.status(500).json({ error: "Registration failed" });
   }
 });
 

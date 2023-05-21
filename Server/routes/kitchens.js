@@ -4,7 +4,7 @@ const Kitchen = require("../structure/user");
 const Food = require("../structure/detail");
 
 router.get("/", async (req, res) => {
-  //fetch all food and send
+  //fetch all kithcens and send
   try {
     const kitchen = await Kitchen.find({ userType: "kitchen" });
     //send in json format.. .send will send in text form
