@@ -41,21 +41,21 @@ const CustomerRegisterForm = ({ navigation }) => {
     }
   };
 
-  const handleRegistration = () => {
-    if (!fullName || !email || !address || !phoneNumber || !password) {
-      Alert.alert("All fields are required.");
-      return;
-    }
+  const handleRegistration = async() => {
+    // if (!fullName || !email || !address || !phoneNumber || !password) {
+    //   Alert.alert("All fields are required.");
+    //   return;
+    // }
 
-    if (!validateEmail(email)) {
-      Alert.alert("Invalid email address.");
-      return;
-    }
+    // if (!validateEmail(email)) {
+    //   Alert.alert("Invalid email address.");
+    //   return;
+    // }
 
-    if (password.length < 6) {
-      Alert.alert("Password should be at least 6 characters long.");
-      return;
-    }
+    // if (password.length < 6) {
+    //   Alert.alert("Password should be at least 6 characters long.");
+    //   return;
+    // }
 
     const customerData = {
       fullName,
@@ -67,21 +67,27 @@ const CustomerRegisterForm = ({ navigation }) => {
       image,
     };
 
-    axios
-      .post("http://localhost:3500/user/register", customerData)
-      .then((res) => {
-        console.log(res.data);
-        navigation.navigate("CustomerLogin");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try{
+      const response = await axios.post("http://localhost:3500/user/register", customerData)
+       console.log(response)
+      navigation.navigate("CustomerLogin")
+    }catch(error){
+console.log(error.message)
+    }
+      // .then((res) => {
+      //   console.log("success")
+      //   console.log(res.data);
+      //   navigation.push("CustomerLogin");
+      // })
+      // .catch((err) => {
+      //   console.log(err);
+      // });
   };
 
-  const validateEmail = (email) => {
-    const regex = /\S+@\S+\.\S+/;
-    return regex.test(email);
-  };
+  // const validateEmail = (email) => {
+  //   const regex = /\S+@\S+\.\S+/;
+  //   return regex.test(email);
+  // };
 
   return (
     <View style={styles.container}>
