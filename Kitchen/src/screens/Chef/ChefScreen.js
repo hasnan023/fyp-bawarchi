@@ -41,8 +41,8 @@ const ChefScreen = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.centerContainer}>
         <TouchableOpacity
-          style={styles.editProfileButton}
-          onPress={navigateToEditProfile}
+          style={styles.profilePictureContainer}
+          onPress ={() => navigateToEditProfile()}
         >
           <Text style={styles.editProfileButtonText}>Edit Profile</Text>
         </TouchableOpacity>
@@ -145,6 +145,13 @@ const styles = StyleSheet.create({
   editProfileButtonText: {
     color: "#fff",
     fontSize: 16,
+  },
+
+  profilePictureContainer: {
+    width: 40,
+    height: 40,
+    backgroundColor: "#ccc",
+    overflow: "hidden",
   },
 });
 
