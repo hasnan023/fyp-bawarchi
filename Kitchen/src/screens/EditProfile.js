@@ -12,7 +12,7 @@ import axios from "axios";
 import * as ImagePicker from 'expo-image-picker';
 
 const EditProfile = ({ route }) => {
-    const { id } = route.params;
+    const { userId:id } = route.params;
     const [fullName, setName] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
@@ -34,6 +34,10 @@ const EditProfile = ({ route }) => {
         console.log("Error fetching user profile:", error);
       }
     };
+
+    useEffect(()=>{
+      console.log(fullName);
+    },[fullName])
     const handleImagePick = async () => {
         const result = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,

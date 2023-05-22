@@ -43,9 +43,9 @@ const OrderDisplay = ({ navigation }) => {
       <TouchableOpacity style={styles.orderItem}>
         <Image style={styles.orderImage} source={{ uri: order.image }} />
         <View style={styles.orderDetails}>
-          <Text style={styles.orderName}>{order.name}</Text>
-          <Text style={styles.orderDescription}>{order.description}</Text>
-          <Text style={styles.orderPrice}>Rs. {order.price}</Text>
+          <Text style={styles.orderName}>{order.customerName}</Text>
+          <Text style={styles.orderDescription}>{order.foodItems}</Text>
+          <Text style={styles.orderPrice}>Rs. {order.totalPrice}</Text>
         </View>
         
       </TouchableOpacity>
