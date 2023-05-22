@@ -1,4 +1,3 @@
-// CustomerScreen.js
 import React, { useEffect, useState } from "react";
 import {
   View,
@@ -10,23 +9,48 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const CustomerScreen = ({ navigation }) => {
   const [kitchens, setKitchens] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const [profilePicture, setProfilePicture] = useState("");
+  const [customerName, setCustomerName] = useState("");
 
   useEffect(() => {
     fetchKitchens();
+    fetchProfilePicture();
   }, []);
 
   const navigateToKitchenDetail = (kitchenId) => {
     navigation.navigate("KitchenDetail", { kitchenId });
   };
 
+  const navigateToEditProfile = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    navigation.navigate("EditProfile", { userId });
+  };
+
+  const navigateToChefScreen = () => {
+    navigation.navigate("ChefDisplay");
+  };
+
+  const fetchProfilePicture = async () => {
+    try {
+      const userId = await AsyncStorage.getItem("userId");
+      const response = await axios.get(`http://localhost:3500/user/${userId}`);
+      const profilePicture = response.data.image;
+      const customerName = response.data.fullName;
+      setProfilePicture(profilePicture);
+      setCustomerName(customerName);
+    } catch (error) {
+      console.log("Error fetching profile Picture:", error);
+    }
+  };
+
   const fetchKitchens = async () => {
     try {
       const response = await axios.get("http://localhost:3500/kitchen");
-      console.log(response);
       setKitchens(response.data);
     } catch (error) {
       console.log("Error fetching kitchens:", error);
@@ -50,10 +74,28 @@ const CustomerScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity
+          style={styles.profilePictureContainer}
+          onPress={() => navigateToEditProfile()}
+        >
+          <Image
+            source={{ uri: profilePicture }}
+            style={styles.profilePicture}
+          />
+        </TouchableOpacity>
+        <Text style={styles.welcomeText}>Welcome, {customerName}</Text>
+        <TouchableOpacity
+          style={styles.chefButton}
+          onPress={() => navigateToChefScreen()}
+        >
+          <Text style={styles.chefButtonText}>Chef</Text>
+        </TouchableOpacity>
+      </View>
       <TextInput
         style={styles.searchBar}
-        placeholder='Search for kitchens'
-        placeholderTextColor='#888'
+        placeholder="Search for kitchens"
+        placeholderTextColor="#888"
         value={searchQuery}
         onChangeText={setSearchQuery}
       />
@@ -73,6 +115,19 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "#f9f9f9",
+  },
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+    justifyContent: "space-between",
+  },
+  welcomeText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    marginLeft: 30,
+    color: "#333",
+    textAlign:"center"
   },
   searchBar: {
     height: 40,
@@ -118,6 +173,28 @@ const styles = StyleSheet.create({
   kitchenAddress: {
     fontSize: 14,
     color: "#888",
+  },
+  profilePictureContainer: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: "#ccc",
+    overflow: "hidden",
+  },
+  profilePicture: {
+    width: "100%",
+    height: "100%",
+  },
+  chefButton: {
+    backgroundColor: "#333",
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  chefButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#fff",
   },
 });
 

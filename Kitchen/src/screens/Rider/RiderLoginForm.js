@@ -38,6 +38,7 @@ const RiderLoginForm = ({ navigation, userId }) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Rider Login</Text>
       <Text style={styles.label}>Email:</Text>
       <TextInput
         style={styles.input}
@@ -55,7 +56,9 @@ const RiderLoginForm = ({ navigation, userId }) => {
         placeholder="Enter your password"
       />
 
-      <Button title="Login" onPress={handleLogin} />
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           {
@@ -63,7 +66,7 @@ const RiderLoginForm = ({ navigation, userId }) => {
           }
         }}
       >
-        <Text> New to Bawarchi? Register!</Text>
+        <Text  style={styles.registerText}> New to Bawarchi? Register!</Text>
       </TouchableOpacity>
     </View>
   );
@@ -73,18 +76,46 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    justifyContent: "center",
+    backgroundColor: "#f9f9f9",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#333",
   },
   label: {
     fontWeight: "bold",
     marginBottom: 5,
+    color: "#333",
   },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 4,
-    padding: 10,
+    padding: 8, // Adjusted padding
+    marginBottom: 8, // Adjusted marginBottom
+    backgroundColor: "#fff",
+    color: "#333",
+  },
+  loginButton: {
+    backgroundColor: "#FF6F61",
+    paddingVertical: 12,
+    borderRadius: 4,
     marginBottom: 10,
   },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  registerText: {
+    marginTop: 10,
+    textAlign: "center",
+    color: "#888",
+  },
 });
-
 export default RiderLoginForm;

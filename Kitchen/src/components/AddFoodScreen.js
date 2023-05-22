@@ -4,9 +4,9 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Button,
   Image,
   Alert,
+  TouchableOpacity
 } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -65,26 +65,11 @@ const AddFoodScreen = ({ navigation }) => {
           console.error("Error saving food:", error);
         });
     });
-
-    // fetch('http://localhost:3500/food', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // })
-    //   .then((response) => response.json())
-    //   .then((responseData) => {
-    //     console.log('Food saved successfully!', responseData);
-    //     navigation.navigate('Welcome');
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error saving food:', error);
-    //   });
   };
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Add new Food Item</Text>
       <Text style={styles.label}>Food Name:</Text>
       <TextInput
         style={styles.input}
@@ -110,13 +95,23 @@ const AddFoodScreen = ({ navigation }) => {
         placeholder="Enter Food price"
       />
 
-      <Button title="Pick an image from camera roll" onPress={pickImage} />
-
+<TouchableOpacity
+        style={styles.selectButton}
+        onPress={pickImage}
+      >
+        <Text style={styles.buttonText}>Select Profile Picture</Text>
+      </TouchableOpacity>
+      
       {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+        <Image source={{ uri: image }} style={styles.image} />
       )}
 
-      <Button title="Save Food" onPress={saveFood} />
+    <TouchableOpacity
+        style={styles.registerButton}
+        onPress={saveFood}
+      >
+        <Text style={styles.buttonText}>Add Food Item</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -125,10 +120,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: "#f9f9f9",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#333",
   },
   label: {
     fontWeight: "bold",
     marginBottom: 5,
+    color: "#333",
   },
   input: {
     borderWidth: 1,
@@ -136,7 +140,38 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 10,
     marginBottom: 10,
+    backgroundColor: "#fff",
+    color: "#333",
   },
+    selectButton: {
+      backgroundColor: "#FF6F61",
+      paddingVertical: 12,
+      borderRadius: 4,
+      marginBottom: 10,
+    },
+    registerButton: {
+      backgroundColor: "#FF6F61",
+      paddingVertical: 12,
+      borderRadius: 4,
+      marginBottom: 10,
+    },
+    buttonText: {
+      color: "#fff",
+      fontSize: 16,
+      fontWeight: "bold",
+      textAlign: "center",
+    },
+    image: {
+      width: 200,
+      height: 200,
+      marginBottom: 10,
+      alignSelf: "center",
+    },
+    loginText: {
+      marginTop: 10,
+      textAlign: "center",
+      color: "#888",
+    },
 });
 
 export default AddFoodScreen;

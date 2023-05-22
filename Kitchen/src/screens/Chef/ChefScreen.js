@@ -32,9 +32,20 @@ const ChefScreen = ({ navigation }) => {
     })();
   }, []);
 
+  const navigateToEditProfile = async () => {
+    const userId = await AsyncStorage.getItem("userId");
+    navigation.navigate("EditProfile", (userId));
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.centerContainer}>
+        <TouchableOpacity
+          style={styles.editProfileButton}
+          onPress={navigateToEditProfile}
+        >
+          <Text style={styles.editProfileButtonText}>Edit Profile</Text>
+        </TouchableOpacity>
         <Text style={styles.fullName}>Portfolio</Text>
         <View style={styles.contentContainer}>
           <TouchableOpacity style={styles.foodItem}>
@@ -121,6 +132,19 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     elevation: 8,
+  },
+  editProfileButton: {
+    position: "absolute",
+    top: 16,
+    right: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 8,
+    backgroundColor: "#007AFF",
+  },
+  editProfileButtonText: {
+    color: "#fff",
+    fontSize: 16,
   },
 });
 

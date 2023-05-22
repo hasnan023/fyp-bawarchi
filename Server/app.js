@@ -53,18 +53,19 @@ const foodsRouter = require("./routes/foods");
 const usersRouter = require("./routes/users");
 const kitchensRouter = require("./routes/kitchens");
 const ordersRouter = require("./routes/orders");
+const chefsRouter = require("./routes/chefs");
+
 
 //add middleware.. for all requests,send to router
 app.use("/food", foodsRouter);
 app.use("/user", usersRouter);
 app.use("/kitchen", kitchensRouter);
 app.use("/orders", ordersRouter);
+app.use("/chefs", chefsRouter);
 
 //listen to server after starting
 
 const PORT = process.env.PORT || 3500;
-
-//app.get('/food')
 
 app.listen(PORT, () => {
   console.log("Server started on port " + PORT + "...");

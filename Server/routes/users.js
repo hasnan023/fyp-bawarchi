@@ -5,7 +5,6 @@ const User = require("../structure/user");
 const jwt = require("jsonwebtoken");
 const e = require("express");
 const auth = require("../middlewares/auth");
-//const Kitchen = require("../structure/kitchen");
 
 //Authentication routes
 router.post("/register", async (req, res) => {
@@ -53,19 +52,9 @@ router.post("/register", async (req, res) => {
     // Registration successful
     let response = { message: "Registration successful" };
 
-    // Register kitchen if user type is kitchen
-    if (userType === "kitchen") {
-      // Create a new kitchen document
-      const kitchen = new Kitchen({ fullName, image, expertise, address});
-      await kitchen.save();
-
-      response.message = 'Kitchen registered successfully';
-    }
-
     // res.status(200).json(response);
   } catch (error) {
     console.error("Error registering user:", error);
-    // res.status(500).json({ error: "Registration failed" });
   }
 });
 
@@ -97,6 +86,7 @@ router.post("/login", async (req, res) => {
     name: user.fullName,
     address: user.address,
     profilePicture,
+    
   });
 });
 
@@ -125,6 +115,26 @@ router.get("/", auth, async (req, res) => {
   } catch (err) {
     res.send("Error: " + err);
   }
+});
+
+router.put("/:id", async (req, res) => {
+  const user = await User.findById(req.params.id);
+
+  user.fullName = req.body.fullName;
+  user.email = req.body.email;
+  user.phoneNumber = req.body.phoneNumber;
+  user.image = req.body.image;
+
+  user.save((err) => {
+    if (err) {
+      res.send(err);
+      console.log("Can't update data: " + err);
+    } else {
+      //display in json format
+      res.json(user);
+      console.log("Data Updated");
+    }
+  });
 });
 
 module.exports = router;

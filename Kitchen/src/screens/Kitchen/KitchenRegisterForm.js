@@ -37,10 +37,10 @@ const KitchenRegisterForm = ({ navigation }) => {
   
     if (!result.canceled) {
       setImage(result.uri);
-    }};
+    }
+  };
     
-    const handleRegistration = () => {
-
+  const handleRegistration = () => {
     const kitchenData = {
       fullName,
       email,
@@ -56,7 +56,7 @@ const KitchenRegisterForm = ({ navigation }) => {
       .post("http://localhost:3500/user/register", kitchenData)
       .then((res) => {
         console.log(res.kitchenData);
-        navigation.navigate("KitchenLogin")
+        navigation.navigate("KitchenLogin");
       })
       .catch((err) => {
         console.log(err);
@@ -65,6 +65,8 @@ const KitchenRegisterForm = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Kitchen Registration</Text>
+
       <Text style={styles.label}>Full Name:</Text>
       <TextInput
         placeholder="Full Name"
@@ -105,8 +107,8 @@ const KitchenRegisterForm = ({ navigation }) => {
       <Picker
         selectedValue={expertise}
         onValueChange={(itemValue) => setExpertise(itemValue)} 
-        style={styles.label}
-        >
+        style={styles.picker}
+      >
         <Picker.Item label="Select Expertise" value="" />
         <Picker.Item label="Pakistani" value="Pakistani" />
         <Picker.Item label="Chinese" value="Chinese" />
@@ -114,21 +116,29 @@ const KitchenRegisterForm = ({ navigation }) => {
         <Picker.Item label="Italian" value="Italian" />
       </Picker>
 
-      <Button title="Select Profile Picture" onPress={pickImage} />
+      <TouchableOpacity
+        style={styles.selectButton}
+        onPress={pickImage}
+      >
+        <Text style={styles.buttonText}>Select Profile Picture</Text>
+      </TouchableOpacity>
       
       {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+        <Image source={{ uri: image }} style={styles.image} />
       )}
 
-      <Button title="Register" onPress={handleRegistration} />
+      <TouchableOpacity
+        style={styles.registerButton}
+        onPress={handleRegistration}
+      >
+        <Text style={styles.buttonText}>Register</Text>
+      </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          {
-            navigation.navigate("KitchenLogin");
-          }
+          navigation.navigate("KitchenLogin");
         }}
       >
-        <Text> Already have an account? Login!</Text>
+        <Text style={styles.loginText}>Already have an account? Login!</Text>
       </TouchableOpacity>
     </View>
   );
@@ -138,10 +148,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    backgroundColor: "#f9f9f9",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#333",
   },
   label: {
     fontWeight: "bold",
     marginBottom: 5,
+    color: "#333",
   },
   input: {
     borderWidth: 1,
@@ -149,6 +168,38 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     padding: 10,
     marginBottom: 10,
+    backgroundColor: "#fff",
+    color: "#333",
+  },
+  selectButton: {
+    backgroundColor: "#FF6F61",
+    paddingVertical: 12,
+    borderRadius: 4,
+    marginBottom: 10,
+  },
+  registerButton: {
+    backgroundColor: "#FF6F61",
+    paddingVertical: 12,
+    borderRadius: 4,
+    marginBottom: 10,
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  image: {
+    width: 200,
+    height: 200,
+    marginBottom: 10,
+    alignSelf: "center",
+  },
+  loginText: {
+    marginTop: 10,
+    textAlign: "center",
+    color: "#888",
   },
 });
+
 export default KitchenRegisterForm;

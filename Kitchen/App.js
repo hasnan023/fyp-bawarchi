@@ -9,6 +9,7 @@ import Splash from "./src/screens/Splash";
 import HomeScreen from "./src/screens/HomeScreen";
 import SignupScreen from "./src/screens/SignupScreen";
 import SigninScreen from "./src/screens/SigninScreen";
+import EditProfile from "./src/screens/EditProfile";
 import ChefRegisterForm from "./src/screens/Chef/ChefRegisterForm";
 import ChefLoginForm from "./src/screens/Chef/ChefLoginForm";
 import ChefScreen from "./src/screens/Chef/ChefScreen";
@@ -17,6 +18,7 @@ import KitchenRegisterForm from "./src/screens/Kitchen/KitchenRegisterForm";
 import CustomerLoginForm from "./src/screens/Customer/CustomerLoginForm";
 import CustomerRegisterForm from "./src/screens/Customer/CustomerRegisterForm";
 import CustomerScreen from "./src/screens/Customer/CustomerScreen";
+import ChefDisplay from "./src/screens/Customer/ChefDisplay"
 import KitchenDetail from "./src/screens/Customer/KitchenDetail";
 import CartScreen from "./src/screens/Customer/CartScreen";
 import RiderRegisterForm from "./src/screens/Rider/RiderRegisterForm";
@@ -24,6 +26,7 @@ import RiderLoginForm from "./src/screens/Rider/RiderLoginForm";
 import RiderScreen from "./src/screens/Rider/RiderScreen";
 import PlaceOrder from "./src/screens/Customer/PlaceOrder";
 import OrderPlaced from "./src/screens/Customer/OrderPlaced";
+import OrderDisplay from "./src/screens/Kitchen/OrderDisplay"
 import { store } from "./src/store";
 import { Provider } from "react-redux";
 const Stack = createStackNavigator();
@@ -47,12 +50,14 @@ function App() {
           <Stack.Screen name='ChefRegister' component={ChefRegisterForm} />
           <Stack.Screen name='ChefLogin' component={ChefLoginForm} />
           <Stack.Screen name='ChefScreen' component={ChefScreen} />
+          <Stack.Screen name='EditProfile' component={EditProfile} />
           <Stack.Screen
             name='CustomerRegister'
             component={CustomerRegisterForm}
           />
           <Stack.Screen name='CustomerLogin' component={CustomerLoginForm} />
           <Stack.Screen name='CustomerScreen' component={CustomerScreen} />
+          <Stack.Screen name='ChefDisplay' component={ChefDisplay} />
           <Stack.Screen name='KitchenDetail' component={KitchenDetail} />
           <Stack.Screen name='CartScreen' component={CartScreen} />
           <Stack.Screen name='RiderRegister' component={RiderRegisterForm} />
@@ -61,7 +66,7 @@ function App() {
           <Stack.Screen name='AddFoodItem' component={AddFoodScreen} />
           <Stack.Screen name='EditFoodItem' component={EditFoodScreen} />
           <Stack.Screen name='DeleteFoodItem' component={DeleteFoodScreen} />
-
+          <Stack.Screen name='OrderDisplay' component={OrderDisplay} />
           <Stack.Screen name='OrderPlaced' component={OrderPlaced} />
         </Stack.Navigator>
       </Provider>

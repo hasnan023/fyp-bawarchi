@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, StyleSheet, Button, Alert, Image } from 'react-native';
+import { View, TextInput, StyleSheet, Button, Alert, Text,Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 const EditFoodScreen = ({ route, navigation }) => {
@@ -57,6 +57,7 @@ const EditFoodScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Edit Food Item</Text>
       <TextInput
         style={styles.input}
         placeholder="Food name"
@@ -82,11 +83,13 @@ const EditFoodScreen = ({ route, navigation }) => {
           style={styles.image}
         />
         <Button
+        style={styles.button}
           title="Pick an image"
           onPress={handleImagePick}
         />
       </View>
       <Button
+       style={styles.button}
         title="Update Food"
         onPress={handleSubmit}
       />
@@ -109,10 +112,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 16,
   },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 20,
+    textAlign: "center",
+    color: "#333",
+  },
   image: {
     width: 200,
     height: 200,
     marginBottom: 8,
+  },
+  button: {
+    backgroundColor: "#FF6F61",
   },
 });
 

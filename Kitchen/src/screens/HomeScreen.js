@@ -2,37 +2,37 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  ImageBackground,
   Text,
   TouchableOpacity,
+  Image,
 } from "react-native";
 
-// const backgroundImage = require('../images/images.jpeg');
+const logoImage = require('../images/logo.png');
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      {/* <ImageBackground source={backgroundImage} style={styles.background}> */}
-      <Text style={styles.text}>Welcome to Bawarchi</Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("Signup");
-          }}
-        >
-          <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("Signin");
-          }}
-        >
-          <Text style={styles.buttonText}>Sign In</Text>
-        </TouchableOpacity>
-      </View>
-      {/* </ImageBackground> */}
+      <Image source={logoImage} style={styles.logo} />
+        <Text style={styles.text}>Welcome to Bawarchi</Text>
+        
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("Signup");
+            }}
+          >
+            <Text style={styles.buttonText}>Sign Up</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("Signin");
+            }}
+          >
+            <Text style={styles.buttonText}>Sign In</Text>
+          </TouchableOpacity>
+        </View>
     </View>
   );
 };
@@ -46,36 +46,33 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: "cover",
     justifyContent: "center",
-    alignItems: "flex-end",
-    paddingHorizontal: 20,
+    alignItems: "center",
   },
-  // overlay: {
-  //   ...StyleSheet.absoluteFillObject,
-  //   backgroundColor: 'rgba(255, 255, 255, 0.9)'
-  // },
   text: {
     fontSize: 28,
     fontWeight: "bold",
     color: "black",
     textAlign: "center",
-    marginTop: "40%",
+  },
+  logo: {
+    width: 400,
+    height: 400,
+    resizeMode: "contain",
+    marginTop: 20,
+    alignItems:"center",
   },
   buttonContainer: {
     alignItems: "center",
-    justifyContent: "flex-end",
-    marginTop: "auto",
-    marginBottom: "80%",
+    justifyContent: "center",
+    marginTop: 40,
   },
   button: {
-    backgroundColor: "#FE724C",
+    backgroundColor: "#FF6F61",
     borderRadius: 10,
-    paddingVertical: 20,
-    display: "flex",
-    width: 120,
-    marginHorizontal: 10,
-    marginTop: 10,
+    paddingVertical: 15,
+    width: 200,
+    marginVertical: 10,
     alignItems: "center",
-    justifyContent: "center",
   },
   buttonText: {
     fontSize: 18,
