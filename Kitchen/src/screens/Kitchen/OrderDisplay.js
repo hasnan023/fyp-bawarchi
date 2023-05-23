@@ -44,7 +44,7 @@ const OrderDisplay = ({ navigation }) => {
         <Image style={styles.orderImage} source={{ uri: order.image }} />
         <View style={styles.orderDetails}>
           <Text style={styles.orderName}>{order.customerName}</Text>
-          <Text style={styles.orderDescription}>{order.foodItems}</Text>
+          {/* <Text style={styles.orderDescription}>{order.foodItems}</Text> */}
           <Text style={styles.orderPrice}>Rs. {order.totalPrice}</Text>
         </View>
         

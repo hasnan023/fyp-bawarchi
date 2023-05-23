@@ -35,12 +35,16 @@ const CustomerRegisterForm = ({ navigation }) => {
       quality: 1,
     });
 
-    if (!result.cancelled) {
+    if (!result.canceled) {
       setImage(result.uri);
     }
   };
 
+<<<<<<< Updated upstream
   const handleRegistration = async() => {
+=======
+  const handleRegistration = () => {
+>>>>>>> Stashed changes
     // if (!fullName || !email || !address || !phoneNumber || !password) {
     //   Alert.alert("All fields are required.");
     //   return;
