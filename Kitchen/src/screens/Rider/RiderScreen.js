@@ -30,7 +30,7 @@ const RiderScreen = ({ navigation }) => {
 
   const getOrderPickupDetails = async () =>{
     try{
-       const response =  await axios.get("http://localhost:3500/pickups")
+       const response =  await axios.get("http://localhost:3500/orders")
        setOrders(response.data);
        console.log(response)
       }catch(err){

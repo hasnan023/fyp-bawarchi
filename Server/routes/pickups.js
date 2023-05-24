@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Order = require("../structure/order");
+const Pickup = require("../structure/pickup");
 
 router.post("/", async (req, res) => {
     try {

@@ -7,9 +7,9 @@ const OrderDisplay = ({ route }) => {
   const {kitchenName:kitchenName} = route.params;
   const [orders, setOrders] = useState([]);
 
-  const sendToRider = async () => {
+  const sendToRider = async (item) => {
     try {
-      const response = await axios.post("http://localhost:3500/pickup",orders);
+      const response = await axios.post("http://localhost:3500/pickup",item);
       console.log("testing")
     } catch (error) {
       console.log("Error adding order:", error);
@@ -34,7 +34,7 @@ const OrderDisplay = ({ route }) => {
               <Text>Kitchen: {foodItem.kitchen.fullName}</Text>
               <TouchableOpacity
               style = {styles.pickup}
-              onPress={() => sendToRider()}>
+              onPress={() => sendToRider(item)}>
               Ready for pickup
             </TouchableOpacity>
             </View>
