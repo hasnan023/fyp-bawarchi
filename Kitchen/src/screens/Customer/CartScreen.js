@@ -33,7 +33,7 @@ const CartScreen = ({ navigation }) => {
             style={styles.addToCartButton}
             onPress={() => navigation.navigate("PlaceOrder")}
           >
-            <Text style={styles.addToCartButtonText}>Pace Order</Text>
+            <Text style={styles.addToCartButtonText}>Place Order</Text>
           </TouchableOpacity>
         </View>
       )}

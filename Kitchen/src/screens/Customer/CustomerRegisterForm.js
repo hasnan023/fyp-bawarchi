@@ -6,7 +6,6 @@ import {
   Text,
   TextInput,
   StyleSheet,
-  Button,
   Image,
   TouchableOpacity,
   Alert,
@@ -72,7 +71,7 @@ const CustomerRegisterForm = ({ navigation }) => {
        console.log(response)
       navigation.navigate("CustomerLogin")
     }catch(error){
-console.log(error.message)
+    console.log(error.message)
     }
       // .then((res) => {
       //   console.log("success")

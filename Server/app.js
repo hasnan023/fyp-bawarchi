@@ -54,6 +54,7 @@ const usersRouter = require("./routes/users");
 const kitchensRouter = require("./routes/kitchens");
 const ordersRouter = require("./routes/orders");
 const chefsRouter = require("./routes/chefs");
+const pickupsRouter = require("./routes/pickups")
 
 
 //add middleware.. for all requests,send to router
@@ -62,6 +63,7 @@ app.use("/user", usersRouter);
 app.use("/kitchen", kitchensRouter);
 app.use("/orders", ordersRouter);
 app.use("/chefs", chefsRouter);
+app.use("/pickups",pickupsRouter);
 
 //listen to server after starting
 
