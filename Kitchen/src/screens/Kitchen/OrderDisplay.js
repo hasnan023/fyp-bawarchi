@@ -1,16 +1,51 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { AntDesign } from "@expo/vector-icons";
-import { Button, Image } from "react-native-elements";
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useFocusEffect } from "@react-navigation/native";
-import axios from "axios";  
+import axios from "axios";
 
-const OrderDisplay = ({ navigation }) => {
+const OrderDisplay = ({ route }) => {
+  const {kitchenName:kitchenName} = route.params;
   const [orders, setOrders] = useState([]);
 
-  const getOrders = () => {
+  const sendToRider = async () => {
+    try {
+      const response = await axios.post("http://localhost:3500/pickup",orders);
+      console.log("testing")
+    } catch (error) {
+      console.log("Error adding order:", error);
+    }
+  };
+
+  const renderOrder = ({ item }) => {
+    console.log(item.kitchenName)
+    console.log(kitchenName)
+    if (item.kitchenName === kitchenName) {
+      return (
+        <View style={styles.orderItem}>
+          <Text style={styles.orderName}>Customer Name: {item.customerName}</Text>
+          <Text style={styles.orderPrice}>Total Price: {item.totalPrice}</Text>
+          <Text style={styles.orderSubheading}>Food Items:</Text>
+          {item.foodItems.map((foodItem, index) => (
+            <View key={index} style={styles.foodItemContainer}>
+              <Text style={styles.foodItemTitle}>Food Item {index + 1}:</Text>
+              <Text>Name: {foodItem.name}</Text>
+              <Text>Quantity: {foodItem.quantity}</Text>
+              <Text>Price: {foodItem.price}</Text>
+              <Text>Kitchen: {foodItem.kitchen.fullName}</Text>
+              <TouchableOpacity
+              style = {styles.pickup}
+              onPress={() => sendToRider()}>
+              Ready for pickup
+            </TouchableOpacity>
+            </View>
+          ))}
+        </View>
+      );
+    }
+    return null;
+  };
+
+  useEffect(() => {
     AsyncStorage.getItem("token")
       .then((res) => {
         const token = res;
@@ -29,32 +64,10 @@ const OrderDisplay = ({ navigation }) => {
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  useFocusEffect(
-    React.useCallback(() => {
-      setOrders([]);
-      getOrders();
-    }, [])
-  );
-
-  const renderOrder = ({ item: order }) => {
-    return (
-      <TouchableOpacity style={styles.orderItem}>
-        <Image style={styles.orderImage} source={{ uri: order.image }} />
-        <View style={styles.orderDetails}>
-          <Text style={styles.orderName}>{order.customerName}</Text>
-          {/* <Text style={styles.orderDescription}>{order.foodItems}</Text> */}
-          <Text style={styles.orderPrice}>Rs. {order.totalPrice}</Text>
-        </View>
-        
-      </TouchableOpacity>
-    );
-  };
+  }, []);
 
   return (
     <View style={styles.container}>
-      
       <Text style={styles.heading}>Orders for your Kitchen</Text>
       <FlatList
         data={orders}
@@ -82,46 +95,46 @@ const styles = StyleSheet.create({
     paddingBottom: 16,
   },
   orderItem: {
-    flexDirection: "row",
-    alignItems: "center",
     backgroundColor: "#f2f2f2",
-    padding: 16,
     borderRadius: 8,
     marginBottom: 16,
-  },
-  orderImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 8,
-    marginRight: 16,
-  },
-  orderDetails: {
-    flex: 1,
+    padding: 16,
+    elevation: 2,
   },
   orderName: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 8,
   },
-  orderDescription: {
-    fontSize: 16,
-    marginBottom: 8,
-  },
   orderPrice: {
     fontSize: 16,
     fontWeight: "bold",
+    marginBottom: 8,
   },
-  fab: {
-    position: "absolute",
-    bottom: 16,
-    right: 16,
-    backgroundColor: "#007AFF",
-    borderRadius: 24,
-    width: 48,
-    height: 48,
-    alignItems: "center",
-    justifyContent: "center",
-    elevation: 8,
+  orderSubheading: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginTop: 8,
+    marginBottom: 4,
+  },
+  foodItemContainer: {
+    marginLeft: 16,
+    marginBottom: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    padding: 8,
+    borderRadius: 4,
+  },
+  foodItemTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 4,
+  },
+  pickup: {
+    backgroundColor: "#FF6F61",
+    padding: 8,
+    alignItems:"flex-end" ,
+    width:100
   },
   header: {
     flexDirection: "row",

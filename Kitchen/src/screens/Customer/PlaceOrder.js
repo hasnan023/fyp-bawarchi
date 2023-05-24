@@ -16,6 +16,8 @@ export default function PlaceOrder({ navigation }) {
       axios
         .post("http://localhost:3500/orders/", {
           customerName: state.user.user.name,
+          address: state.user.user.address,
+          phoneNumber:state.user.user.phoneNumber,
           foodItems: state.cart.items,
           totalPrice: state.cart.items.reduce(
             (total, item) => total + item.price * item.quantity,

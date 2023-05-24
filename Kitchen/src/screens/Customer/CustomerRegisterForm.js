@@ -40,11 +40,7 @@ const CustomerRegisterForm = ({ navigation }) => {
     }
   };
 
-<<<<<<< Updated upstream
   const handleRegistration = async() => {
-=======
-  const handleRegistration = () => {
->>>>>>> Stashed changes
     // if (!fullName || !email || !address || !phoneNumber || !password) {
     //   Alert.alert("All fields are required.");
     //   return;

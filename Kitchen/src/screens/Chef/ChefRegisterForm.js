@@ -7,10 +7,11 @@ import {
   TextInput,
   StyleSheet,
   Button,
-  Picker,
   Image,
   TouchableOpacity,
 } from "react-native";
+
+import {Picker} from "@react-native-picker/picker";
 
 const ChefRegisterForm = ({ navigation }) => {
   const [fullName, setFullName] = useState("");

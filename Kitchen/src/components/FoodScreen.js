@@ -50,8 +50,8 @@ const FoodScreen = ({ navigation }) => {
     navigation.navigate("EditProfile", { userId });
   };
 
-  const navigateToOrderScreen = () => {
-    navigation.navigate("OrderDisplay");
+  const navigateToOrderScreen = async () => {
+    navigation.navigate("OrderDisplay",{kitchenName});
   };
 
   const fetchProfilePicture = async () => {
@@ -62,6 +62,7 @@ const FoodScreen = ({ navigation }) => {
       const kitchenName = response.data.fullName;
       setProfilePicture(profilePicture);
       setKitchenName(kitchenName);
+      console.log(kitchenName)
     } catch (error) {
       console.log("Error fetching profile Picture:", error);
     }
