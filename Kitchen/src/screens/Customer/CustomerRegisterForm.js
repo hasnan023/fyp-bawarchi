@@ -18,6 +18,13 @@ const CustomerRegisterForm = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState("");
+  const [emailErr,setEmailErr] = useState("");
+  const [nameErr,setNameErr]  = useState("");
+  const [addressErr,setAddressErr] = useState("");
+  const [phoneNumberErr,setPhoneNumberErr] = useState("");
+  const [passwordErr,setPasswordErr] = useState("");
+  const [imageErr,setImageErr] = useState("");
+
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -37,24 +44,54 @@ const CustomerRegisterForm = ({ navigation }) => {
 
     if (!result.cancelled) {
       setImage(result.uri);
+      setImageErr("");
     }
   };
 
   const handleRegistration = async() => {
-    // if (!fullName || !email || !address || !phoneNumber || !password) {
-    //   Alert.alert("All fields are required.");
+ if(fullName.length < 3){
+  setNameErr("Name should be at least 3 characters long");
+  return;
+  }
+  if(!email){
+    setEmailErr("Email is required");
+    return;
+  }
+  if(!email.includes("@") || !email.includes(".")){
+    setEmailErr(`Email must include "@" and a "."`);
+    return;
+  }
+  if(!address){
+    setAddressErr("Address is required.");
+    return;
+  }
+  // if(address.length < 3){
+  //   setAddressErr("Address should be at least 3 characters long");
+  //   return;
+  //   }
+  if(!phoneNumber){
+    setPhoneNumberErr("Phone number is required.");
+    return;
+    }
+    // if(phoneNumber){
+    //   setPhoneNumberErr("Phone number should be at least 3 characters long");
     //   return;
-    // }
+    //   }
 
-    // if (!validateEmail(email)) {
-    //   Alert.alert("Invalid email address.");
-    //   return;
-    // }
+      if(!password){
+        setPasswordErr("Password is required.");
+        return;
+        }
 
-    // if (password.length < 6) {
-    //   Alert.alert("Password should be at least 6 characters long.");
-    //   return;
-    // }
+        if(password.length < 8){
+          setPasswordErr("Password should be at least 8 characters long");
+          return;
+          }
+    
+          if(!image){
+            setImageErr("Image is required.");
+            return;
+          }
 
     const customerData = {
       fullName,
@@ -73,20 +110,7 @@ const CustomerRegisterForm = ({ navigation }) => {
     }catch(error){
     console.log(error.message)
     }
-      // .then((res) => {
-      //   console.log("success")
-      //   console.log(res.data);
-      //   navigation.push("CustomerLogin");
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
   };
-
-  // const validateEmail = (email) => {
-  //   const regex = /\S+@\S+\.\S+/;
-  //   return regex.test(email);
-  // };
 
   return (
     <View style={styles.container}>
@@ -96,50 +120,60 @@ const CustomerRegisterForm = ({ navigation }) => {
       <TextInput
         placeholder="Full Name"
         value={fullName}
-        onChangeText={setFullName}
+        onChangeText={(fullName)=>{setFullName(fullName);
+        setNameErr("")}}
         style={styles.input}
       />
+       {nameErr ? <Text style={styles.errText}>{nameErr}</Text>:null}
 
       <Text style={styles.label}>Email:</Text>
       <TextInput
         placeholder="Email"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={(email)=>{setEmail(email);
+          setEmailErr("")}}
         style={styles.input}
       />
+       {emailErr ? <Text style={styles.errText}>{emailErr}</Text>:null}
 
       <Text style={styles.label}>Address:</Text>
       <TextInput
         placeholder="Address"
         value={address}
-        onChangeText={setAddress}
+        onChangeText={(address)=>{setAddress(address);
+          setAddressErr("")}}
         style={styles.input}
       />
-
+ {addressErr ? <Text style={styles.errText}>{addressErr}</Text>:null}
       <Text style={styles.label}>Phone Number:</Text>
       <TextInput
         placeholder="Phone Number"
         value={phoneNumber}
-        onChangeText={setPhoneNumber}
+        keyboardType="numeric"
+        onChangeText={(phoneNumber)=>{setPhoneNumber(phoneNumber);
+          setPhoneNumberErr("")}}
         style={styles.input}
       />
+       {phoneNumberErr ? <Text style={styles.errText}>{phoneNumberErr}</Text>:null}
 
       <Text style={styles.label}>Password:</Text>
       <TextInput
         placeholder="Password"
         secureTextEntry
         value={password}
-        onChangeText={setPassword}
+        onChangeText={(password)=>{setPassword(password);
+        setPasswordErr("")}}
         style={styles.input}
       />
-
+ {passwordErr ? <Text style={styles.errText}>{passwordErr}</Text>:null}
       <TouchableOpacity
         style={styles.selectButton}
         onPress={pickImage}
       >
+        
         <Text style={styles.buttonText}>Select Profile Picture</Text>
       </TouchableOpacity>
-
+      {imageErr ? <Text style={styles.errText}>{imageErr}</Text>:null}
       {image && (
         <Image source={{ uri: image }} style={styles.image} />
       )}
@@ -217,6 +251,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     color: "#888",
+  },
+  errText:{
+    color:"red"
   },
 });
 

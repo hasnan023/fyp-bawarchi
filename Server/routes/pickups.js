@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const Order = require("../structure/order");
+const Pickup = require("../structure/pickup");
 
 router.post("/", async (req, res) => {
     try {
-      const order = new Order(req.body);
-      const savedOrder = await order.save();
-      res.status(201).json(savedOrder);
+      const pickup = new Pickup(req.body);
+      const savedPickup = await pickup.save();
+      res.status(201).json(savedPickup);
     } catch (error) {
       console.log(error);
       res.status(400).json({ message: error.message });
@@ -15,8 +15,8 @@ router.post("/", async (req, res) => {
   
   router.get("/", async (req, res) => {
     try {
-      const orders = await Order.find();
-      res.json(orders);
+      const pickups = await Pickup.find();
+      res.json(pickups);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }

@@ -13,6 +13,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const KitchenLoginForm = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState("");
+  const [passError,setPassError] = useState("");
 
   const handleLogin = () => {
     console.log("Email: " + email);
@@ -20,6 +22,15 @@ const KitchenLoginForm = ({ navigation }) => {
       email: email,
       password: password,
     };
+    if(!email){
+      setEmailError("Email is required");
+      return;
+    }
+    if(!password){
+      setPassError("Password is required.");
+      return;
+    }
+
 
     axios
       .post("http://localhost:3500/user/login", data)
@@ -44,7 +55,8 @@ const KitchenLoginForm = ({ navigation }) => {
       <TextInput
         style={styles.input}
         value={email}
-        onChangeText={setEmail}
+        onChangeText={(email)=>{setEmail(email);
+          setEmailError("")}}
         placeholder="Enter your email"
       />
 
@@ -52,7 +64,9 @@ const KitchenLoginForm = ({ navigation }) => {
       <TextInput
         style={styles.input}
         value={password}
-        onChangeText={setPassword}
+        onChangeText={(password)=>{setPassword(password);
+          setPassError("");
+        }}
         secureTextEntry={true}
         placeholder="Enter your password"
       />
