@@ -25,7 +25,7 @@ const OrderDisplay = ({ route }) => {
         <View style={styles.orderItem}>
           <Text style={styles.orderName}>Customer Name: {item.customerName}</Text>
           <Text style={styles.orderPrice}>Total Price: {item.totalPrice}</Text>
-          {console.log(item)}
+          {console.log(item.customerName)}
           <Text style={styles.orderSubheading}>Food Items:</Text>
           {item.foodItems.map((foodItem, index) => (
             <View key={index} style={styles.foodItemContainer}>
