@@ -20,6 +20,14 @@ const KitchenRegisterForm = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [expertise, setExpertise] = useState("");
   const [image, setImage] = useState("");
+  const [emailErr,setEmailErr] = useState("");
+  const [nameErr,setNameErr]  = useState("");
+  const [addressErr,setAddressErr] = useState("");
+  const [phoneNumberErr,setPhoneNumberErr] = useState("");
+  const [passwordErr,setPasswordErr] = useState("");
+  const [imageErr,setImageErr] = useState("");
+  const [expertiseErr,setExpertiseErr] = useState("");
+
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -37,10 +45,51 @@ const KitchenRegisterForm = ({ navigation }) => {
   
     if (!result.canceled) {
       setImage(result.uri);
+      setImageErr("");
     }
   };
     
   const handleRegistration = () => {
+
+    if(fullName.length < 3){
+      setNameErr("Name should be at least 3 characters long");
+      return;
+      }
+      if(!email){
+        setEmailErr("Email is required");
+        return;
+      }
+      if(!expertise){
+        setEmailErr("Expertise is required");
+        return;
+      }
+      if(!email.includes("@") || !email.includes(".")){
+        setEmailErr(`Email must include "@" and a "."`);
+        return;
+      }
+      if(!address){
+        setAddressErr("Address is required.");
+        return;
+      }
+      if(!phoneNumber){
+        setPhoneNumberErr("Phone number is required.");
+        return;
+        }
+        
+        if(!password){
+          setPasswordErr("Password is required.");
+          return;
+          }
+  
+          if(password.length < 8){
+            setPasswordErr("Password should be at least 8 characters long");
+            return;
+            }
+      
+            if(!image){
+              setImageErr("Image is required.");
+              return;
+            }
     const kitchenData = {
       fullName,
       email,
@@ -71,38 +120,48 @@ const KitchenRegisterForm = ({ navigation }) => {
       <TextInput
         placeholder="Full Name"
         value={fullName}
-        onChangeText={setFullName}
+        onChangeText={(fullName)=>{setFullName(fullName);
+          setNameErr("")}}
         style={styles.input}
       />
+        {nameErr ? <Text style={styles.errText}>{nameErr}</Text>:null}
       <Text style={styles.label}>Email:</Text>
       <TextInput
         placeholder="Email"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={(email)=>{setEmail(email);
+          setEmailErr("")}}
         style={styles.input}
       />
+       {emailErr ? <Text style={styles.errText}>{emailErr}</Text>:null}
       <Text style={styles.label}>Address:</Text>
       <TextInput
         placeholder="Address"
         value={address}
-        onChangeText={setAddress}
+        onChangeText={(address)=>{setAddress(address);
+          setAddressErr("")}}
         style={styles.input}
       />
+      {addressErr ? <Text style={styles.errText}>{addressErr}</Text>:null}
       <Text style={styles.label}>Phone number:</Text>
       <TextInput
         placeholder="Phone Number"
         value={phoneNumber}
-        onChangeText={setPhoneNumber}
+        onChangeText={(phoneNumber)=>{setPhoneNumber(phoneNumber);
+          setPhoneNumberErr("")}}
         style={styles.input}
       />
+      {phoneNumberErr ? <Text style={styles.errText}>{phoneNumberErr}</Text>:null}
       <Text style={styles.label}>Password:</Text>
       <TextInput
         placeholder="Password"
         secureTextEntry
         value={password}
-        onChangeText={setPassword}
+        onChangeText={(password)=>{setPassword(password);
+          setPasswordErr("")}}
         style={styles.input}
       />
+      {passwordErr ? <Text style={styles.errText}>{passwordErr}</Text>:null}
 
       <Picker
         selectedValue={expertise}
@@ -122,7 +181,7 @@ const KitchenRegisterForm = ({ navigation }) => {
       >
         <Text style={styles.buttonText}>Select Profile Picture</Text>
       </TouchableOpacity>
-      
+      {imageErr ? <Text style={styles.errText}>{imageErr}</Text>:null}
       {image && (
         <Image source={{ uri: image }} style={styles.image} />
       )}

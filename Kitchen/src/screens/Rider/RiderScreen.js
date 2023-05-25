@@ -32,7 +32,7 @@ const RiderScreen = ({ navigation }) => {
     try{
        const response =  await axios.get("http://localhost:3500/pickups")
        setOrders(response.data);
-       console.log(response)
+       console.log(response.data)
       }catch(err){
         console.log(err);
       }
@@ -52,6 +52,7 @@ const RiderScreen = ({ navigation }) => {
           <Text style={styles.orderPrice}>Total Price: {item.totalPrice}</Text>
           <Text style={styles.orderPrice}>Address: {item.address}</Text>
           <Text style={styles.orderPrice}>Phone Number: {item.phoneNumber}</Text>
+
         </View>
       );
     }

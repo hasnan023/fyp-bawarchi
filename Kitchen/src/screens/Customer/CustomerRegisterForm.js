@@ -110,20 +110,7 @@ const CustomerRegisterForm = ({ navigation }) => {
     }catch(error){
     console.log(error.message)
     }
-      // .then((res) => {
-      //   console.log("success")
-      //   console.log(res.data);
-      //   navigation.push("CustomerLogin");
-      // })
-      // .catch((err) => {
-      //   console.log(err);
-      // });
   };
-
-  // const validateEmail = (email) => {
-  //   const regex = /\S+@\S+\.\S+/;
-  //   return regex.test(email);
-  // };
 
   return (
     <View style={styles.container}>

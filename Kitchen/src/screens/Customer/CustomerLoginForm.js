@@ -28,10 +28,6 @@ const CustomerLoginForm = ({ navigation, userId }) => {
       setEmailError("Email is required");
       return;
     }
-    // if(!email.includes("@") || !email.includes(".")){
-    //   setEmailError("Email must include @ and .");
-    //   return;
-    // }
     if(!password){
       setPassError("Password is required.");
       return;
