@@ -9,7 +9,7 @@ const OrderDisplay = ({ route }) => {
 
   const sendToRider = async (item) => {
     try {
-      const response = await axios.post("http://localhost:3500/pickup",item);
+      const response = await axios.post("http://localhost:3500/pickups",item);
       console.log("testing")
     } catch (error) {
       console.log("Error adding order:", error);
@@ -19,11 +19,13 @@ const OrderDisplay = ({ route }) => {
   const renderOrder = ({ item }) => {
     console.log(item.kitchenName)
     console.log(kitchenName)
+    console.log(item)
     if (item.kitchenName === kitchenName) {
       return (
         <View style={styles.orderItem}>
           <Text style={styles.orderName}>Customer Name: {item.customerName}</Text>
           <Text style={styles.orderPrice}>Total Price: {item.totalPrice}</Text>
+          {console.log(item)}
           <Text style={styles.orderSubheading}>Food Items:</Text>
           {item.foodItems.map((foodItem, index) => (
             <View key={index} style={styles.foodItemContainer}>
@@ -32,6 +34,7 @@ const OrderDisplay = ({ route }) => {
               <Text>Quantity: {foodItem.quantity}</Text>
               <Text>Price: {foodItem.price}</Text>
               <Text>Kitchen: {foodItem.kitchen.fullName}</Text>
+              
               <TouchableOpacity
               style = {styles.pickup}
               onPress={() => sendToRider(item)}>

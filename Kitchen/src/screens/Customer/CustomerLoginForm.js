@@ -15,6 +15,8 @@ import { login } from "../../features/UserSlice";
 const CustomerLoginForm = ({ navigation, userId }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passError,setPassError] = useState("");
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
@@ -22,6 +24,19 @@ const CustomerLoginForm = ({ navigation, userId }) => {
       email: email,
       password: password,
     };
+    if(!email){
+      setEmailError("Email is required");
+      return;
+    }
+    // if(!email.includes("@") || !email.includes(".")){
+    //   setEmailError("Email must include @ and .");
+    //   return;
+    // }
+    if(!password){
+      setPassError("Password is required.");
+      return;
+    }
+
 
     try {
       const res = await axios.post("http://localhost:3500/user/login", data);
@@ -43,18 +58,23 @@ const CustomerLoginForm = ({ navigation, userId }) => {
       <TextInput
         style={styles.input}
         value={email}
-        onChangeText={setEmail}
+        onChangeText={(email)=>{setEmail(email);
+        setEmailError("")}}
         placeholder="Enter your email"
       />
+      {emailError ? <Text style={styles.errText}>{emailError}</Text>:null}
 
       <Text style={styles.label}>Password:</Text>
       <TextInput
         style={styles.input}
         value={password}
-        onChangeText={setPassword}
+        onChangeText={(password)=>{setPassword(password);
+        setPassError("");
+        }}
         secureTextEntry={true}
         placeholder="Enter your password"
       />
+        {passError ? <Text style={styles.errText}>{passError}</Text>:null}
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
@@ -115,6 +135,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     color: "#888",
+  },
+  errText:{
+    color:"red"
   },
 });
 

@@ -23,7 +23,6 @@ const pickupSchema = new mongoose.Schema(
     },
     phoneNumber:{
       type:String,
-      required:true
     }
   },
   { timestamps: true }
