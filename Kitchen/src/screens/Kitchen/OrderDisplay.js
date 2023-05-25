@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF6F61",
     padding: 8,
     alignItems:"flex-end" ,
+    marginLeft: 180,
     width:100
   },
   header: {
