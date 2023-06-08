@@ -37,6 +37,15 @@ const RiderScreen = ({ navigation }) => {
         console.log(err);
       }
   };
+  
+  const delivered = async () => {
+    try{
+      const response = await axios.delete("http://localhost:3500/pickups")
+
+    }catch(err){
+      console.log(err);
+    }
+  };
 
   useEffect(() => {
     (async () => {
@@ -52,7 +61,11 @@ const RiderScreen = ({ navigation }) => {
           <Text style={styles.orderPrice}>Total Price: {item.totalPrice}</Text>
           <Text style={styles.orderPrice}>Address: {item.address}</Text>
           <Text style={styles.orderPrice}>Phone Number: {item.phoneNumber}</Text>
-
+          <TouchableOpacity
+              style = {styles.delivered}
+              onPress={() => delivered(item)}>
+              Delivered
+            </TouchableOpacity>
         </View>
       );
     }
@@ -134,6 +147,13 @@ const styles = StyleSheet.create({
   profilePicture: {
     width: "100%",
     height: "100%",
+  },
+  delivered: {
+    backgroundColor: "#FF6F61",
+    padding: 8,
+    alignItems:"flex-center" ,
+    marginLeft: 180,
+    width:100
   },
 });
 
