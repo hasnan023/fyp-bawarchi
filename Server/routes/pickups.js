@@ -29,10 +29,10 @@ router.delete(":id", async (req, res) => {
   order.remove((err) => {
     if (err) {
       res.send(err);
-      console.log("Can't delete record: " + err);
+      console.log("Can't delete order: " + err);
     } else {
-      res.json("Record Deleted");
-      console.log("Record Deleted");
+      res.json("Order Deleted");
+      console.log("Order Deleted");
     }
   });
 });
