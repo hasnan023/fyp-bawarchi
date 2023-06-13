@@ -5,6 +5,7 @@ const User = require("../structure/user");
 const jwt = require("jsonwebtoken");
 const e = require("express");
 const auth = require("../middlewares/auth");
+const Pending = require('../structure/pending');
 
 //Authentication routes
 router.post("/register", async (req, res) => {
@@ -21,6 +22,7 @@ router.post("/register", async (req, res) => {
       experience,
       CNIC,
       vehicleNumber,
+      status
     } = req.body;
 
     const existingUser = await User.findOne({ email });
@@ -32,7 +34,7 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user instance
-    const user = new User({
+    const pending = new Pending({
       fullName,
       email: email.toLowerCase(),
       address,
@@ -44,13 +46,14 @@ router.post("/register", async (req, res) => {
       experience,
       vehicleNumber,
       CNIC,
+      status: 'pending',
     });
 
     // Save the user to MongoDB
-    await user.save();
+    await pending.save();
 
     // Registration successful
-    let response = { message: "Registration successful" };
+    let response = { message: "Account send for approval" };
 
     // res.status(200).json(response);
   } catch (error) {
@@ -117,6 +120,8 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+
+
 router.put("/:id", async (req, res) => {
   const user = await User.findById(req.params.id);
 
@@ -133,6 +138,37 @@ router.put("/:id", async (req, res) => {
       //display in json format
       res.json(user);
       console.log("Data Updated");
+    }
+  });
+});
+
+// User management API endpoints
+router.put('/:id/approve', (req, res) => {
+  const userId = req.params.id;
+
+  // Find the user by ID and update the status to 'approved'
+  User.findByIdAndUpdate(userId, { status: 'approved' }, (err, user) => {
+    if (err) {
+      // Handle error
+      res.status(500).json({ error: 'Failed to approve user' });
+    } else {
+      // Handle successful approval
+      res.status(200).json({ message: 'User approved' });
+    }
+  });
+});
+
+router.put('/:id/reject', (req, res) => {
+  const userId = req.params.id;
+
+  // Find the user by ID and update the status to 'rejected'
+  User.findByIdAndUpdate(userId, { status: 'rejected' }, (err, user) => {
+    if (err) {
+      // Handle error
+      res.status(500).json({ error: 'Failed to reject user' });
+    } else {
+      // Handle successful rejection
+      res.status(200).json({ message: 'User rejected' });
     }
   });
 });

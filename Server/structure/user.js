@@ -43,7 +43,10 @@ const userDetail = new mongoose.Schema({
   },
   vehicleNumber:{
     type:String,
-  }
+  },
+  status:{
+    type:String // pending, active, rejected
+  } 
 });
 
 //export schema
