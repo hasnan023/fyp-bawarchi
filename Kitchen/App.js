@@ -27,7 +27,8 @@ import RiderScreen from "./src/screens/Rider/RiderScreen";
 import PlaceOrder from "./src/screens/Customer/PlaceOrder";
 import OrderPlaced from "./src/screens/Customer/OrderPlaced";
 import OrderDisplay from "./src/screens/Kitchen/OrderDisplay"
-import AdminPanel from "./src/admin/AdminLogin";
+import AdminPanel from "./src/admin/AdminPanel";
+import ReviewPage from "./src/screens/Customer/ReviewPage";
 import { store } from "./src/store";
 import { Provider } from "react-redux";
 const Stack = createStackNavigator();
@@ -37,7 +38,8 @@ function App() {
     <NavigationContainer>
       <Provider store={store}>
         <Stack.Navigator>
-        <Stack.Screen name='Admin' component={AdminPanel} />
+          <Stack.Screen name='Review' component={ReviewPage} />
+        {/* <Stack.Screen name='Admin' component={AdminPanel} /> */}
           <Stack.Screen name='Main' component={Splash} />
           <Stack.Screen name='PlaceOrder' component={PlaceOrder} />
           <Stack.Screen name='Home' component={HomeScreen} />

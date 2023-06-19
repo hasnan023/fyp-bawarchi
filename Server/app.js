@@ -56,7 +56,7 @@ const ordersRouter = require("./routes/orders");
 const chefsRouter = require("./routes/chefs");
 const pickupsRouter = require("./routes/pickups")
 const pendingsRouter = require("./routes/pending")
-
+const approvesRouter = require("./routes/approved")
 
 //add middleware.. for all requests,send to router
 app.use("/food", foodsRouter);
@@ -66,6 +66,7 @@ app.use("/orders", ordersRouter);
 app.use("/chefs", chefsRouter);
 app.use("/pickups",pickupsRouter);
 app.use("/pending",pendingsRouter);
+app.use("/approved",approvesRouter);
 
 //listen to server after starting
 

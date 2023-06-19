@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import axios from "axios";
+import { Alert } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const KitchenLoginForm = ({ navigation }) => {
@@ -15,8 +16,9 @@ const KitchenLoginForm = ({ navigation }) => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState("");
   const [passError,setPassError] = useState("");
+  const [error,setError] = useState("");
 
-  const handleLogin = () => {
+  const handleLogin = async() => {
     console.log("Email: " + email);
     const data = {
       email: email,
@@ -31,20 +33,28 @@ const KitchenLoginForm = ({ navigation }) => {
       return;
     }
 
-
     axios
       .post("http://localhost:3500/user/login", data)
-      .then((res) => {
-        console.log(res.data);
+      .then((response) => {
+        console.log(response.data);
 
-        AsyncStorage.setItem("token", res.data.token).then(() => {
+        AsyncStorage.setItem("token", response.data.token).then(() => {
           console.log("Token stored");
-
           navigation.navigate("Welcome");
         });
       })
-      .catch((err) => {
-        console.log("error: " + err.message);
+      .catch((error) => {
+        if (error.response) {
+          if (error.response.status === 401) {
+            if (error.response.data.message === "Invalid login credentials") {
+              setError( error.response.data.message); 
+            } else if (error.response.data.message === "Account send for approval") {
+              setError( error.response.data.message);  
+            }
+          }
+        } else {
+          console.error('Error:', error.message);
+        }
       });
   };
 
@@ -59,6 +69,7 @@ const KitchenLoginForm = ({ navigation }) => {
           setEmailError("")}}
         placeholder="Enter your email"
       />
+      {emailError ? <Text style={styles.errText}>{emailError}</Text>:null}
 
       <Text style={styles.label}>Password:</Text>
       <TextInput
@@ -70,6 +81,7 @@ const KitchenLoginForm = ({ navigation }) => {
         secureTextEntry={true}
         placeholder="Enter your password"
       />
+      {passError ? <Text style={styles.errText}>{passError}</Text>:null}
 
     <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
@@ -83,6 +95,7 @@ const KitchenLoginForm = ({ navigation }) => {
       >
         <Text style={styles.registerText}> New to Bawarchi? Register!</Text>
       </TouchableOpacity>
+      {error ? <Text style={styles.error}>{error}</Text> : null}
     </View>
   );
 };
@@ -131,6 +144,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     color: "#888",
+  },
+  error: {
+    color: 'red',
+    marginTop: 8,
+    textAlign:"center"
+  },
+  errText:{
+    color:"red"
   },
 });
 

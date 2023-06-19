@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const pendingUserSchema = new mongoose.Schema(
-  {
+const approvedRequestSchema = new mongoose.Schema({
+
     fullName: {
         //properties
         type: String,
@@ -44,4 +44,6 @@ const pendingUserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Pending", pendingUserSchema);
+const ApprovedRequest = mongoose.model('ApprovedRequest', approvedRequestSchema);
+
+module.exports = ApprovedRequest;

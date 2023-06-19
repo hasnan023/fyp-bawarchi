@@ -13,6 +13,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const ChefLoginForm = ({ navigation, userId }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState("");
+  const [passError,setPassError] = useState("");
+  const [error,setError] = useState("");
 
   const handleLogin = async() => {
     console.log("Email: " + email);
@@ -20,20 +23,39 @@ const ChefLoginForm = ({ navigation, userId }) => {
       email: email,
       password: password,
     };
-
-    try{
-      const res = await axios.post("http://localhost:3500/user/login", data);
-      console.log(res.data);
-
-      await AsyncStorage.setItem("token", res.data.token);
-      await AsyncStorage.setItem("userId", res.data.userId);
-      console.log("Token stored");
-      navigation.navigate("ChefScreen");
-      
-    }catch(err){
-      console.log("error: " + err.message);
-
+    if(!email){
+      setEmailError("Email is required");
+      return;
     }
+    if(!password){
+      setPassError("Password is required.");
+      return;
+    }
+
+    axios
+    .post("http://localhost:3500/user/login", data)
+    .then((response) =>{
+      console.log(response.data);
+
+      AsyncStorage.setItem("token", response.data.token);
+      AsyncStorage.setItem("userId", response.data.userId).then(()=>{
+        console.log("Token stored");
+        navigation.navigate("ChefScreen");
+      });
+    })
+    .catch((error) => {
+      if (error.response) {
+        if (error.response.status === 401) {
+          if (error.response.data.message === "Invalid login credentials") {
+            setError( error.response.data.message); 
+          } else if (error.response.data.message === "Account send for approval") {
+            setError( error.response.data.message);  
+          }
+        }
+      } else {
+        console.error('Error:', error.message);
+      }
+    });
   };
 
   return (
@@ -43,20 +65,25 @@ const ChefLoginForm = ({ navigation, userId }) => {
       <TextInput
         style={styles.input}
         value={email}
-        onChangeText={setEmail}
+        onChangeText={(email)=>{setEmail(email);
+          setEmailError("")}}
         placeholder="Enter your email"
       />
+      {emailError ? <Text style={styles.errText}>{emailError}</Text>:null}
 
       <Text style={styles.label}>Password:</Text>
       <TextInput
         style={styles.input}
         value={password}
-        onChangeText={setPassword}
+        onChangeText={(password)=>{setPassword(password);
+          setPassError("");
+        }}
         secureTextEntry={true}
         placeholder="Enter your password"
       />
+      {passError ? <Text style={styles.errText}>{passError}</Text>:null}
 
-<TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
+    <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
 
@@ -69,6 +96,7 @@ const ChefLoginForm = ({ navigation, userId }) => {
       >
         <Text  style={styles.registerText}> New to Bawarchi? Register!</Text>
       </TouchableOpacity>
+      {error ? <Text style={styles.error}>{error}</Text> : null}
     </View>
   );
 };
@@ -117,6 +145,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     color: "#888",
+  },
+  error: {
+    color: 'red',
+    marginTop: 8,
+    textAlign:"center"
+  },
+  errText:{
+    color:"red"
   },
 });
 

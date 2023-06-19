@@ -1,11 +1,12 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const router = express.Router();
-const User = require("../structure/user");
+const User = require("../structure/approve");
 const jwt = require("jsonwebtoken");
 const e = require("express");
 const auth = require("../middlewares/auth");
 const Pending = require('../structure/pending');
+const ApprovedRequest = require('../structure/approve');
 
 //Authentication routes
 router.post("/register", async (req, res) => {
@@ -34,26 +35,47 @@ router.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     // Create a new user instance
-    const pending = new Pending({
-      fullName,
-      email: email.toLowerCase(),
-      address,
-      phoneNumber,
-      password: hashedPassword,
-      userType,
-      image,
-      expertise,
-      experience,
-      vehicleNumber,
-      CNIC,
-      status: 'pending',
-    });
+    if(userType==="customer"){
+      const user = new User({
+        fullName,
+        email: email.toLowerCase(),
+        address,
+        phoneNumber,
+        password: hashedPassword,
+        userType,
+        image,
+        expertise,
+        experience,
+        vehicleNumber,
+        CNIC,
+        status: 'active',
+      })
+      // Save the user to MongoDB
+    await user.save();
 
+    }
+    else {
+      const pending = new Pending({
+        fullName,
+        email: email.toLowerCase(),
+        address,
+        phoneNumber,
+        password: hashedPassword,
+        userType,
+        image,
+        expertise,
+        experience,
+        vehicleNumber,
+        CNIC,
+        status: 'pending',
+      });
     // Save the user to MongoDB
     await pending.save();
+  }
 
     // Registration successful
     let response = { message: "Account send for approval" };
+    console.log(response)
 
     // res.status(200).json(response);
   } catch (error) {
@@ -64,11 +86,17 @@ router.post("/register", async (req, res) => {
 // Login user
 
 router.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, userType } = req.body;
   // Check if user exists
   const user = await User.findOne({ email: email.toLowerCase() });
   if (!user) {
+    const pending = await Pending.findOne({ email: email.toLowerCase() });
+    if(!pending){
     return res.status(401).json({ message: "Invalid login credentials" });
+    }
+    else{
+      return res.status(401).json({ message: "Account send for approval" });
+    }
   }
 
   // Check password
@@ -145,9 +173,10 @@ router.put("/:id", async (req, res) => {
 // User management API endpoints
 router.put('/:id/approve', (req, res) => {
   const userId = req.params.id;
+  console.log(userId)
 
   // Find the user by ID and update the status to 'approved'
-  User.findByIdAndUpdate(userId, { status: 'approved' }, (err, user) => {
+  Pending.findByIdAndUpdate(userId, { status: 'approved' }, (err, user) => {
     if (err) {
       // Handle error
       res.status(500).json({ error: 'Failed to approve user' });
@@ -158,11 +187,32 @@ router.put('/:id/approve', (req, res) => {
   });
 });
 
+router.post('/approveRequest', async (req, res) => {
+ 
+  const requestData = req.body;
+
+  // Create a new instance of the ApprovedRequest model
+  const approvedRequest = new ApprovedRequest(requestData);
+
+  // Save the approved request to the database
+  approvedRequest.save((err) => {
+    if (err) {
+      console.error('Error saving approved request:', err);
+      return res.status(500).json({ error: 'Failed to save approved request' });
+    }
+
+    console.log('Approved request saved:', approvedRequest);
+
+    res.status(200).json({ message: 'Request approved successfully' });
+  });
+
+});
+
 router.put('/:id/reject', (req, res) => {
   const userId = req.params.id;
 
   // Find the user by ID and update the status to 'rejected'
-  User.findByIdAndUpdate(userId, { status: 'rejected' }, (err, user) => {
+  Pending.findByIdAndUpdate(userId, { status: 'rejected' }, (err, user) => {
     if (err) {
       // Handle error
       res.status(500).json({ error: 'Failed to reject user' });
