@@ -38,7 +38,6 @@ function App() {
     <NavigationContainer>
       <Provider store={store}>
         <Stack.Navigator>
-          <Stack.Screen name='Review' component={ReviewPage} />
         {/* <Stack.Screen name='Admin' component={AdminPanel} /> */}
           <Stack.Screen name='Main' component={Splash} />
           <Stack.Screen name='PlaceOrder' component={PlaceOrder} />
@@ -63,10 +62,14 @@ function App() {
           <Stack.Screen name='CustomerScreen' component={CustomerScreen} />
           <Stack.Screen name='ChefDisplay' component={ChefDisplay} />
           <Stack.Screen name='KitchenDetail' component={KitchenDetail} />
+          <Stack.Screen name='Review' component={ReviewPage} />
           <Stack.Screen name='CartScreen' component={CartScreen} />
-          <Stack.Screen name='RiderRegister' component={RiderRegisterForm} />
+          <Stack.Screen 
+          name='RiderRegister' 
+          component={RiderRegisterForm} />
           <Stack.Screen name='RiderLogin' component={RiderLoginForm} />
           <Stack.Screen name='RiderScreen' component={RiderScreen} />
+          
           <Stack.Screen name='AddFoodItem' component={AddFoodScreen} />
           <Stack.Screen name='EditFoodItem' component={EditFoodScreen} />
           <Stack.Screen name='DeleteFoodItem' component={DeleteFoodScreen} />

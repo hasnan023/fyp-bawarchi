@@ -73,6 +73,7 @@ const KitchenDetail = ({ route, navigation }) => {
   const [foodItems, setFoodItems] = useState([]);
   const state = useSelector((state) => state);
   const [cartItems, setCartItems] = useState(state.cart.items);
+  const customerName = route.params.customerName;
 
   useEffect(() => {
     fetchKitchenDetail();
@@ -81,6 +82,16 @@ const KitchenDetail = ({ route, navigation }) => {
   useEffect(() => {
     setCartItems(state.cart.items);
   }, [state]);
+
+  const handleReview = async () => {
+    const kitchenId = route.params.kitchenId;
+    const customerName = route.params.customerName;
+    console.log(route.params.customerName)
+    console.log(customerName)
+    console.log(kitchenId)
+    // navigation.navigate('Review',{kitchenId},{customerName})
+  }
+
   const fetchKitchenDetail = async () => {
     const kitchenId = route.params.kitchenId;
     try {
@@ -119,7 +130,7 @@ const KitchenDetail = ({ route, navigation }) => {
             />
           </View>
           <TouchableOpacity style={styles.reviewButton} onPress={() => handleReview()}>
-            <Text style={styles.reviewButtonText}>Leave a Review</Text>
+            <Text style={styles.reviewButtonText}>Reviews</Text>
           </TouchableOpacity>
         </View>
         <Text style={styles.kitchenName}>{kitchen.fullName}</Text>

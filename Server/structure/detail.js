@@ -1,6 +1,3 @@
-//handle only one record
-//schema for database
-
 const mongoose = require("mongoose");
 
 const foodDetail = new mongoose.Schema({

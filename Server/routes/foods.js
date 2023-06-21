@@ -34,7 +34,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //insert data in database
-router.post("/", auth, async function (req, res, next) {
+router.post("/", auth, async (req, res, next) => {
   console.log(req.user);
   let food = new Food();
   food.name = req.body.name;
