@@ -3,10 +3,7 @@ const router = express.Router();
 const Food = require("../structure/detail");
 const auth = require("../middlewares/auth");
 
-//async will not lock process
-//get all records
 router.get("/", auth, async (req, res) => {
-  //fetch all food and send
   try {
     //await for async return
     const food = await Food.find({ userId: req.user._id });

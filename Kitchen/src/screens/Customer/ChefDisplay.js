@@ -29,20 +29,23 @@ const ChefDisplay = ({ navigation }) => {
     }
   };
 
+  const navigateToChefDetail = (chef) => {
+    navigation.navigate("ChefDetail", { chef });
+  };
+
   const filteredChefs = chefs.filter((chef) =>
     chef.fullName.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const renderChefCard = ({ item }) => (
     <View style={styles.chefCard}>
-      <TouchableOpacity >
+      <TouchableOpacity onPress={() => navigateToChefDetail(item)}>
         <Image source={{ uri: item.image }} style={styles.chefImage} />
         <Text style={styles.chefName}>{item.fullName}</Text>
         <Text style={styles.chefCuisine}>{item.expertise}</Text>
-        <Text style={styles.chefphoneNumber}>{item.phoneNumber}</Text>
       </TouchableOpacity>
     </View>
-  );
+  );  
 
   return (
     <View style={styles.container}>
@@ -94,6 +97,16 @@ const styles = StyleSheet.create({
     elevation: 3,
     padding: 16,
   },
+  chefDetails: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  chefPhoneNumber: {
+    fontSize: 14,
+    color: "#888",
+    marginRight: 8,
+  },
   chefImage: {
     width: "100%",
     height: 160,
@@ -110,10 +123,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#666",
     marginBottom: 4,
-  },
-  chefphoneNumber: {
-    fontSize: 14,
-    color: "#888",
   },
 });
 

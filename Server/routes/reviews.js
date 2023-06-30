@@ -7,7 +7,6 @@ router.get("/:id", async (req, res) => {
     console.log(req.params.id)
     const review = await Review.find({ kitchenId: req.params.id });
 
-    //send in json format.. .send will send in text form
     res.json(review);
     console.log("Get Request Worked");
   } catch (err) {
@@ -31,5 +30,6 @@ router.post('/', async (req, res) => {
   
     res.status(201).json(newReview);
   });
+  
   
 module.exports = router;

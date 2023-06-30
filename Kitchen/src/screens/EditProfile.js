@@ -59,7 +59,7 @@ const EditProfile = ({ route }) => {
           email:email,
           image:image,
         });
-        // Handle successful save (e.g., show success message, navigate back to previous screen)
+        navigation.navigate("");
       } catch (error) {
         console.log("Error saving user profile:", error);
       }

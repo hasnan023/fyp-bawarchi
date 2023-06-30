@@ -74,6 +74,7 @@ const KitchenDetail = ({ route, navigation }) => {
   const state = useSelector((state) => state);
   const [cartItems, setCartItems] = useState(state.cart.items);
   const customerName = route.params.customerName;
+  
 
   useEffect(() => {
     fetchKitchenDetail();
@@ -85,7 +86,6 @@ const KitchenDetail = ({ route, navigation }) => {
 
   const handleReview = async () => {
     const kitchenId = route.params.kitchenId;
-    const customerName = route.params.customerName;
     console.log(route.params.customerName)
     console.log(customerName)
     console.log(kitchenId)

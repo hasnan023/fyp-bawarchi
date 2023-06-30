@@ -19,6 +19,7 @@ import CustomerLoginForm from "./src/screens/Customer/CustomerLoginForm";
 import CustomerRegisterForm from "./src/screens/Customer/CustomerRegisterForm";
 import CustomerScreen from "./src/screens/Customer/CustomerScreen";
 import ChefDisplay from "./src/screens/Customer/ChefDisplay"
+import ChefDetail from "./src/screens/Customer/ChefDetail";
 import KitchenDetail from "./src/screens/Customer/KitchenDetail";
 import CartScreen from "./src/screens/Customer/CartScreen";
 import RiderRegisterForm from "./src/screens/Rider/RiderRegisterForm";
@@ -61,6 +62,7 @@ function App() {
           <Stack.Screen name='CustomerLogin' component={CustomerLoginForm} />
           <Stack.Screen name='CustomerScreen' component={CustomerScreen} />
           <Stack.Screen name='ChefDisplay' component={ChefDisplay} />
+          <Stack.Screen name='ChefDetail' component={ChefDetail} />
           <Stack.Screen name='KitchenDetail' component={KitchenDetail} />
           <Stack.Screen name='Review' component={ReviewPage} />
           <Stack.Screen name='CartScreen' component={CartScreen} />
