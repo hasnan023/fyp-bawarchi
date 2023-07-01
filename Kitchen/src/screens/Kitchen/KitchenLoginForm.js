@@ -59,6 +59,7 @@ const KitchenLoginForm = ({ navigation }) => {
           setEmailError("")}}
         placeholder="Enter your email"
       />
+      {emailError ? <Text style={styles.errText}>{emailError}</Text>:null}
 
       <Text style={styles.label}>Password:</Text>
       <TextInput
@@ -69,7 +70,9 @@ const KitchenLoginForm = ({ navigation }) => {
         }}
         secureTextEntry={true}
         placeholder="Enter your password"
+        
       />
+      {passError ? <Text style={styles.errText}>{passError}</Text>:null}
 
     <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
@@ -131,6 +134,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     color: "#888",
+  },
+  errText:{
+    color:"red"
   },
 });
 
