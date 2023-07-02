@@ -102,7 +102,7 @@ const KitchenRegisterForm = ({ navigation }) => {
     };
 
     axios
-      .post("http://localhost:3500/user/register", kitchenData)
+      .post("http://192.168.100.53:3500/user/register", kitchenData)
       .then((res) => {
         console.log(res.kitchenData);
         navigation.navigate("KitchenLogin");

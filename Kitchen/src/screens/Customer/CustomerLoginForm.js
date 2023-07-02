@@ -35,7 +35,7 @@ const CustomerLoginForm = ({ navigation, userId }) => {
 
 
     try {
-      const res = await axios.post("http://localhost:3500/user/login", data);
+      const res = await axios.post("http://192.168.100.53:3500/user/login", data);
       dispatch(login(res.data));
 
       await AsyncStorage.setItem("userId", res.data.userId);
@@ -71,6 +71,14 @@ const CustomerLoginForm = ({ navigation, userId }) => {
         placeholder="Enter your password"
       />
         {passError ? <Text style={styles.errText}>{passError}</Text>:null}
+
+        <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("ForgotPassword");
+        }}
+      >
+        <Text style={styles.resetText}>Forgot password?</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
@@ -130,6 +138,11 @@ const styles = StyleSheet.create({
   registerText: {
     marginTop: 10,
     textAlign: "center",
+    color: "#888",
+  },
+  resetText: {
+    margin: 10,
+    textAlign: "right",
     color: "#888",
   },
   errText:{

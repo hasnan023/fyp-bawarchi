@@ -24,7 +24,7 @@ const EditProfile = ({ route }) => {
   
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(`http://localhost:3500/user/${id}`);
+        const response = await axios.get(`http://192.168.100.53:3500/user/${id}`);
         const {fullName, phoneNumber, email, image} = response.data;
         setName(fullName);
         setPhoneNumber(phoneNumber);
@@ -53,7 +53,7 @@ const EditProfile = ({ route }) => {
     
     const handleSaveProfile = async () => {
       try {
-        await axios.put(`http://localhost:3500/user/${id}`, {
+        await axios.put(`http://192.168.100.53:3500/user/${id}`, {
           fullName: fullName,
           phoneNumber:phoneNumber,
           email:email,
@@ -94,12 +94,12 @@ const EditProfile = ({ route }) => {
           style={styles.image}
         />
         <Button
+          color="#FF6F61"
           title="Pick an image"
           onPress={handleImagePick}
         />
       </View>
-        {/* Add a button to save the changes */}
-        <Button title="Save Profile" onPress={handleSaveProfile} />
+        <Button color="#FF6F61"title="Save Profile" onPress={handleSaveProfile} />
       </View>
     );
   };
@@ -134,6 +134,10 @@ const EditProfile = ({ route }) => {
       height: 200,
       marginBottom: 8,
     },
+    button: {
+      backgroundColor:"#FF6F61",
+      color:"red"
+    }
   });
   
   export default EditProfile;

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  View,
+  ScrollView,
   Text,
   StyleSheet,
   Image,
   TouchableOpacity,
+  View
 } from "react-native";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -89,14 +90,14 @@ const KitchenDetail = ({ route, navigation }) => {
     console.log(route.params.customerName)
     console.log(customerName)
     console.log(kitchenId)
-    // navigation.navigate('Review',{kitchenId},{customerName})
+    navigation.navigate('Review',{kitchenId},{customerName})
   }
 
   const fetchKitchenDetail = async () => {
     const kitchenId = route.params.kitchenId;
     try {
       const response = await axios.get(
-        `http://localhost:3500/kitchen/${kitchenId}`
+        `http://192.168.100.53:3500/kitchen/${kitchenId}`
       );
       // console.log(kitchenId)
       const { kitchen, foodItems } = response.data;
@@ -117,7 +118,7 @@ const KitchenDetail = ({ route, navigation }) => {
   }
 
   return (
-    <View style={styles.kitchenDetailsContainer}>
+    <ScrollView style={styles.kitchenDetailsContainer}>
       <Image source={{ uri: kitchen.image }} style={styles.kitchenImage} />
       <View style={styles.kitchenInfoContainer}>
         <View style={styles.ratingAndReviewContainer}>
@@ -179,7 +180,7 @@ const KitchenDetail = ({ route, navigation }) => {
           {cartItems.reduce((total, item) => total + item.quantity, 0)}
         </Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

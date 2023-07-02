@@ -4,7 +4,6 @@ const reviewSchema = new mongoose.Schema({
     
   customerName:{
     type: String,
-    required:true
   },
   kitchenId:{
     type: String,

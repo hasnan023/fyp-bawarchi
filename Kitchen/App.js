@@ -30,6 +30,7 @@ import OrderPlaced from "./src/screens/Customer/OrderPlaced";
 import OrderDisplay from "./src/screens/Kitchen/OrderDisplay"
 import AdminPanel from "./src/admin/AdminPanel";
 import ReviewPage from "./src/screens/Customer/ReviewPage";
+import ForgotPasswordForm from "./src/screens/Reset/ForgotPasswordForm";
 import { store } from "./src/store";
 import { Provider } from "react-redux";
 const Stack = createStackNavigator();
@@ -38,7 +39,8 @@ function App() {
   return (
     <NavigationContainer>
       <Provider store={store}>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="ForgotPassword">
+
         {/* <Stack.Screen name='Admin' component={AdminPanel} /> */}
           <Stack.Screen name='Main' component={Splash} />
           <Stack.Screen name='PlaceOrder' component={PlaceOrder} />
@@ -77,6 +79,8 @@ function App() {
           <Stack.Screen name='DeleteFoodItem' component={DeleteFoodScreen} />
           <Stack.Screen name='OrderDisplay' component={OrderDisplay} />
           <Stack.Screen name='OrderPlaced' component={OrderPlaced} />
+          <Stack.Screen name='ForgotPassword' component={ForgotPasswordForm} />
+
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>

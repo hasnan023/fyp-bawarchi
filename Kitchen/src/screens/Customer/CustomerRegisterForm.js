@@ -104,7 +104,7 @@ const CustomerRegisterForm = ({ navigation }) => {
     };
 
     try{
-      const response = await axios.post("http://localhost:3500/user/register", customerData)
+      const response = await axios.post("http://192.168.100.53:3500/user/register", customerData)
        console.log(response)
       navigation.navigate("CustomerLogin")
     }catch(error){

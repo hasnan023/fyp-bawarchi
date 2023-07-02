@@ -9,7 +9,7 @@ const OrderDisplay = ({ route }) => {
 
   const sendToRider = async (item) => {
     try {
-      const response = await axios.post("http://localhost:3500/pickups",item);
+      const response = await axios.post("http://192.168.100.53:3500/pickups",item);
       console.log("testing")
     } catch (error) {
       console.log("Error adding order:", error);
@@ -54,7 +54,7 @@ const OrderDisplay = ({ route }) => {
         const token = res;
         console.log("Response: " + token);
 
-        fetch("http://localhost:3500/orders", {
+        fetch("http://192.168.100.53:3500/orders", {
           method: "GET",
           headers: {
             "x-auth-token": token,

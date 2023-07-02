@@ -18,7 +18,7 @@ const RiderScreen = ({ navigation }) => {
   const fetchProfilePicture = async () => {
     try {
       const userId = await AsyncStorage.getItem("userId");
-      const response = await axios.get(`http://localhost:3500/user/${userId}`);
+      const response = await axios.get(`http://192.168.100.53:3500/user/${userId}`);
       const profilePicture = response.data.image;
       const customerName = response.data.fullName;
       setProfilePicture(profilePicture);
@@ -30,7 +30,7 @@ const RiderScreen = ({ navigation }) => {
 
   const getOrderPickupDetails = async () =>{
     try{
-       const response =  await axios.get("http://localhost:3500/pickups")
+       const response =  await axios.get("http://192.168.100.53:3500/pickups")
        setOrders(response.data);
        console.log(response.data)
       }catch(err){
@@ -40,7 +40,7 @@ const RiderScreen = ({ navigation }) => {
   
   const delivered = async () => {
     try{
-      const response = await axios.delete("http://localhost:3500/pickups")
+      const response = await axios.delete("http://192.168.100.53:3500/pickups")
 
     }catch(err){
       console.log(err);

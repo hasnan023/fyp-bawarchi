@@ -46,7 +46,22 @@ const userDetail = new mongoose.Schema({
   },
   status:{
     type:String // pending, active, rejected
-  } 
+  },
+  code: {
+    type: String,
+    required: true,
+  },
+  verified: {
+    type: Boolean,
+    required: true,
+  },
+  resetToken: {
+    type: String,
+  },
+  resetTokenExpiration: {
+    type: Date,
+  }
+  
 });
 
 //export schema

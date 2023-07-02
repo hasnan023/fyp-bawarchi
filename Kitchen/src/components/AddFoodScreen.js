@@ -48,7 +48,7 @@ const AddFoodScreen = ({ navigation }) => {
     AsyncStorage.getItem("token").then((res) => {
       const token = res;
       axios
-        .post("http://localhost:3500/food", data, {
+        .post("http://192.168.100.53:3500/food", data, {
           headers: {
             "x-auth-token": token,
           },

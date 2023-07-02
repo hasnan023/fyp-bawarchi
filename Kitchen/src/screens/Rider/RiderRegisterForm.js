@@ -53,7 +53,7 @@ const RiderRegisterForm = ({ navigation }) => {
       vehicleNumber
     };
     axios
-      .post("http://localhost:3500/user/register", riderData)
+      .post("http://192.168.100.53:3500/user/register", riderData)
       .then((res) => {
         console.log(res.data);
         navigation.navigate("RiderLogin")
