@@ -49,6 +49,7 @@ function App() {
           <Stack.Screen name='Signup' component={SignupScreen} />
           <Stack.Screen name='Signin' component={SigninScreen} />
           <Stack.Screen name='Welcome' component={FoodScreen} />
+          
           <Stack.Screen
             name='KitchenRegister'
             component={KitchenRegisterForm}
@@ -58,6 +59,7 @@ function App() {
           <Stack.Screen name='ChefLogin' component={ChefLoginForm} />
           <Stack.Screen name='ChefScreen' component={ChefScreen} />
           <Stack.Screen name='EditProfile' component={EditProfile} />
+
           <Stack.Screen
             name='CustomerRegister'
             component={CustomerRegisterForm}
@@ -69,6 +71,7 @@ function App() {
           <Stack.Screen name='KitchenDetail' component={KitchenDetail} />
           <Stack.Screen name='Review' component={ReviewPage} />
           <Stack.Screen name='CartScreen' component={CartScreen} />
+
           <Stack.Screen 
           name='RiderRegister' 
           component={RiderRegisterForm} />
@@ -80,7 +83,10 @@ function App() {
           <Stack.Screen name='DeleteFoodItem' component={DeleteFoodScreen} />
           <Stack.Screen name='OrderDisplay' component={OrderDisplay} />
           <Stack.Screen name='OrderPlaced' component={OrderPlaced} />
-          <Stack.Screen name='ForgotPassword' component={ForgotPasswordForm} />
+
+          <Stack.Screen 
+          name='ForgotPassword' 
+          component={ForgotPasswordForm} />
           <Stack.Screen name='ForgotPasswordConfirmation' component={ForgotPasswordConfirmation} />
 
         </Stack.Navigator>

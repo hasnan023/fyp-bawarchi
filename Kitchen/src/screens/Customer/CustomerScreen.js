@@ -10,12 +10,15 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { logout } from "../../features/UserSlice";
 
 const CustomerScreen = ({ navigation }) => {
   const [kitchens, setKitchens] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [profilePicture, setProfilePicture] = useState("");
   const [customerName, setCustomerName] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     fetchKitchens();
@@ -87,13 +90,21 @@ const CustomerScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
         <Text style={styles.welcomeText}>Welcome, {customerName}</Text>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.chefButton}
           onPress={() => navigateToChefScreen()}
         >
           <Text style={styles.chefButtonText}>Chef</Text>
+        </TouchableOpacity> */}
+        <TouchableOpacity
+          style={styles.chefButton}
+          onPress={async () => {dispatch(logout())
+          await AsyncStorage.clear()}}
+        >
+          <Text style={styles.chefButtonText}>Logout</Text>
         </TouchableOpacity>
       </View>
+
       <TextInput
         style={styles.searchBar}
         placeholder="Search for kitchens"

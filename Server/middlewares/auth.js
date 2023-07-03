@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const User = require("../structure/user");
+const User = require("../structure/approve");
 
 async function auth(req, res, next) {
   let token = req.header("x-auth-token");

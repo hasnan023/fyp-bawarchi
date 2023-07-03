@@ -37,6 +37,7 @@ const KitchenLoginForm = ({ navigation }) => {
       .post("http://localhost:3500/user/login", data)
       .then((response) => {
         console.log(response.data);
+        AsyncStorage.setItem("userId", response.data.userId);
 
         AsyncStorage.setItem("token", response.data.token).then(() => {
           console.log("Token stored");

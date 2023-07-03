@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, FlatList, TextInput, Button } from 'react-nativ
 import axios from 'axios';
 import StarRating from './StarRating';
 
-
 const ReviewsPage = ({ route }) => {
   const [reviews, setReviews] = useState([]);
   const [reviewText, setReviewText] = useState('');

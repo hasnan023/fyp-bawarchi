@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Chef = require("../structure/user");
+const Chef = require("../structure/approve");
 
 router.get("/", async (req, res) => {
     //fetch all kithcens and send
@@ -16,5 +16,3 @@ router.get("/", async (req, res) => {
 });
 
 module.exports = router;
-
-  

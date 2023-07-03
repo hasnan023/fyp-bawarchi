@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Kitchen = require("../structure/user");
+const Kitchen = require("../structure/approve");
 const Food = require("../structure/detail");
 
 router.get("/", async (req, res) => {
