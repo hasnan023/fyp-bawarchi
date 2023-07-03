@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function OrderPlaced({ navigation }) {
@@ -41,6 +41,8 @@ export default function OrderPlaced({ navigation }) {
     // Navigate back to the home screen
     navigation.navigate("CustomerScreen");
   };
+
+  
 
   return (
     <View style={styles.container}>

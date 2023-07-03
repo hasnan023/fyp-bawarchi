@@ -8,11 +8,7 @@ export default function PlaceOrder({ navigation }) {
   const [customerAddress, setCustomerAddress] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("");
-
-  const deleteItem = (id) => {
-    deleteDoc(doc(db, "cart", `${id}`));
-    setCartItems(cartItems.filter((item) => item.id !== id));
-  };
+  
 
   useEffect(() => {}, [state]);
   const handleConfirmOrder = () => {
