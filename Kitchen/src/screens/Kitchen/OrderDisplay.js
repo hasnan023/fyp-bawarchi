@@ -9,7 +9,7 @@ const OrderDisplay = ({ route }) => {
 
   const sendToRider = async (item) => {
     try {
-      const response = await axios.post("http://192.168.100.53:3500/pickups",item);
+      const response = await axios.post("http://localhost:3500/pickups",item);
       console.log("testing")
     } catch (error) {
       console.log("Error adding order:", error);
@@ -17,15 +17,12 @@ const OrderDisplay = ({ route }) => {
   };
 
   const renderOrder = ({ item }) => {
-    console.log(item.kitchenName)
-    console.log(kitchenName)
-    console.log(item)
     if (item.kitchenName === kitchenName) {
       return (
         <View style={styles.orderItem}>
           <Text style={styles.orderName}>Customer Name: {item.customerName}</Text>
           <Text style={styles.orderPrice}>Total Price: {item.totalPrice}</Text>
-          {console.log(item.customerName)}
+          
           <Text style={styles.orderSubheading}>Food Items:</Text>
           {item.foodItems.map((foodItem, index) => (
             <View key={index} style={styles.foodItemContainer}>
@@ -35,11 +32,18 @@ const OrderDisplay = ({ route }) => {
               <Text>Price: {foodItem.price}</Text>
               <Text>Kitchen: {foodItem.kitchen.fullName}</Text>
               
+              
+            <View style={styles.buttonsContainer}>
+              <TouchableOpacity style={styles.preparingButton}>
+                <Text style={styles.buttonText}>Preparing</Text>
+              </TouchableOpacity>
               <TouchableOpacity
-              style = {styles.pickup}
-              onPress={() => sendToRider(item)}>
-              Ready for pickup
-            </TouchableOpacity>
+                style={styles.pickupButton}
+                onPress={() => sendToRider(item)}
+              >
+                <Text style={styles.buttonText}>Ready for Pickup</Text>
+              </TouchableOpacity>
+            </View>
             </View>
           ))}
         </View>
@@ -54,7 +58,7 @@ const OrderDisplay = ({ route }) => {
         const token = res;
         console.log("Response: " + token);
 
-        fetch("http://192.168.100.53:3500/orders", {
+        fetch("http://localhost:3500/orders", {
           method: "GET",
           headers: {
             "x-auth-token": token,
@@ -168,6 +172,28 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
   },
+  buttonsContainer: {
+    flexDirection: 'row',
+    marginTop: 8,
+  },
+  preparingButton: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    marginRight: 8,
+  },
+  pickupButton: {
+    backgroundColor: '#FF6F61',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  
 });
 
 export default OrderDisplay;

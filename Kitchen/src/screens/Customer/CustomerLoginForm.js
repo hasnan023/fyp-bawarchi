@@ -35,7 +35,7 @@ const CustomerLoginForm = ({ navigation, userId }) => {
 
 
     try {
-      const res = await axios.post("http://192.168.100.53:3500/user/login", data);
+      const res = await axios.post("http://localhost:3500/user/login", data);
       dispatch(login(res.data));
 
       await AsyncStorage.setItem("userId", res.data.userId);

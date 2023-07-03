@@ -40,7 +40,7 @@ const CustomerScreen = ({ navigation }) => {
   const fetchProfilePicture = async () => {
     try {
       const userId = await AsyncStorage.getItem("userId");
-      const response = await axios.get(`http://192.168.100.53:3500/user/${userId}`);
+      const response = await axios.get(`http://localhost:3500/user/${userId}`);
       const profilePicture = response.data.image;
       const customerName = response.data.fullName;
       setProfilePicture(profilePicture);
@@ -52,7 +52,7 @@ const CustomerScreen = ({ navigation }) => {
 
   const fetchKitchens = async () => {
     try {
-      const response = await axios.get("http://192.168.100.53:3500/kitchen");
+      const response = await axios.get("http://localhost:3500/kitchen");
       setKitchens(response.data);
     } catch (error) {
       console.log("Error fetching kitchens:", error);

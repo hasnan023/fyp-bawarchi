@@ -16,7 +16,7 @@ const AdminPanel = () => {
 
   const handleLogin = () => {
     axios
-      .post('http://192.168.100.53:3500/user/login', {
+      .post('http://localhost:3500/user/login', {
         email,
         password,
       })
@@ -34,7 +34,7 @@ const AdminPanel = () => {
 
   const fetchPendingRequests = () => {
     axios
-      .get('http://192.168.100.53:3500/pending')
+      .get('http://localhost:3500/pending')
       .then((response) => {
         // Set the pending requests in the state
         setRequests(response.data);
@@ -47,7 +47,7 @@ const AdminPanel = () => {
 
   const fetchApprovedRequests = () => {
     axios
-      .get('http://192.168.100.53:3500/approved')
+      .get('http://localhost:3500/approved')
       .then((response) => {
         // Set the pending requests in the state
         setApprovedUser(response.data);
@@ -60,7 +60,7 @@ const AdminPanel = () => {
 
   const handleApproveRequest = (request) => {
     axios
-      .put(`http://192.168.100.53:3500/user/${request._id}/approve`)
+      .put(`http://localhost:3500/user/${request._id}/approve`)
       .then((response) => {
         // Remove the approved user from the requests list
         setRequests(requests.filter((req) => req._id !== request._id));
@@ -71,7 +71,7 @@ const AdminPanel = () => {
       });
 
       axios
-      .post(`http://192.168.100.53:3500/user/approveRequest`, request)
+      .post(`http://localhost:3500/user/approveRequest`, request)
       .then((res) => {
         console.log(res.data);
         fetchApprovedRequests();
@@ -84,7 +84,7 @@ const AdminPanel = () => {
 
   const handleRejectRequest = (userId) => {
     axios
-      .put(`http://192.168.100.53:3500/user/${userId}/reject`)
+      .put(`http://localhost:3500/user/${userId}/reject`)
       .then((response) => {
         // Remove the rejected user from the requests list
         setRequests(requests.filter((request) => request._id !== userId));

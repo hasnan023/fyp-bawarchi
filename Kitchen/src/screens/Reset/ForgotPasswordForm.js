@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TextInput, Button, StyleSheet } from "react-native";
 import axios from "axios";
 
-const ForgotPasswordForm = () => {
+const ForgotPasswordForm = ({navigation,route}) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
@@ -17,9 +17,9 @@ const ForgotPasswordForm = () => {
       .post("http://localhost:3500/reset", {email})
       .then((response) => {
         setMessage(response.data.message);
-        // if(response.data.success){
-        //   navigation.navigate('ResetPasswordConfirmation')
-        // }
+        if(response.data.success){
+          navigation.navigate('ForgotPasswordConfirmation',{email})
+        }
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 16,
     backgroundColor: "#fff",
+    justifyContent:"center"
   },
   title: {
     fontSize: 24,

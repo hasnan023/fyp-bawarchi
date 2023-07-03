@@ -2,7 +2,8 @@ const express = require("express");
 const router = express.Router();
 const nodemailer = require("nodemailer");
 const crypto = require("crypto");
-const User = require("../structure/approve")
+const User = require("../structure/approve");
+const bcrypt = require("bcryptjs");
 
 router.post("/", async(req, res) => {
   const { email } = req.body;
@@ -16,8 +17,12 @@ router.post("/", async(req, res) => {
   else {
     
     const token = crypto.randomBytes(3).toString("hex");
+    console.log( user)
+    console.log( user.resetToken)
     user.resetToken = token;
-    user.resetTokenokenExpiration = Date.now() + 3600000;
+    user.resetTokenExpiration = Date.now() + 3600000;
+    console.log( user.resetToken),
+    console.log( user.resetTokenExpiration),
     await user.save();
 
     // Send password reset email
@@ -41,12 +46,44 @@ router.post("/", async(req, res) => {
     transporter.sendMail(mailOptions, (error, info) => {
       if (error) {
         console.error("Error sending email:", error);
-        res.status(500).json({ message: "An error occurred. Please try again later." });
+        res.status(500).json({ success:false, message: "An error occurred. Please try again later." });
       } else {
         console.log("Email sent:", info.response);
-        res.json({ message: "Password reset email sent successfully." });
+        res.json({ success:true ,message: "Password reset email sent successfully." });
       }
     });
+  }
+});
+
+router.post("/confirm", async(req, res) => {
+  try{
+    const email = req.body.email;
+    const verificationCode = req.body.verificationCode;
+    const password = req.body.password;
+    const user = await User.findOne({email});
+
+    // if(!passwordStrength.strong){
+    //   return res.send({success:false, message: "No user"});
+    // }
+    if(!user || user.resetToken != verificationCode){
+      return res.status(400).send({success:false});
+    }
+    if(user.resetTokenExpiration< new Date()){
+      return res.status(400).send({success:false, message:"Token has expired"});
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    user.password = hashedPassword;
+
+    console.log(user.password)
+    user.resetToken = '';
+    user.resetTokenExpiration = null;
+    await user.save();
+  }
+  catch(err){
+    console.log(err);
+    return res.status(500).send({success:false, message:"error"})
   }
 });
 

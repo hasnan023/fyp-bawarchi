@@ -10,7 +10,7 @@ const EditFoodScreen = ({ route, navigation }) => {
   const [image, setFoodImage] = useState('');
 
   useEffect(() => {
-    fetch(`http://192.168.100.53:3500/food/${id}`)
+    fetch(`http://localhost:3500/food/${id}`)
       .then(response => response.json())
       .then(data => {
         setFoodName(data.name);
@@ -35,7 +35,7 @@ const EditFoodScreen = ({ route, navigation }) => {
   };
 
   const handleSubmit = () => {
-    fetch(`http://192.168.100.53:3500/food/${id}`, {
+    fetch(`http://localhost:3500/food/${id}`, {
       method: 'put',
       body: JSON.stringify({
         name: name,

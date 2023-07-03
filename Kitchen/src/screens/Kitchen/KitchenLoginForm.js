@@ -34,7 +34,7 @@ const KitchenLoginForm = ({ navigation }) => {
     }
 
     axios
-      .post("http://192.168.100.53:3500/user/login", data)
+      .post("http://localhost:3500/user/login", data)
       .then((response) => {
         console.log(response.data);
 
@@ -82,6 +82,14 @@ const KitchenLoginForm = ({ navigation }) => {
         placeholder="Enter your password"
       />
       {passError ? <Text style={styles.errText}>{passError}</Text>:null}
+
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("ForgotPassword");
+        }}
+      > 
+      <Text style={styles.resetText}>Forgot password?</Text>
+      </TouchableOpacity>
 
     <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
@@ -149,6 +157,11 @@ const styles = StyleSheet.create({
     color: 'red',
     marginTop: 8,
     textAlign:"center"
+  },
+  resetText: {
+    margin: 10,
+    textAlign: "right",
+    color: "#888",
   },
   errText:{
     color:"red"

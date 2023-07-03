@@ -21,7 +21,7 @@ const ChefDisplay = ({ navigation }) => {
 
   const fetchChefs = async () => {
     try {
-      const response = await axios.get("http://192.168.100.53:3500/chefs");
+      const response = await axios.get("http://localhost:3500/chefs");
       console.log(response);
       setChefs(response.data);
     } catch (error) {

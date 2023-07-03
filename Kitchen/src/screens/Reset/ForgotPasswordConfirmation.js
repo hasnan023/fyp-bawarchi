@@ -1,45 +1,74 @@
 import React, { useState } from "react";
-import { View, Text, TextInput, Button, StyleSheet } from "react-native";
+import { View, Text,StyleSheet} from "react-native";
+import { TextInput } from "react-native-gesture-handler";
+import { Button } from "react-native-elements";
 import axios from "axios";
 
-const ForgotPasswordConfirmation = () => {
-  const [password, setPassword] = useState("");
-  const [code, setMessage] = useState("");
+const ForgotPasswordConfirmation = ({navigation, route}) => {
+  const {email} = route.params;
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
+  const [message, setMessage] = useState("");
 
-  const handleEmailChange = (text) => {
-    console.log(text)
-    setEmail(text);
-  };
+  const handleSubmit = async () => {
+    if(newPassword !== confirmPassword){
+      setMessage('Passwords do not match');
+      return;
+    }
+    
+      const data = {
+        email:email,
+        verificationCode: verificationCode,
+        password: newPassword
+      };
 
-  const handleSubmit = () => {
-    // Send API request to the backend server
-    axios  
-      .post("http://localhost:3500/reset", email)
-      .then((response) => {
-        setMessage(response.data.message);
-        // if(response.data.success){
-        //   navigation.navigate('ResetPasswordConfirmation')
-        // }
+      await axios  
+      .post("http://localhost:3500/reset/confirm", data)
+      .then(() => {
+        navigation.navigate("Signin");
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      .catch((err)=>{
+      console.error("Error:", err);
+      alert(`Something went wrong! ${err}`)
+      })
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Forgot Password</Text>
+      <Text style={styles.title}>Forgot Password Confirmation</Text>
       <TextInput
         style={styles.input}
-        placeholder="Email Address"
-        value={email}
-        onChangeText={handleEmailChange}
+        placeholder="Verification Code"
+        mode="outlined"
+        value={verificationCode}
+        onChangeText={(text) => setVerificationCode(text)}
       />
+       <TextInput
+         style={styles.input}
+         placeholder="New Password"
+         mode="outlined"
+         secureTextEntry
+         value={newPassword}
+         onChangeText={(text) => setNewPassword(text)}
+       />
+      <TextInput
+         style={styles.input}
+         placeholder="Confirm New Password"
+         mode="outlined"
+         secureTextEntry
+         value={confirmPassword}
+         onChangeText={(text) => setConfirmPassword(text)}
+       />
       <Button
-        title="Reset Password"
+        title="Submit"
         onPress={handleSubmit}
         color="#FF6F61"
       />
+      {/* <Button
+        onPress={handleResendCode}
+        style={styles.resendButton}
+      >Resend Code</Button> */}
       {message !== "" && <Text style={styles.message}>{message}</Text>}
     </View>
   );
@@ -49,10 +78,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#fff",
+    justifyContent:"center"
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
     marginBottom: 16,
     textAlign: "center",
@@ -71,6 +100,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "red",
   },
+  resendButton:{
+    margintop:8,
+    backgroundColor:'transparent'
+  }
 });
 
-export default ForgotPasswordForm;
+export default ForgotPasswordConfirmation;

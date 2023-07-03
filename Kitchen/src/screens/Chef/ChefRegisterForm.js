@@ -55,7 +55,7 @@ const ChefRegisterForm = ({ navigation }) => {
     };
 
     axios
-      .post("http://192.168.100.53:3500/user/register", chefData)
+      .post("http://localhost:3500/user/register", chefData)
       .then((res) => {
         console.log(res.data);
         navigation.navigate("ChefLogin")

@@ -33,7 +33,7 @@ const RiderLoginForm = ({ navigation, userId }) => {
     }
 
     axios
-    .post("http://192.168.100.53:3500/user/login", data)
+    .post("http://localhost:3500/user/login", data)
     .then((response) =>{
       console.log(response.data);
 
@@ -83,6 +83,13 @@ const RiderLoginForm = ({ navigation, userId }) => {
       />
       {passError ? <Text style={styles.errText}>{passError}</Text>:null}
 
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("ForgotPassword");
+        }}
+      >
+        <Text style={styles.resetText}>Forgot password?</Text>
+      </TouchableOpacity>
 
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
@@ -114,6 +121,11 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: "center",
     color: "#333",
+  },
+  resetText: {
+    margin: 10,
+    textAlign: "right",
+    color: "#888",
   },
   label: {
     fontWeight: "bold",

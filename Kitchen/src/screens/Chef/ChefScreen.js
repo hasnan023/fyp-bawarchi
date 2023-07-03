@@ -15,7 +15,7 @@ const ChefScreen = ({ navigation }) => {
       const token = await AsyncStorage.getItem("token");
       const userId = await AsyncStorage.getItem("userId");
 
-      const res = await axios.get(`http://192.168.100.53:3500/user/${userId}`, {
+      const res = await axios.get(`http://localhost:3500/user/${userId}`, {
         headers: { "x-auth-token": token },
       });
       console.log(res.data);

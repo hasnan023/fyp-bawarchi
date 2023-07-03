@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
-  ScrollView,
+  View,
   Text,
   StyleSheet,
   Image,
-  TouchableOpacity,
-  View
+  TouchableOpacity
 } from "react-native";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,60 +13,8 @@ import {
   selectCartItems,
   removeFromCart,
 } from "../../features/BasketSlice";
-import { Rating } from "react-native-elements";
+import StarRating from "./StarRating";
 
-const RenderFoodItemCard = ({ item, kitchen }) => {
-  const [quantity, setQuantity] = useState(0);
-  const items = useSelector(selectCartItems);
-  const dispatch = useDispatch();
-
-  const incrementQuantity = (item) => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
-  };
-
-  const decrementQuantity = (item) => {
-    setQuantity((prevQuantity) => (prevQuantity === 0 ? 0 : prevQuantity - 1));
-  };
-
-  const handleAddToCart = () => {
-    dispatch(
-      addToCart({
-        kitchen: {
-          fullName: kitchen.fullName,
-          _id: kitchen._id,
-        },
-        name: item.name,
-        id: item._id,
-        price: item.price,
-        quantity,
-      })
-    );
-  };
-
-  return (
-    <View style={styles.foodItemCard}>
-      <Image source={{ uri: item.image }} style={styles.foodItemImage} />
-      <Text style={styles.foodItemName}>{item.name}</Text>
-      <Text style={styles.foodItemPrice}>Price: ${item.price}</Text>
-      <View style={styles.quantityContainer}>
-        <TouchableOpacity onPress={() => incrementQuantity()}>
-          <Text style={styles.quantityButton}>+</Text>
-        </TouchableOpacity>
-        <Text style={styles.quantityText}>{quantity}</Text>
-        <TouchableOpacity onPress={() => decrementQuantity()}>
-          <Text style={styles.quantityButton}>-</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity
-        style={styles.addToCartButton}
-        onPress={handleAddToCart}
-        disabled={quantity === 0}
-      >
-        <Text style={styles.addToCartButtonText}>Add to Cart</Text>
-      </TouchableOpacity>
-    </View>
-  );
-};
 
 const KitchenDetail = ({ route, navigation }) => {
   const [kitchen, setKitchen] = useState(null);
@@ -75,10 +22,66 @@ const KitchenDetail = ({ route, navigation }) => {
   const state = useSelector((state) => state);
   const [cartItems, setCartItems] = useState(state.cart.items);
   const customerName = route.params.customerName;
+  const [averageStars, setAverageStars] = useState(0); 
+  const kitchenId = route.params.kitchenId;
   
+  const RenderFoodItemCard = ({ item, kitchen }) => {
+    const [quantity, setQuantity] = useState(0);
+    const items = useSelector(selectCartItems);
+    const dispatch = useDispatch();
+   
+    const incrementQuantity = (item) => {
+      setQuantity((prevQuantity) => prevQuantity + 1);
+    };
+  
+    const decrementQuantity = (item) => {
+      setQuantity((prevQuantity) => (prevQuantity === 0 ? 0 : prevQuantity - 1));
+    };
+  
+    const handleAddToCart = () => {
+      dispatch(
+        addToCart({
+          kitchen: {
+            fullName: kitchen.fullName,
+            _id: kitchen._id,
+          },
+          name: item.name,
+          id: item._id,
+          price: item.price,
+          quantity,
+        })
+      );
+    };
+  
+    return (
+      <View style={styles.foodItemCard}>
+        <Image source={{ uri: item.image }} style={styles.foodItemImage} />
+        <Text style={styles.foodItemName}>{item.name}</Text>
+        <Text style={styles.foodItemPrice}>Price: ${item.price}</Text>
+        <View style={styles.quantityContainer}>
+          <TouchableOpacity onPress={() => incrementQuantity()}>
+            <Text style={styles.quantityButton}>+</Text>
+          </TouchableOpacity>
+          <Text style={styles.quantityText}>{quantity}</Text>
+          <TouchableOpacity onPress={() => decrementQuantity()}>
+            <Text style={styles.quantityButton}>-</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.addToCartButton}
+          onPress={handleAddToCart}
+          disabled={quantity === 0}
+        >
+          <Text style={styles.addToCartButtonText}>Add to Cart</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
 
+  
   useEffect(() => {
     fetchKitchenDetail();
+    calculateAverageStars();
   }, []);
 
   useEffect(() => {
@@ -87,19 +90,31 @@ const KitchenDetail = ({ route, navigation }) => {
 
   const handleReview = async () => {
     const kitchenId = route.params.kitchenId;
-    console.log(route.params.customerName)
-    console.log(customerName)
-    console.log(kitchenId)
     navigation.navigate('Review',{kitchenId},{customerName})
   }
+
+  const calculateAverageStars = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3500/reviews/${kitchenId}`);
+      const reviews = response.data;
+  
+      if (reviews.length > 0) {
+        const sumStars = reviews.reduce((total, review) => total + review.rating, 0);
+        const average = sumStars / reviews.length;
+        setAverageStars(average);
+      }
+    } catch (error) {
+      console.log("Error fetching reviews:", error);
+    }
+  };
 
   const fetchKitchenDetail = async () => {
     const kitchenId = route.params.kitchenId;
     try {
       const response = await axios.get(
-        `http://192.168.100.53:3500/kitchen/${kitchenId}`
+        `http://localhost:3500/kitchen/${kitchenId}`
       );
-      // console.log(kitchenId)
+
       const { kitchen, foodItems } = response.data;
 
       setKitchen(kitchen);
@@ -118,18 +133,20 @@ const KitchenDetail = ({ route, navigation }) => {
   }
 
   return (
-    <ScrollView style={styles.kitchenDetailsContainer}>
+    <View style={styles.kitchenDetailsContainer}>
       <Image source={{ uri: kitchen.image }} style={styles.kitchenImage} />
       <View style={styles.kitchenInfoContainer}>
         <View style={styles.ratingAndReviewContainer}>
-          <View style={styles.ratingContainer}>
-            <Rating
-              readonly
-              startingValue={kitchen.rating}
-              imageSize={20}
-              style={styles.kitchenRating}
-            />
-          </View>
+        <View style={styles.ratingContainer}>
+          <Text style={styles.ratingText}>{averageStars.toFixed(1)}</Text>
+          <StarRating
+            disabled={true}
+            maxStars={1}
+            rating={1}
+            starSize={20}
+            fullStarColor="#fbc02d"
+          />
+      </View>
           <TouchableOpacity style={styles.reviewButton} onPress={() => handleReview()}>
             <Text style={styles.reviewButtonText}>Reviews</Text>
           </TouchableOpacity>
@@ -180,7 +197,7 @@ const KitchenDetail = ({ route, navigation }) => {
           {cartItems.reduce((total, item) => total + item.quantity, 0)}
         </Text>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 
@@ -236,6 +253,13 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "space-between",
   },
+  ratingText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#333",
+    marginRight: 8,
+  },
+  
   ratingAndReviewContainer: {
     flexDirection: "row",
     alignItems: "center",

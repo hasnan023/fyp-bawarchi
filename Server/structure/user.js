@@ -47,13 +47,11 @@ const userDetail = new mongoose.Schema({
   status:{
     type:String // pending, active, rejected
   },
-  code: {
+  verificationCode: {
     type: String,
-    required: true,
   },
   verified: {
     type: Boolean,
-    required: true,
   },
   resetToken: {
     type: String,
