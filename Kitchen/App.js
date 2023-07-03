@@ -49,7 +49,7 @@ function App() {
           <Stack.Screen name='Signup' component={SignupScreen} />
           <Stack.Screen name='Signin' component={SigninScreen} />
           <Stack.Screen name='Welcome' component={FoodScreen} />
-          
+
           <Stack.Screen
             name='KitchenRegister'
             component={KitchenRegisterForm}

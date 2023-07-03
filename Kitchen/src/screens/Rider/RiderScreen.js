@@ -40,7 +40,7 @@ const RiderScreen = ({ navigation }) => {
   
   const delivered = async () => {
     try{
-      const response = await axios.delete("http://localhost:3500/pickups")
+      await axios.delete("http://localhost:3500/pickups")
 
     }catch(err){
       console.log(err);
@@ -64,7 +64,18 @@ const RiderScreen = ({ navigation }) => {
           <TouchableOpacity
               style = {styles.delivered}
               onPress={() => delivered(item)}>
-              Delivered
+              <Text>Accept</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style = {styles.delivered}
+              // onPress={() => delivered(item)}
+              >
+              <Text>Reject</Text>
+            </TouchableOpacity>
+          <TouchableOpacity
+              style = {styles.delivered}
+              onPress={() => delivered(item)}>
+               <Text>Delivered</Text>
             </TouchableOpacity>
         </View>
       );

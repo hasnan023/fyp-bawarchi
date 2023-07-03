@@ -10,8 +10,12 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+// import { createDrawerNavigator } from "@react-navigation/drawer";
+// import { NavigationContainer } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { logout } from "../../features/UserSlice";
+
+// const Drawer = createDrawerNavigator();
 
 const CustomerScreen = ({ navigation }) => {
   const [kitchens, setKitchens] = useState([]);
@@ -67,6 +71,7 @@ const CustomerScreen = ({ navigation }) => {
   );
 
   const renderKitchenCard = ({ item }) => (
+
     <View style={styles.kitchenCard}>
       <TouchableOpacity onPress={() => navigateToKitchenDetail(item._id)}>
         <Image source={{ uri: item.image }} style={styles.kitchenImage} />
@@ -76,6 +81,7 @@ const CustomerScreen = ({ navigation }) => {
       </TouchableOpacity>
     </View>
   );
+
 
   return (
     <View style={styles.container}>
