@@ -1,20 +1,16 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 
 const logoImage = require('../images/logo.png');
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Image source={logoImage} style={styles.logo} />
-        <Text style={styles.text}>Welcome to Bawarchi</Text>
-        
+      <View style={styles.upperContainer}>
+        <Text style={styles.upperText}>Welcome to Bawarchi</Text>
+      </View>
+      <View style={styles.lowerContainer}>
+        <Image source={logoImage} style={styles.logo} />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -33,6 +29,7 @@ const HomeScreen = ({ navigation }) => {
             <Text style={styles.buttonText}>Sign In</Text>
           </TouchableOpacity>
         </View>
+      </View>
     </View>
   );
 };
@@ -40,38 +37,44 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#FFFFFF",
+    paddingHorizontal: 32,
   },
-  background: {
+  upperContainer: {
     flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center",
+    backgroundColor: "#09605e",
     alignItems: "center",
+    justifyContent: "center",
   },
-  text: {
+  upperText: {
     fontSize: 28,
     fontWeight: "bold",
-    color: "black",
+    color: "#FFFFFF",
     textAlign: "center",
   },
+  lowerContainer: {
+    flex: 2,
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   logo: {
-    width: 400,
-    height: 400,
+    width: 300,
+    height: 300,
     resizeMode: "contain",
-    marginTop: 20,
-    alignItems:"center",
+    marginBottom: 32,
   },
   buttonContainer: {
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
   },
   button: {
-    backgroundColor: "#FF6F61",
-    borderRadius: 10,
-    paddingVertical: 15,
+    backgroundColor: "#09605e",
+    borderRadius: 8,
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    marginBottom: 16,
     width: 200,
-    marginVertical: 10,
     alignItems: "center",
   },
   buttonText: {
