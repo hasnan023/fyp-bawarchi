@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FontAwesome } from "@expo/vector-icons";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -118,9 +119,17 @@ const CustomerScreen = ({navigation}) => {
           <Text>Orders</Text>
         </TouchableOpacity>
         <TouchableOpacity
+        style={styles.sidebarItem}
+        onPress={() => navigation.navigate("CartScreen")}
+      >
+        <FontAwesome name="shopping-cart" size={20} color="#333" />
+        <Text style={styles.sidebarItemText}>Cart</Text>
+      </TouchableOpacity>
+        <TouchableOpacity
           style={styles.sidebarItem}
           onPress={async () => {
             dispatch(logout());
+            navigation.navigate("CustomerLogin")
             await AsyncStorage.clear();
           }}
         >
@@ -239,12 +248,18 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   sidebarItem: {
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 16,
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 8,
     backgroundColor: "#f0f0f0",
   },
+  sidebarItemText: {
+    marginLeft: 8,
+  },
+  
 });
 
 export default CustomerScreen;
