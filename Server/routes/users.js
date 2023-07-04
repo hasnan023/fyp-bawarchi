@@ -49,9 +49,9 @@ router.post("/register", async (req, res) => {
         vehicleNumber,
         CNIC,
         status: 'active',
-        verificationCode,
-        resetToken,
-        resetTokenExpiration
+        verificationCode: '',
+        resetToken: '',
+        resetTokenExpiration: ''
       })
       // Save the user to MongoDB
     await user.save();

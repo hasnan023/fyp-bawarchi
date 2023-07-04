@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { View, TextInput, StyleSheet, Button, Alert, Text,Image } from 'react-native';
+import { View, TextInput, StyleSheet, Button, Alert, Text, Image } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
+import axios from 'axios';
 
 const EditFoodScreen = ({ route, navigation }) => {
-  const {id} = route.params;
+  const { id } = route.params;
   const [name, setFoodName] = useState('');
   const [description, setFoodDescription] = useState('');
   const [price, setFoodPrice] = useState('');
   const [image, setFoodImage] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:3500/food/${id}`)
-      .then(response => response.json())
-      .then(data => {
-        setFoodName(data.name);
-        setFoodDescription(data.description);
-        setFoodPrice(data.price);
-        setFoodImage(data.image);
-      })
-      .catch(error => console.error(error));
+    fetchFood();
   }, [id]);
+
+  const fetchFood = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3500/food/${id}`);
+      const data = response.data;
+      setFoodName(data.name);
+      setFoodDescription(data.description);
+      setFoodPrice(data.price);
+      setFoodImage(data.image);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleImagePick = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -34,22 +40,19 @@ const EditFoodScreen = ({ route, navigation }) => {
     }
   };
 
-  const handleSubmit = () => {
-    fetch(`http://localhost:3500/food/${id}`, {
-      method: 'put',
-      body: JSON.stringify({
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.put(`http://localhost:3500/food/${id}`, {
         name: name,
         description: description,
         price: price,
         image: image,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        Alert.alert('fooF updated successfully');
-        navigation.goBack();
-      })
-      .catch(error => console.error(error));
+      });
+      console.log('food updated successfully');
+      navigation.goBack();
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -80,13 +83,13 @@ const EditFoodScreen = ({ route, navigation }) => {
           style={styles.image}
         />
         <Button
-        style={styles.button}
+          style={styles.button}
           title="Pick an image"
           onPress={handleImagePick}
         />
       </View>
       <Button
-       style={styles.button}
+        style={styles.button}
         title="Update Food"
         onPress={handleSubmit}
       />
@@ -111,10 +114,10 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: 20,
-    textAlign: "center",
-    color: "#333",
+    textAlign: 'center',
+    color: '#333',
   },
   image: {
     width: 200,
@@ -122,7 +125,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   button: {
-    backgroundColor: "#FF6F61",
+    backgroundColor: '#FF6F61',
   },
 });
 

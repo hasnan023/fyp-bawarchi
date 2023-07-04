@@ -45,23 +45,48 @@ router.post("/", auth, async (req, res, next) => {
 });
 
 //update/patch a record
+// router.put("/:id", async (req, res) => {
+//   const food = await Food.findById(req.params.id);
+
+//   food.name = req.body.name;
+//   food.price = req.body.price;
+//   food.description = req.body.description;
+
+//   food.save((err) => {
+//     if (err) {
+//       res.send(err);
+//       console.log("Can't update data: " + err);
+//     } else {
+//       //display in json format
+//       res.json(food);
+//       console.log("Data Updated");
+//     }
+//   });
+// });
+
+//update/patch a record
 router.put("/:id", async (req, res) => {
-  const food = await Food.findById(req.params.id);
+  try {
+    const { id } = req.params;
+    const { name, description, price, image } = req.body;
+    console.log(req.body)
 
-  food.name = req.body.name;
-  food.price = req.body.price;
-  food.description = req.body.description;
+    // Find the food item by ID
+    const food = await Food.findById(id);
 
-  food.save((err) => {
-    if (err) {
-      res.send(err);
-      console.log("Can't update data: " + err);
-    } else {
-      //display in json format
-      res.json(food);
-      console.log("Data Updated");
-    }
-  });
+    // Update the food item properties
+    food.name = name;
+    food.description = description;
+    food.price = price;
+    food.image = image;
+
+    // Save the updated food item
+    const updatedFood = await food.save();
+
+    res.json(updatedFood);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to update food item" });
+  }
 });
 
 //delete a record
