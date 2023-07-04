@@ -3,10 +3,7 @@ const router = express.Router();
 const Food = require("../structure/detail");
 const auth = require("../middlewares/auth");
 
-//async will not lock process
-//get all records
 router.get("/", auth, async (req, res) => {
-  //fetch all food and send
   try {
     //await for async return
     const food = await Food.find({ userId: req.user._id });
@@ -34,7 +31,7 @@ router.get("/:id", async (req, res) => {
 });
 
 //insert data in database
-router.post("/", auth, async function (req, res, next) {
+router.post("/", auth, async (req, res, next) => {
   console.log(req.user);
   let food = new Food();
   food.name = req.body.name;

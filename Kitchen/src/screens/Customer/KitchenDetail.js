@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  FlatList,
   Image,
   TouchableOpacity,
 } from "react-native";
@@ -14,15 +13,12 @@ import {
   selectCartItems,
   removeFromCart,
 } from "../../features/BasketSlice";
+import { Rating } from "react-native-elements";
 
 const RenderFoodItemCard = ({ item, kitchen }) => {
   const [quantity, setQuantity] = useState(0);
   const items = useSelector(selectCartItems);
   const dispatch = useDispatch();
-  // const removeDishFromBasket = () => {
-  //   dispatch(removeFromCart({ id: dish.id }));
-  //   setDishCount(dishCount - 1);
-  // };
 
   const incrementQuantity = (item) => {
     setQuantity((prevQuantity) => prevQuantity + 1);
@@ -77,6 +73,8 @@ const KitchenDetail = ({ route, navigation }) => {
   const [foodItems, setFoodItems] = useState([]);
   const state = useSelector((state) => state);
   const [cartItems, setCartItems] = useState(state.cart.items);
+  const customerName = route.params.customerName;
+  
 
   useEffect(() => {
     fetchKitchenDetail();
@@ -85,6 +83,15 @@ const KitchenDetail = ({ route, navigation }) => {
   useEffect(() => {
     setCartItems(state.cart.items);
   }, [state]);
+
+  const handleReview = async () => {
+    const kitchenId = route.params.kitchenId;
+    console.log(route.params.customerName)
+    console.log(customerName)
+    console.log(kitchenId)
+    // navigation.navigate('Review',{kitchenId},{customerName})
+  }
+
   const fetchKitchenDetail = async () => {
     const kitchenId = route.params.kitchenId;
     try {
@@ -110,14 +117,25 @@ const KitchenDetail = ({ route, navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.kitchenDetailsContainer}>
-        <Image source={{ uri: kitchen.image }} style={styles.kitchenImage} />
-        <View style={styles.kitchenInfoContainer}>
-          <Text style={styles.kitchenName}>{kitchen.fullName}</Text>
-          <Text style={styles.kitchenCuisine}>{kitchen.expertise}</Text>
-          <Text style={styles.kitchenAddress}>{kitchen.address}</Text>
+    <View style={styles.kitchenDetailsContainer}>
+      <Image source={{ uri: kitchen.image }} style={styles.kitchenImage} />
+      <View style={styles.kitchenInfoContainer}>
+        <View style={styles.ratingAndReviewContainer}>
+          <View style={styles.ratingContainer}>
+            <Rating
+              readonly
+              startingValue={kitchen.rating}
+              imageSize={20}
+              style={styles.kitchenRating}
+            />
+          </View>
+          <TouchableOpacity style={styles.reviewButton} onPress={() => handleReview()}>
+            <Text style={styles.reviewButtonText}>Reviews</Text>
+          </TouchableOpacity>
         </View>
+        <Text style={styles.kitchenName}>{kitchen.fullName}</Text>
+        <Text style={styles.kitchenCuisine}>{kitchen.expertise}</Text>
+        <Text style={styles.kitchenAddress}>{kitchen.address}</Text>
       </View>
       <View style={styles.itemsContainer}>
         {foodItems.length > 0 ? (
@@ -214,9 +232,29 @@ const styles = StyleSheet.create({
   itemsContainer: {
     display: "flex",
     flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
   },
+  ratingAndReviewContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  ratingContainer: {
+    marginRight: 8,
+  },
+  reviewButton: {
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+  },
+  reviewButtonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#FF6F61",
+  },  
   foodItemCard: {
-    flex: 0.5,
+    width: "48%",
     marginBottom: 16,
     borderRadius: 8,
     backgroundColor: "#fff",
@@ -226,7 +264,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     padding: 16,
-  },
+  },  
   foodItemImage: {
     width: "100%",
     height: 160,

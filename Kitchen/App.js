@@ -19,6 +19,7 @@ import CustomerLoginForm from "./src/screens/Customer/CustomerLoginForm";
 import CustomerRegisterForm from "./src/screens/Customer/CustomerRegisterForm";
 import CustomerScreen from "./src/screens/Customer/CustomerScreen";
 import ChefDisplay from "./src/screens/Customer/ChefDisplay"
+import ChefDetail from "./src/screens/Customer/ChefDetail";
 import KitchenDetail from "./src/screens/Customer/KitchenDetail";
 import CartScreen from "./src/screens/Customer/CartScreen";
 import RiderRegisterForm from "./src/screens/Rider/RiderRegisterForm";
@@ -27,6 +28,8 @@ import RiderScreen from "./src/screens/Rider/RiderScreen";
 import PlaceOrder from "./src/screens/Customer/PlaceOrder";
 import OrderPlaced from "./src/screens/Customer/OrderPlaced";
 import OrderDisplay from "./src/screens/Kitchen/OrderDisplay"
+import AdminPanel from "./src/admin/AdminPanel";
+import ReviewPage from "./src/screens/Customer/ReviewPage";
 import { store } from "./src/store";
 import { Provider } from "react-redux";
 const Stack = createStackNavigator();
@@ -36,6 +39,7 @@ function App() {
     <NavigationContainer>
       <Provider store={store}>
         <Stack.Navigator>
+        {/* <Stack.Screen name='Admin' component={AdminPanel} /> */}
           <Stack.Screen name='Main' component={Splash} />
           <Stack.Screen name='PlaceOrder' component={PlaceOrder} />
           <Stack.Screen name='Home' component={HomeScreen} />
@@ -58,11 +62,16 @@ function App() {
           <Stack.Screen name='CustomerLogin' component={CustomerLoginForm} />
           <Stack.Screen name='CustomerScreen' component={CustomerScreen} />
           <Stack.Screen name='ChefDisplay' component={ChefDisplay} />
+          <Stack.Screen name='ChefDetail' component={ChefDetail} />
           <Stack.Screen name='KitchenDetail' component={KitchenDetail} />
+          <Stack.Screen name='Review' component={ReviewPage} />
           <Stack.Screen name='CartScreen' component={CartScreen} />
-          <Stack.Screen name='RiderRegister' component={RiderRegisterForm} />
+          <Stack.Screen 
+          name='RiderRegister' 
+          component={RiderRegisterForm} />
           <Stack.Screen name='RiderLogin' component={RiderLoginForm} />
           <Stack.Screen name='RiderScreen' component={RiderScreen} />
+          
           <Stack.Screen name='AddFoodItem' component={AddFoodScreen} />
           <Stack.Screen name='EditFoodItem' component={EditFoodScreen} />
           <Stack.Screen name='DeleteFoodItem' component={DeleteFoodScreen} />

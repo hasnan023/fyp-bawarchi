@@ -23,7 +23,9 @@ const CustomerScreen = ({ navigation }) => {
   }, []);
 
   const navigateToKitchenDetail = (kitchenId) => {
-    navigation.navigate("KitchenDetail", { kitchenId });
+    console.log(customerName)
+    console.log(kitchenId)
+    navigation.navigate("KitchenDetail", { kitchenId }, customerName);
   };
 
   const navigateToEditProfile = async () => {

@@ -47,7 +47,6 @@ const AddFoodScreen = ({ navigation }) => {
 
     AsyncStorage.getItem("token").then((res) => {
       const token = res;
-      console.log(token);
       axios
         .post("http://localhost:3500/food", data, {
           headers: {
