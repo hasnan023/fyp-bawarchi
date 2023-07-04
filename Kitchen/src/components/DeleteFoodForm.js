@@ -8,7 +8,7 @@ const DeleteFoodScreen = ({ route, navigation }) => {
   const handleDelete = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:3500/food/${id}`, {
+      const response = await fetch(`http://192.168.18.14:3500/food/${id}`, {
         method: 'DELETE',
       });
       if (response.ok) {

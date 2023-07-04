@@ -14,7 +14,7 @@ const ForgotPasswordForm = ({navigation,route}) => {
   const handleSubmit = () => {
     // Send API request to the backend server
     axios  
-      .post("http://localhost:3500/reset", {email})
+      .post("http://192.168.18.14:3500/reset", {email})
       .then((response) => {
         setMessage(response.data.message);
         if(response.data.success){

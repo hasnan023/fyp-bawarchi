@@ -95,7 +95,7 @@ const KitchenDetail = ({ route, navigation }) => {
 
   const calculateAverageStars = async () => {
     try {
-      const response = await axios.get(`http://localhost:3500/reviews/${kitchenId}`);
+      const response = await axios.get(`http://192.168.18.14:3500/reviews/${kitchenId}`);
       const reviews = response.data;
   
       if (reviews.length > 0) {
@@ -112,7 +112,7 @@ const KitchenDetail = ({ route, navigation }) => {
     const kitchenId = route.params.kitchenId;
     try {
       const response = await axios.get(
-        `http://localhost:3500/kitchen/${kitchenId}`
+        `http://192.168.18.14:3500/kitchen/${kitchenId}`
       );
 
       const { kitchen, foodItems } = response.data;

@@ -2,15 +2,16 @@ import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Image } from "react-native";
 
 const logoImage = require('../images/logo.png');
+const welcomeImage = require('../../assets/chef.png');
 
 const HomeScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.upperContainer}>
+        <Image source={welcomeImage} style={styles.logo} />
         <Text style={styles.upperText}>Welcome to Bawarchi</Text>
       </View>
       <View style={styles.lowerContainer}>
-        <Image source={logoImage} style={styles.logo} />
         <View style={styles.buttonContainer}>
           <TouchableOpacity
             style={styles.button}
@@ -37,8 +38,7 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
-    paddingHorizontal: 32,
+    backgroundColor: "#09605e",
   },
   upperContainer: {
     flex: 1,
@@ -53,16 +53,18 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   lowerContainer: {
-    flex: 2,
-    backgroundColor: "#FFFFFF",
+    borderTopLeftRadius: 80,
+    borderTopRightRadius: 80,
+    flex: 1,
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
   },
   logo: {
-    width: 300,
-    height: 300,
+    width: 150,
+    height: 150,
     resizeMode: "contain",
-    marginBottom: 32,
+    marginBottom: 16,
   },
   buttonContainer: {
     alignItems: "center",

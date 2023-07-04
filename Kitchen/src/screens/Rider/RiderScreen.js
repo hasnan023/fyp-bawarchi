@@ -18,7 +18,7 @@ const RiderScreen = ({ navigation }) => {
   const fetchProfilePicture = async () => {
     try {
       const userId = await AsyncStorage.getItem("userId");
-      const response = await axios.get(`http://localhost:3500/user/${userId}`);
+      const response = await axios.get(`http://192.168.18.14:3500/user/${userId}`);
       const profilePicture = response.data.image;
       const customerName = response.data.fullName;
       setProfilePicture(profilePicture);
@@ -30,7 +30,7 @@ const RiderScreen = ({ navigation }) => {
 
   const getOrderPickupDetails = async () =>{
     try{
-       const response =  await axios.get("http://localhost:3500/pickups")
+       const response =  await axios.get("http://192.168.18.14:3500/pickups")
        setOrders(response.data);
        console.log(response.data)
       }catch(err){
@@ -41,12 +41,12 @@ const RiderScreen = ({ navigation }) => {
   const delivered = async (orderId) => {
     try{
       const status = "Delivered"
-      const response = await axios.put(`http://localhost:3500/orders/${orderId}`, {status});
+      const response = await axios.put(`http://192.168.18.14:3500/orders/${orderId}`, {status});
       console.log("Order status updated successfully");
     } catch (error) {
       console.log("Error updating order status:", error);
     }
-    await axios.delete(`http://localhost:3500/pickups/${orderId}`)
+    await axios.delete(`http://192.168.18.14:3500/pickups/${orderId}`)
   };
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const RiderScreen = ({ navigation }) => {
     try {
       console.log(orderId)
       const status = "Picked up"
-      const response = await axios.put(`http://localhost:3500/orders/${orderId}`, {status});
+      const response = await axios.put(`http://192.168.18.14:3500/orders/${orderId}`, {status});
       console.log("Order status updated successfully");
     } catch (error) {
       console.log("Error updating order status:", error);

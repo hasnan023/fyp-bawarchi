@@ -19,7 +19,7 @@ const FoodScreen = ({ navigation }) => {
         const token = res;
         console.log("Response: " + token);
 
-        fetch("http://localhost:3500/food", {
+        fetch("http://192.168.18.14:3500/food", {
           method: "GET",
           headers: {
             "x-auth-token": token,
@@ -58,7 +58,7 @@ const FoodScreen = ({ navigation }) => {
     try {
       const userId = await AsyncStorage.getItem("userId");
       console.log(userId)
-      const response = await axios.get(`http://localhost:3500/user/${userId}`);
+      const response = await axios.get(`http://192.168.18.14:3500/user/${userId}`);
       const profilePicture = response.data.image;
       const kitchenName = response.data.fullName;
       setProfilePicture(profilePicture);
