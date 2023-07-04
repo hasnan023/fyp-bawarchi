@@ -21,6 +21,12 @@ const RiderRegisterForm = ({ navigation }) => {
   const [image, setImage] = useState("");
   const [CNIC, setCNIC] = useState("");
   const [vehicleNumber, setVehicleNumber] = useState("");
+  const [emailErr,setEmailErr] = useState("");
+  const [nameErr,setNameErr]  = useState("");
+  const [addressErr,setAddressErr] = useState("");
+  const [phoneNumberErr,setPhoneNumberErr] = useState("");
+  const [passwordErr,setPasswordErr] = useState("");
+  const [imageErr,setImageErr] = useState("");
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -38,9 +44,48 @@ const RiderRegisterForm = ({ navigation }) => {
   
     if (!result.canceled) {
       setImage(result.uri);
+      setImageErr("");
     }};
 
   const handleRegistration = () => {
+    if(fullName.length < 3){
+      setNameErr("Name should be at least 3 characters long");
+      return;
+      }
+      if(!email){
+        setEmailErr("Email is required");
+        return;
+      }
+      if(!email.includes("@") || !email.includes(".")){
+        setEmailErr(`Email must include "@" and a "."`);
+        return;
+      }
+      if(!address){
+        setAddressErr("Address is required.");
+        return;
+      }
+      // if(address.length < 3){
+      //   setAddressErr("Address should be at least 3 characters long");
+      //   return;
+      //   }
+      if(!phoneNumber){
+        setPhoneNumberErr("Phone number is required.");
+        return;
+        }
+      if(!password){
+        setPasswordErr("Password is required.");
+        return;
+        }
+
+        if(password.length < 8){
+          setPasswordErr("Password should be at least 8 characters long");
+          return;
+          }
+    
+          if(!image){
+            setImageErr("Image is required.");
+            return;
+          }
     const riderData = {
       fullName,
       email,
@@ -70,38 +115,48 @@ const RiderRegisterForm = ({ navigation }) => {
       <TextInput
         placeholder="Full Name"
         value={fullName}
-        onChangeText={setFullName}
+        onChangeText={(fullName)=>{setFullName(fullName);
+          setNameErr("")}}
         style={styles.input}
       />
+       {nameErr ? <Text style={styles.errText}>{nameErr}</Text>:null}
       <Text style={styles.label}>Email:</Text>
       <TextInput
         placeholder="Email"
         value={email}
-        onChangeText={setEmail}
+        onChangeText={(email)=>{setEmail(email);
+          setEmailErr("")}}
         style={styles.input}
       />
+      {emailErr ? <Text style={styles.errText}>{emailErr}</Text>:null}
       <Text style={styles.label}>Address:</Text>
       <TextInput
         placeholder="Address"
         value={address}
-        onChangeText={setAddress}
+        onChangeText={(address)=>{setAddress(address);
+          setAddressErr("")}}
         style={styles.input}
       />
+      {addressErr ? <Text style={styles.errText}>{addressErr}</Text>:null}
       <Text style={styles.label}>Phone number:</Text>
       <TextInput
         placeholder="Phone Number"
         value={phoneNumber}
-        onChangeText={setPhoneNumber}
+        onChangeText={(phoneNumber)=>{setPhoneNumber(phoneNumber);
+          setPhoneNumberErr("")}}
         style={styles.input}
       />
+      {phoneNumberErr ? <Text style={styles.errText}>{phoneNumberErr}</Text>:null}
       <Text style={styles.label}>Password:</Text>
       <TextInput
         placeholder="Password"
         secureTextEntry
         value={password}
-        onChangeText={setPassword}
+        onChangeText={(password)=>{setPassword(password);
+          setPasswordErr("")}}
         style={styles.input}
       />
+       {passwordErr ? <Text style={styles.errText}>{passwordErr}</Text>:null}
       <Text style={styles.label}>CNIC:</Text>
       <TextInput
         placeholder="CNIC"
@@ -124,11 +179,12 @@ const RiderRegisterForm = ({ navigation }) => {
         onPress={pickImage}
       >
         <Text style={styles.buttonText}>Select Profile Picture</Text>
-      </TouchableOpacity>
-      
+        </TouchableOpacity>
+      {imageErr ? <Text style={styles.errText}>{imageErr}</Text>:null}
       {image && (
-        <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+        <Image source={{ uri: image }} style={styles.image} />
       )}
+
 
     <TouchableOpacity
         style={styles.registerButton}
@@ -205,6 +261,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
     textAlign: "center",
     color: "#888",
+  },
+  errText:{
+    color:"red"
   },
 });
 export default RiderRegisterForm;

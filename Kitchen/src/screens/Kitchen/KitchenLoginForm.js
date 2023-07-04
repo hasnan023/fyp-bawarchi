@@ -81,6 +81,7 @@ const KitchenLoginForm = ({ navigation }) => {
         }}
         secureTextEntry={true}
         placeholder="Enter your password"
+        
       />
       {passError ? <Text style={styles.errText}>{passError}</Text>:null}
 
