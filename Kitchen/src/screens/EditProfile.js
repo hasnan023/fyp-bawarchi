@@ -94,12 +94,12 @@ const EditProfile = ({ route }) => {
           style={styles.image}
         />
         <Button
+          color="#FF6F61"
           title="Pick an image"
           onPress={handleImagePick}
         />
       </View>
-        {/* Add a button to save the changes */}
-        <Button title="Save Profile" onPress={handleSaveProfile} />
+        <Button color="#FF6F61"title="Save Profile" onPress={handleSaveProfile} />
       </View>
     );
   };
@@ -134,6 +134,10 @@ const EditProfile = ({ route }) => {
       height: 200,
       marginBottom: 8,
     },
+    button: {
+      backgroundColor:"#FF6F61",
+      color:"red"
+    }
   });
   
   export default EditProfile;

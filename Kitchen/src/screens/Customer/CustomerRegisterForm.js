@@ -49,49 +49,49 @@ const CustomerRegisterForm = ({ navigation }) => {
   };
 
   const handleRegistration = async() => {
- if(fullName.length < 3){
-  setNameErr("Name should be at least 3 characters long");
-  return;
-  }
-  if(!email){
-    setEmailErr("Email is required");
-    return;
-  }
-  if(!email.includes("@") || !email.includes(".")){
-    setEmailErr(`Email must include "@" and a "."`);
-    return;
-  }
-  if(!address){
-    setAddressErr("Address is required.");
-    return;
-  }
-  // if(address.length < 3){
-  //   setAddressErr("Address should be at least 3 characters long");
-  //   return;
-  //   }
-  if(!phoneNumber){
-    setPhoneNumberErr("Phone number is required.");
+  if(fullName.length < 3){
+    setNameErr("Name should be at least 3 characters long");
     return;
     }
-    // if(phoneNumber){
-    //   setPhoneNumberErr("Phone number should be at least 3 characters long");
+    if(!email){
+      setEmailErr("Email is required");
+      return;
+    }
+    if(!email.includes("@") || !email.includes(".")){
+      setEmailErr(`Email must include "@" and a "."`);
+      return;
+    }
+    if(!address){
+      setAddressErr("Address is required.");
+      return;
+    }
+    // if(address.length < 3){
+    //   setAddressErr("Address should be at least 3 characters long");
     //   return;
     //   }
+    if(!phoneNumber){
+      setPhoneNumberErr("Phone number is required.");
+      return;
+      }
+      // if(phoneNumber){
+      //   setPhoneNumberErr("Phone number should be at least 3 characters long");
+      //   return;
+      //   }
 
-      if(!password){
-        setPasswordErr("Password is required.");
-        return;
-        }
+    if(!password){
+      setPasswordErr("Password is required.");
+      return;
+      }
 
-        if(password.length < 8){
-          setPasswordErr("Password should be at least 8 characters long");
-          return;
-          }
-    
-          if(!image){
-            setImageErr("Image is required.");
-            return;
-          }
+    if(password.length < 8){
+      setPasswordErr("Password should be at least 8 characters long");
+      return;
+      }
+
+    if(!image){
+      setImageErr("Image is required.");
+      return;
+    }
 
     const customerData = {
       fullName,
@@ -106,7 +106,7 @@ const CustomerRegisterForm = ({ navigation }) => {
     try{
       const response = await axios.post("http://localhost:3500/user/register", customerData)
        console.log(response)
-      navigation.navigate("CustomerLogin")
+       navigation.navigate("CustomerLogin")
     }catch(error){
     console.log(error.message)
     }
@@ -165,7 +165,7 @@ const CustomerRegisterForm = ({ navigation }) => {
         setPasswordErr("")}}
         style={styles.input}
       />
- {passwordErr ? <Text style={styles.errText}>{passwordErr}</Text>:null}
+      {passwordErr ? <Text style={styles.errText}>{passwordErr}</Text>:null}
       <TouchableOpacity
         style={styles.selectButton}
         onPress={pickImage}

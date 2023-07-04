@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -27,9 +28,12 @@ import RiderLoginForm from "./src/screens/Rider/RiderLoginForm";
 import RiderScreen from "./src/screens/Rider/RiderScreen";
 import PlaceOrder from "./src/screens/Customer/PlaceOrder";
 import OrderPlaced from "./src/screens/Customer/OrderPlaced";
+import CustomerOrder from "./src/screens/Customer/CustomerOrders"
 import OrderDisplay from "./src/screens/Kitchen/OrderDisplay"
 import AdminPanel from "./src/admin/AdminPanel";
 import ReviewPage from "./src/screens/Customer/ReviewPage";
+import ForgotPasswordForm from "./src/screens/Reset/ForgotPasswordForm";
+import ForgotPasswordConfirmation from "./src/screens/Reset/ForgotPasswordConfirmation";
 import { store } from "./src/store";
 import { Provider } from "react-redux";
 const Stack = createStackNavigator();
@@ -38,14 +42,16 @@ function App() {
   return (
     <NavigationContainer>
       <Provider store={store}>
-        <Stack.Navigator>
-        {/* <Stack.Screen name='Admin' component={AdminPanel} /> */}
+        <Stack.Navigator options={{ headerShown: false }} initialRouteName="Main">
+
+        <Stack.Screen name='Admin' component={AdminPanel} />
           <Stack.Screen name='Main' component={Splash} />
           <Stack.Screen name='PlaceOrder' component={PlaceOrder} />
           <Stack.Screen name='Home' component={HomeScreen} />
           <Stack.Screen name='Signup' component={SignupScreen} />
           <Stack.Screen name='Signin' component={SigninScreen} />
           <Stack.Screen name='Welcome' component={FoodScreen} />
+
           <Stack.Screen
             name='KitchenRegister'
             component={KitchenRegisterForm}
@@ -55,6 +61,7 @@ function App() {
           <Stack.Screen name='ChefLogin' component={ChefLoginForm} />
           <Stack.Screen name='ChefScreen' component={ChefScreen} />
           <Stack.Screen name='EditProfile' component={EditProfile} />
+
           <Stack.Screen
             name='CustomerRegister'
             component={CustomerRegisterForm}
@@ -66,6 +73,8 @@ function App() {
           <Stack.Screen name='KitchenDetail' component={KitchenDetail} />
           <Stack.Screen name='Review' component={ReviewPage} />
           <Stack.Screen name='CartScreen' component={CartScreen} />
+          <Stack.Screen name='CustomerOrder' component={CustomerOrder} />
+
           <Stack.Screen 
           name='RiderRegister' 
           component={RiderRegisterForm} />
@@ -77,6 +86,12 @@ function App() {
           <Stack.Screen name='DeleteFoodItem' component={DeleteFoodScreen} />
           <Stack.Screen name='OrderDisplay' component={OrderDisplay} />
           <Stack.Screen name='OrderPlaced' component={OrderPlaced} />
+
+          <Stack.Screen 
+          name='ForgotPassword' 
+          component={ForgotPasswordForm} />
+          <Stack.Screen name='ForgotPasswordConfirmation' component={ForgotPasswordConfirmation} />
+
         </Stack.Navigator>
       </Provider>
     </NavigationContainer>

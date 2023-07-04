@@ -72,6 +72,14 @@ const CustomerLoginForm = ({ navigation, userId }) => {
       />
         {passError ? <Text style={styles.errText}>{passError}</Text>:null}
 
+        <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("ForgotPassword");
+        }}
+      >
+        <Text style={styles.resetText}>Forgot password?</Text>
+      </TouchableOpacity>
+
       <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
@@ -130,6 +138,11 @@ const styles = StyleSheet.create({
   registerText: {
     marginTop: 10,
     textAlign: "center",
+    color: "#888",
+  },
+  resetText: {
+    margin: 10,
+    textAlign: "right",
     color: "#888",
   },
   errText:{

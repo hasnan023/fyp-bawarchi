@@ -2,13 +2,15 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 export default function PlaceOrder({ navigation }) {
   const state = useSelector((state) => state);
   const [customerName, setCustomerName] = useState("");
   const [customerAddress, setCustomerAddress] = useState("");
   const [totalPrice, setTotalPrice] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("");
-  console.log(state);
+  
 
   useEffect(() => {}, [state]);
   const handleConfirmOrder = () => {
@@ -16,9 +18,11 @@ export default function PlaceOrder({ navigation }) {
       axios
         .post("http://localhost:3500/orders/", {
           customerName: state.user.user.name,
+          customerId: state.user.user.userId,
           address: state.user.user.address,
           phoneNumber:state.user.user.phoneNumber,
           foodItems: state.cart.items,
+          status: "Processing",
           totalPrice: state.cart.items.reduce(
             (total, item) => total + item.price * item.quantity,
             0

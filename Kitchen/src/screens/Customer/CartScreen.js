@@ -1,9 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
+import Icon from "react-native-vector-icons/MaterialIcons";
+
 const CartScreen = ({ navigation }) => {
   const state = useSelector((state) => state);
   const [cartItems, setCartItems] = useState(state.cart.items);
+
+  // const deleteItem = (id) => {
+  //   deleteDoc(doc(db, "cart", `${id}`));
+  //   setCartItems(cartItems.filter((item) => item.id !== id));
+  // };
 
   return (
     <View style={styles.container}>
@@ -23,6 +30,14 @@ const CartScreen = ({ navigation }) => {
                   Quantity: {item.quantity}
                 </Text>
               </View>
+              <TouchableOpacity
+                  style={{ width: "10%" }}
+                  // onPress={() => {
+                  //   deleteItem(item._id);
+                  // }}
+                >
+                  <Icon name="delete" size={28} />
+                </TouchableOpacity>
             </View>
           ))}
           <Text style={styles.totalText}>

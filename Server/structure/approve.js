@@ -39,7 +39,20 @@ const approvedRequestSchema = new mongoose.Schema({
     },
     status:{
       type:String // pending, active, rejected
+    },
+    verificationCode: {
+      type: String,
+    },
+    verified: {
+      type: Boolean,
+    },
+    resetToken: {
+      type: String,
+    },
+    resetTokenExpiration: {
+      type: Date,
     }
+    
   },
   { timestamps: true }
 );

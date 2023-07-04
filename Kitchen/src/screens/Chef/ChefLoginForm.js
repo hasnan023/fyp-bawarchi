@@ -83,6 +83,14 @@ const ChefLoginForm = ({ navigation, userId }) => {
       />
       {passError ? <Text style={styles.errText}>{passError}</Text>:null}
 
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("ForgotPassword");
+        }}
+      > 
+      <Text style={styles.resetText}>Forgot password?</Text>
+      </TouchableOpacity>
+
     <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
@@ -153,6 +161,11 @@ const styles = StyleSheet.create({
   },
   errText:{
     color:"red"
+  },
+  resetText: {
+    margin: 10,
+    textAlign: "right",
+    color: "#888",
   },
 });
 

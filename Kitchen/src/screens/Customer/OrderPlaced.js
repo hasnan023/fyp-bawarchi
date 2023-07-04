@@ -1,15 +1,19 @@
-import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity} from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function OrderPlaced({ navigation }) {
+
   const handleGoBack = () => {
     // Navigate back to the home screen
     navigation.navigate("CustomerScreen");
   };
 
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Order Placed</Text>
+      
       <TouchableOpacity style={styles.button} onPress={handleGoBack}>
         <Text style={styles.buttonText}>Go back to home</Text>
       </TouchableOpacity>
@@ -35,6 +39,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 20,
+    marginBottom: 10,
   },
   buttonText: {
     fontSize: 16,

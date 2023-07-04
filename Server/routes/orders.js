@@ -30,9 +30,9 @@ router.get("/:id", getOrder, (req, res) => {
 });
 
 // Update an existing order
-router.patch("/:id", getOrder, async (req, res) => {
+router.put("/:id", getOrder, async (req, res) => {
   try {
-    Object.assign(res.order, req.body);
+    res.order.status = req.body.status;
     const updatedOrder = await res.order.save();
     res.json(updatedOrder);
   } catch (error) {

@@ -57,10 +57,12 @@ const FoodScreen = ({ navigation }) => {
   const fetchProfilePicture = async () => {
     try {
       const userId = await AsyncStorage.getItem("userId");
+      console.log(userId)
       const response = await axios.get(`http://localhost:3500/user/${userId}`);
       const profilePicture = response.data.image;
       const kitchenName = response.data.fullName;
       setProfilePicture(profilePicture);
+      console.log(response.data)
       setKitchenName(kitchenName);
     } catch (error) {
       console.log("Error fetching profile Picture:", error);

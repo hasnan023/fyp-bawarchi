@@ -20,9 +20,12 @@ const orderSchema = new mongoose.Schema(
     paymentMethod: {
       type: String,
     },
-    completed: {
-      type: Boolean,
-      default: false,
+    customerId: {
+      type:String,
+      required:true
+    },
+    status: {
+      type: String,
     },
     address:{
       type:String,

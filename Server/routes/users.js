@@ -49,6 +49,9 @@ router.post("/register", async (req, res) => {
         vehicleNumber,
         CNIC,
         status: 'active',
+        verificationCode,
+        resetToken,
+        resetTokenExpiration
       })
       // Save the user to MongoDB
     await user.save();
@@ -68,6 +71,9 @@ router.post("/register", async (req, res) => {
         vehicleNumber,
         CNIC,
         status: 'pending',
+        verificationCode:'',
+        resetToken:'',
+        resetTokenExpiration:''
       });
     // Save the user to MongoDB
     await pending.save();

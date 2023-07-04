@@ -37,6 +37,7 @@ const KitchenLoginForm = ({ navigation }) => {
       .post("http://localhost:3500/user/login", data)
       .then((response) => {
         console.log(response.data);
+        AsyncStorage.setItem("userId", response.data.userId);
 
         AsyncStorage.setItem("token", response.data.token).then(() => {
           console.log("Token stored");
@@ -83,6 +84,14 @@ const KitchenLoginForm = ({ navigation }) => {
         
       />
       {passError ? <Text style={styles.errText}>{passError}</Text>:null}
+
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("ForgotPassword");
+        }}
+      > 
+      <Text style={styles.resetText}>Forgot password?</Text>
+      </TouchableOpacity>
 
     <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
@@ -150,6 +159,11 @@ const styles = StyleSheet.create({
     color: 'red',
     marginTop: 8,
     textAlign:"center"
+  },
+  resetText: {
+    margin: 10,
+    textAlign: "right",
+    color: "#888",
   },
   errText:{
     color:"red"

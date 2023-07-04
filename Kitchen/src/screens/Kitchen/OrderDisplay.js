@@ -16,16 +16,26 @@ const OrderDisplay = ({ route }) => {
     }
   };
 
+  const setOrderStatus = async (orderId) => {
+    try {
+      console.log(orderId)
+      const status = "Preparing"
+      const response = await axios.put(`http://localhost:3500/orders/${orderId}`, {status});
+      console.log("Order status updated successfully");
+    } catch (error) {
+      console.log("Error updating order status:", error);
+    }
+  };
+  
+
   const renderOrder = ({ item }) => {
-    console.log(item.kitchenName)
-    console.log(kitchenName)
     console.log(item)
     if (item.kitchenName === kitchenName) {
       return (
         <View style={styles.orderItem}>
           <Text style={styles.orderName}>Customer Name: {item.customerName}</Text>
           <Text style={styles.orderPrice}>Total Price: {item.totalPrice}</Text>
-          {console.log(item.customerName)}
+          
           <Text style={styles.orderSubheading}>Food Items:</Text>
           {item.foodItems.map((foodItem, index) => (
             <View key={index} style={styles.foodItemContainer}>
@@ -35,11 +45,21 @@ const OrderDisplay = ({ route }) => {
               <Text>Price: {foodItem.price}</Text>
               <Text>Kitchen: {foodItem.kitchen.fullName}</Text>
               
-              <TouchableOpacity
-              style = {styles.pickup}
-              onPress={() => sendToRider(item)}>
-              Ready for pickup
+              
+            <View style={styles.buttonsContainer}>
+            <TouchableOpacity
+              style={styles.pickupButton}
+              onPress={() => setOrderStatus(item._id)}
+            >
+              <Text style={styles.buttonText}>Start Preparing</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.pickupButton}
+                onPress={() => sendToRider(item)}
+              >
+              <Text style={styles.buttonText}>Order Ready</Text>
+            </TouchableOpacity>
+            </View>
             </View>
           ))}
         </View>
@@ -168,6 +188,28 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
   },
+  buttonsContainer: {
+    flexDirection: 'row',
+    marginTop: 8,
+  },
+  preparingButton: {
+    backgroundColor: '#007AFF',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+    marginRight: 8,
+  },
+  pickupButton: {
+    backgroundColor: '#FF6F61',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+  },
+  
 });
 
 export default OrderDisplay;

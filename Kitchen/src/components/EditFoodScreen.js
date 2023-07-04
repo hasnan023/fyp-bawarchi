@@ -37,9 +37,6 @@ const EditFoodScreen = ({ route, navigation }) => {
   const handleSubmit = () => {
     fetch(`http://localhost:3500/food/${id}`, {
       method: 'put',
-      headers: {
-        'Content-Type': 'application/json',
-      },
       body: JSON.stringify({
         name: name,
         description: description,
