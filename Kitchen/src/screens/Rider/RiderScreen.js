@@ -38,13 +38,15 @@ const RiderScreen = ({ navigation }) => {
       }
   };
   
-  const delivered = async () => {
+  const delivered = async (orderId) => {
     try{
-      await axios.delete("http://localhost:3500/pickups")
-
-    }catch(err){
-      console.log(err);
+      const status = "Delivered"
+      const response = await axios.put(`http://localhost:3500/orders/${orderId}`, {status});
+      console.log("Order status updated successfully");
+    } catch (error) {
+      console.log("Error updating order status:", error);
     }
+    await axios.delete(`http://localhost:3500/pickups/${orderId}`)
   };
 
   useEffect(() => {
@@ -54,6 +56,17 @@ const RiderScreen = ({ navigation }) => {
     })();
   }, []);
 
+  const setOrderStatus = async (orderId) => {
+    try {
+      console.log(orderId)
+      const status = "Picked up"
+      const response = await axios.put(`http://localhost:3500/orders/${orderId}`, {status});
+      console.log("Order status updated successfully");
+    } catch (error) {
+      console.log("Error updating order status:", error);
+    }
+  };
+
   const renderOrder = ({ item }) => {
       return (
         <View style={styles.orderItem}>
@@ -62,19 +75,29 @@ const RiderScreen = ({ navigation }) => {
           <Text style={styles.orderPrice}>Address: {item.address}</Text>
           <Text style={styles.orderPrice}>Phone Number: {item.phoneNumber}</Text>
           <TouchableOpacity
-              style = {styles.delivered}
-              onPress={() => delivered(item)}>
+              style = {{backgroundColor: "green",
+              padding: 8,
+              alignItems:"flex-center" ,
+              marginLeft: 180,
+              width:100}}
+              onPress={() => setOrderStatus(item._id)}
+              >
               <Text>Accept</Text>
             </TouchableOpacity>
+
             <TouchableOpacity
-              style = {styles.delivered}
-              // onPress={() => delivered(item)}
+              style = {{backgroundColor: "red",
+              padding: 8,
+              alignItems:"flex-center" ,
+              marginLeft: 180,
+              width:100}}
+              onPress={() => deleteOrder(item._id)}
               >
               <Text>Reject</Text>
             </TouchableOpacity>
           <TouchableOpacity
               style = {styles.delivered}
-              onPress={() => delivered(item)}>
+              onPress={() => delivered(item._id)}>
                <Text>Delivered</Text>
             </TouchableOpacity>
         </View>

@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -27,6 +28,7 @@ import RiderLoginForm from "./src/screens/Rider/RiderLoginForm";
 import RiderScreen from "./src/screens/Rider/RiderScreen";
 import PlaceOrder from "./src/screens/Customer/PlaceOrder";
 import OrderPlaced from "./src/screens/Customer/OrderPlaced";
+import CustomerOrder from "./src/screens/Customer/CustomerOrders"
 import OrderDisplay from "./src/screens/Kitchen/OrderDisplay"
 import AdminPanel from "./src/admin/AdminPanel";
 import ReviewPage from "./src/screens/Customer/ReviewPage";
@@ -40,7 +42,7 @@ function App() {
   return (
     <NavigationContainer>
       <Provider store={store}>
-        <Stack.Navigator initialRouteName="Main">
+        <Stack.Navigator options={{ headerShown: false }} initialRouteName="Main">
 
         <Stack.Screen name='Admin' component={AdminPanel} />
           <Stack.Screen name='Main' component={Splash} />
@@ -71,6 +73,7 @@ function App() {
           <Stack.Screen name='KitchenDetail' component={KitchenDetail} />
           <Stack.Screen name='Review' component={ReviewPage} />
           <Stack.Screen name='CartScreen' component={CartScreen} />
+          <Stack.Screen name='CustomerOrder' component={CustomerOrder} />
 
           <Stack.Screen 
           name='RiderRegister' 

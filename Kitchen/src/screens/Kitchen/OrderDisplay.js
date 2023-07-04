@@ -16,7 +16,20 @@ const OrderDisplay = ({ route }) => {
     }
   };
 
+  const setOrderStatus = async (orderId) => {
+    try {
+      console.log(orderId)
+      const status = "Preparing"
+      const response = await axios.put(`http://localhost:3500/orders/${orderId}`, {status});
+      console.log("Order status updated successfully");
+    } catch (error) {
+      console.log("Error updating order status:", error);
+    }
+  };
+  
+
   const renderOrder = ({ item }) => {
+    console.log(item)
     if (item.kitchenName === kitchenName) {
       return (
         <View style={styles.orderItem}>
@@ -34,15 +47,18 @@ const OrderDisplay = ({ route }) => {
               
               
             <View style={styles.buttonsContainer}>
-              <TouchableOpacity style={styles.preparingButton}>
-                <Text style={styles.buttonText}>Preparing</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={styles.pickupButton}
+            <TouchableOpacity
+              style={styles.pickupButton}
+              onPress={() => setOrderStatus(item._id)}
+            >
+              <Text style={styles.buttonText}>Start Preparing</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.pickupButton}
                 onPress={() => sendToRider(item)}
               >
-                <Text style={styles.buttonText}>Ready for Pickup</Text>
-              </TouchableOpacity>
+              <Text style={styles.buttonText}>Order Ready</Text>
+            </TouchableOpacity>
             </View>
             </View>
           ))}
