@@ -38,7 +38,7 @@ const ForgotPasswordForm = ({navigation,route}) => {
       <Button
         title="Reset Password"
         onPress={handleSubmit}
-        color="#FF6F61"
+        color="#09605e"
       />
       {message !== "" && <Text style={styles.message}>{message}</Text>}
     </View>

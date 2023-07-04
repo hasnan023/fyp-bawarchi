@@ -59,7 +59,12 @@ const RiderLoginForm = ({ navigation, userId }) => {
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Rider Login</Text>
+      <View style={styles.upperContainer}>
+       
+       <Text style={styles.title}>Kitchen Login</Text>
+     
+   </View>
+   <View style={styles.lowerContainer}>
       <Text style={styles.label}>Email:</Text>
       <TextInput
         style={styles.input}
@@ -105,47 +110,65 @@ const RiderLoginForm = ({ navigation, userId }) => {
       </TouchableOpacity>
       {error ? <Text style={styles.error}>{error}</Text> : null}
     </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    backgroundColor: "#09605e",
+  },
+  upperContainer: {
+    flex: 1,
+    alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#f9f9f9",
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: "fit",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  lowerContainer: {
+    flex: 2,
+    borderTopLeftRadius: 80,
+    borderTopRightRadius: 80,
+    backgroundColor: "white",
+    justifyContent: "center",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-    color: "#333",
-  },
-  resetText: {
-    margin: 10,
-    textAlign: "right",
-    color: "#888",
+    color: "white",
   },
   label: {
     fontWeight: "bold",
-    marginBottom: 5,
+    marginBottom: 10,
     color: "#333",
+    marginLeft:40,
+    marginRight:40
   },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 4,
-    padding: 8, // Adjusted padding
-    marginBottom: 8, // Adjusted marginBottom
+    padding: 10, 
+    marginBottom: 10, 
     backgroundColor: "#fff",
     color: "#333",
+    marginLeft:40,
+    marginRight:40
   },
   loginButton: {
-    backgroundColor: "#FF6F61",
+    backgroundColor: "#09605e",
     paddingVertical: 12,
-    borderRadius: 4,
+    borderRadius: 8,
     marginBottom: 10,
+    marginLeft:40,
+    marginRight:40
   },
   buttonText: {
     color: "#fff",
@@ -159,12 +182,18 @@ const styles = StyleSheet.create({
     color: "#888",
   },
   error: {
-    color: 'red',
+    color: "red",
     marginTop: 8,
-    textAlign:"center"
+    textAlign: "center",
   },
-  errText:{
-    color:"red"
+  errText: {
+    color: "red",
+  },
+  resetText: {
+    margin: 10,
+    marginRight:40,
+    textAlign: "right",
+    color: "#888",
   },
 });
 export default RiderLoginForm;

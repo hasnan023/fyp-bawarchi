@@ -64,7 +64,7 @@ const ForgotPasswordConfirmation = ({navigation, route}) => {
       <Button
         title="Submit"
         onPress={handleSubmit}
-        color="#FF6F61"
+        color="#09605e"
       />
       {/* <Button
         onPress={handleResendCode}

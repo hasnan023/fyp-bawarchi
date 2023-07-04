@@ -234,13 +234,13 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   selectButton: {
-    backgroundColor: "#FF6F61",
+    backgroundColor: "#09605e",
     paddingVertical: 12,
     borderRadius: 4,
     marginBottom: 10,
   },
   registerButton: {
-    backgroundColor: "#FF6F61",
+    backgroundColor: "#09605e",
     paddingVertical: 12,
     borderRadius: 4,
     marginBottom: 10,
