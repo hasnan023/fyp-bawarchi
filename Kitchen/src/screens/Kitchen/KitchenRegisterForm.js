@@ -114,8 +114,10 @@ const KitchenRegisterForm = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+       <View style={styles.upperContainer}>
       <Text style={styles.title}>Kitchen Registration</Text>
-
+      </View>
+      <View style={styles.lowerContainer}>
       <Text style={styles.label}>Full Name:</Text>
       <TextInput
         placeholder="Full Name"
@@ -200,26 +202,43 @@ const KitchenRegisterForm = ({ navigation }) => {
         <Text style={styles.loginText}>Already have an account? Login!</Text>
       </TouchableOpacity>
     </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: "#f9f9f9",
+    //padding: 20,
+    backgroundColor: "#09605e",
   },
+  upperContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  lowerContainer: {
+    flex: 4,
+    borderTopLeftRadius: 90,
+    borderTopRightRadius: 90,
+    backgroundColor: "white",
+    justifyContent: "center",
+  },
+
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-    color: "#333",
+    color: "white",
   },
   label: {
     fontWeight: "bold",
     marginBottom: 5,
     color: "#333",
+    marginLeft:40,
+    marginRight:40
   },
   input: {
     borderWidth: 1,
@@ -229,18 +248,28 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: "#fff",
     color: "#333",
+    marginLeft:40,
+    marginRight:40
+  },
+  picker:{
+    justifyContent:"center",
+    alignSelf:"center",
   },
   selectButton: {
     backgroundColor: "#09605e",
     paddingVertical: 12,
     borderRadius: 4,
     marginBottom: 10,
+    marginLeft:40,
+    marginRight:40
   },
   registerButton: {
     backgroundColor: "#09605e",
     paddingVertical: 12,
     borderRadius: 4,
     marginBottom: 10,
+    marginLeft:40,
+    marginRight:40
   },
   buttonText: {
     color: "#fff",
@@ -260,7 +289,19 @@ const styles = StyleSheet.create({
     color: "#888",
   },
   errText:{
-    color:"red"
+    color:"red",
+    marginTop: 8,
+    textAlign: "center",
+  },
+  
+  errText: {
+    color: "red",
+  },
+  resetText: {
+    margin: 10,
+    marginRight:40,
+    textAlign: "right",
+    color: "#888",
   },
 });
 

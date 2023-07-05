@@ -131,13 +131,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   selectedButton: {
-    backgroundColor: "#3377FF",
+    backgroundColor: "#09605e",
   },
   selectedButtonText: {
     color: "#fff",
   },
   confirmButton: {
-    backgroundColor: "#3377FF",
+    backgroundColor: "#09605e",
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,

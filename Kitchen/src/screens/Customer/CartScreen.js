@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   addToCartButton: {
-    backgroundColor: "#3377FF",
+    backgroundColor: "#09605e",
     borderRadius: 8,
     paddingVertical: 8,
     alignItems: "center",

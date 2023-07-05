@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   pickupButton: {
-    backgroundColor: '#FF6F61',
+    backgroundColor: '#09605e',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 8,

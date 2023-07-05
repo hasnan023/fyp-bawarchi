@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   delivered: {
-    backgroundColor: "#FF6F61",
+    backgroundColor: "#09605e",
     padding: 8,
     alignItems:"flex-center" ,
     marginLeft: 180,

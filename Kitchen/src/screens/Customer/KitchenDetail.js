@@ -276,7 +276,7 @@ const styles = StyleSheet.create({
   reviewButtonText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#FF6F61",
+    color: "#09605e",
   },  
   foodItemCard: {
     width: "48%",
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   addToCartButton: {
-    backgroundColor: "#3377FF",
+    backgroundColor: "#09605e",
     borderRadius: 8,
     paddingVertical: 8,
     alignItems: "center",
