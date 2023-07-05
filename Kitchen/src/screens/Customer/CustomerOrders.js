@@ -12,7 +12,7 @@ const CustomerOrder = ({navigation}) => {
   
     const fetchOrders = async () => {
       try {
-        const response = await axios.get("http://192.168.18.14:3500/orders");
+        const response = await axios.get("http://localhost:3500/orders");
         const ordersData = response.data;
         const userId = await AsyncStorage.getItem("userId");
   

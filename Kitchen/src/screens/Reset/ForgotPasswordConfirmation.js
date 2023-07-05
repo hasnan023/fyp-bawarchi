@@ -24,7 +24,7 @@ const ForgotPasswordConfirmation = ({navigation, route}) => {
       };
 
       await axios  
-      .post("http://192.168.18.14:3500/reset/confirm", data)
+      .post("http://localhost:3500/reset/confirm", data)
       .then((response) => {
         console.log(response)
         navigation.navigate("Signin");

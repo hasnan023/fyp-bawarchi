@@ -9,7 +9,7 @@ const OrderDisplay = ({ route }) => {
 
   const sendToRider = async (item) => {
     try {
-      const response = await axios.post("http://192.168.18.14:3500/pickups",item);
+      const response = await axios.post("http://localhost:3500/pickups",item);
       console.log("testing")
     } catch (error) {
       console.log("Error adding order:", error);
@@ -20,7 +20,7 @@ const OrderDisplay = ({ route }) => {
     try {
       console.log(orderId)
       const status = "Preparing"
-      const response = await axios.put(`http://192.168.18.14:3500/orders/${orderId}`, {status});
+      const response = await axios.put(`http://localhost:3500/orders/${orderId}`, {status});
       console.log("Order status updated successfully");
     } catch (error) {
       console.log("Error updating order status:", error);
@@ -74,7 +74,7 @@ const OrderDisplay = ({ route }) => {
         const token = res;
         console.log("Response: " + token);
 
-        fetch("http://192.168.18.14:3500/orders", {
+        fetch("http://localhost:3500/orders", {
           method: "GET",
           headers: {
             "x-auth-token": token,

@@ -16,7 +16,7 @@ export default function PlaceOrder({ navigation }) {
   const handleConfirmOrder = () => {
     if (state.cart.items.length > 0) {
       axios
-        .post("http://192.168.18.14:3500/orders/", {
+        .post("http://localhost:3500/orders/", {
           customerName: state.user.user.name,
           customerId: state.user.user.userId,
           address: state.user.user.address,

@@ -104,7 +104,7 @@ const CustomerRegisterForm = ({ navigation }) => {
     };
 
     try{
-      const response = await axios.post("http://192.168.18.14:3500/user/register", customerData)
+      const response = await axios.post("http://localhost:3500/user/register", customerData)
        console.log(response)
        navigation.navigate("CustomerLogin")
     }catch(error){
@@ -114,8 +114,11 @@ const CustomerRegisterForm = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.upperContainer}>
       <Text style={styles.title}>Customer Registration</Text>
+      </View>
 
+      <View style={styles.lowerContainer}>
       <Text style={styles.label}>Full Name:</Text>
       <TextInput
         placeholder="Full Name"
@@ -193,6 +196,7 @@ const CustomerRegisterForm = ({ navigation }) => {
         <Text style={styles.loginText}>Already have an account? Login!</Text>
       </TouchableOpacity>
     </View>
+    </View>
   );
 };
 
@@ -200,40 +204,62 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#09605e",
+  },
+  upperContainer: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  lowerContainer: {
+    flex: 6,
+    borderTopLeftRadius: 90,
+    borderTopRightRadius: 90,
+    backgroundColor: "white",
+    justifyContent: "center",
   },
   title: {
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 20,
     textAlign: "center",
-    color: "#333",
+    color: "white",
   },
   label: {
     fontWeight: "bold",
     marginBottom: 5,
     color: "#333",
+    marginLeft:40,
+    marginRight:40
   },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 4,
-    padding: 10,
-    marginBottom: 10,
+    padding: 10, 
+    marginBottom: 10, 
     backgroundColor: "#fff",
     color: "#333",
+    marginLeft:40,
+    marginRight:40
   },
   selectButton: {
     backgroundColor: "#09605e",
     paddingVertical: 12,
-    borderRadius: 4,
+    borderRadius: 8,
     marginBottom: 10,
+    marginLeft:40,
+    marginRight:40
+  
   },
   registerButton: {
     backgroundColor: "#09605e",
     paddingVertical: 12,
-    borderRadius: 4,
+    borderRadius: 8,
     marginBottom: 10,
+    marginLeft:40,
+    marginRight:40
   },
   buttonText: {
     color: "#fff",
@@ -252,8 +278,19 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#888",
   },
-  errText:{
-    color:"red"
+  error: {
+    color: "red",
+    marginTop: 8,
+    textAlign: "center",
+  },
+  errText: {
+    color: "red",
+  },
+  resetText: {
+    margin: 10,
+    marginRight:40,
+    textAlign: "right",
+    color: "#888",
   },
 });
 

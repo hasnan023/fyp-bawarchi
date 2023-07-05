@@ -16,7 +16,7 @@ const EditFoodScreen = ({ route, navigation }) => {
 
   const fetchFood = async () => {
     try {
-      const response = await axios.get(`http://192.168.18.14:3500/food/${id}`);
+      const response = await axios.get(`http://localhost:3500/food/${id}`);
       const data = response.data;
       setFoodName(data.name);
       setFoodDescription(data.description);
@@ -42,7 +42,7 @@ const EditFoodScreen = ({ route, navigation }) => {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.put(`http://192.168.18.14:3500/food/${id}`, {
+      const response = await axios.put(`http://localhost:3500/food/${id}`, {
         name: name,
         description: description,
         price: price,

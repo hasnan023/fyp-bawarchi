@@ -24,7 +24,7 @@ const EditProfile = ({ route }) => {
   
     const fetchUserProfile = async () => {
       try {
-        const response = await axios.get(`http://192.168.18.14:3500/user/${id}`);
+        const response = await axios.get(`http://localhost:3500/user/${id}`);
         const {fullName, phoneNumber, email, image} = response.data;
         setName(fullName);
         setPhoneNumber(phoneNumber);
@@ -53,7 +53,7 @@ const EditProfile = ({ route }) => {
     
     const handleSaveProfile = async () => {
       try {
-        await axios.put(`http://192.168.18.14:3500/user/${id}`, {
+        await axios.put(`http://localhost:3500/user/${id}`, {
           fullName: fullName,
           phoneNumber:phoneNumber,
           email:email,

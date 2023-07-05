@@ -34,7 +34,7 @@ const ChefLoginForm = ({ navigation, userId }) => {
     }
 
     axios
-      .post("http://192.168.18.14:3500/user/login", data)
+      .post("http://localhost:3500/user/login", data)
       .then((response) => {
         console.log(response.data);
 

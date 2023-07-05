@@ -19,7 +19,7 @@ const ReviewsPage = ({ route }) => {
       console.log("hi")
       console.log(kitchenId)
       const response = await axios.get(
-        `http://192.168.18.14:3500/reviews/${kitchenId}`
+        `http://localhost:3500/reviews/${kitchenId}`
       );
       const reviewsData = response.data;
       setReviews(reviewsData);
@@ -41,7 +41,7 @@ const ReviewsPage = ({ route }) => {
       console.log(customerName)
 
   
-      await axios.post("http://192.168.18.14:3500/reviews", data);
+      await axios.post("http://localhost:3500/reviews", data);
       fetchReviews(); 
       setReviewText('');
       setStarRating(0);
