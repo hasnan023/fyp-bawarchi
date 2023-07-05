@@ -203,7 +203,7 @@ const CustomerRegisterForm = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    //padding: 20,
     backgroundColor: "#09605e",
   },
   upperContainer: {
@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
   },
 
   lowerContainer: {
-    flex: 6,
+    flex: 4,
     borderTopLeftRadius: 90,
     borderTopRightRadius: 90,
     backgroundColor: "white",
