@@ -12,8 +12,8 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ChefLoginForm = ({ navigation, userId }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("hasnan.mehmood023@gmail.com");
+  const [password, setPassword] = useState("12345678");
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
   const [error, setError] = useState("");

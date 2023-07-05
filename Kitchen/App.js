@@ -43,7 +43,7 @@ function App() {
   return (
     <NavigationContainer>
       <Provider store={store}>
-        <Stack.Navigator options={{ headerShown: false }} initialRouteName="Main">
+        <Stack.Navigator options={{ headerShown: false }} initialRouteName="ChefScreen">
 
         <Stack.Screen name='Admin' component={AdminPanel} />
           <Stack.Screen name='Main' component={Splash} />

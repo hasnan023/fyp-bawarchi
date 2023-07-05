@@ -12,8 +12,8 @@ import { Alert } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const KitchenLoginForm = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('bisma00khalid@gmail.com');
+  const [password, setPassword] = useState('12345678');
   const [emailError, setEmailError] = useState("");
   const [passError,setPassError] = useState("");
   const [error,setError] = useState("");

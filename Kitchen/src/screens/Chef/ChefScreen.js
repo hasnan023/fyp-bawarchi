@@ -42,13 +42,23 @@ const ChefScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.centerContainer}>
+      
+        <View style={styles.topButtons}>
+          <TouchableOpacity
+          style={styles.profilePictureContainer}
+          onPress ={() => navigateToEditProfile()}
+        >
+          <Text style={styles.editProfileButtonText}>Edit Profile</Text>
+        </TouchableOpacity>
         <TouchableOpacity
           style={styles.profilePictureContainer}
           onPress ={() => navigateToEditProfile()}
         >
           <Text style={styles.editProfileButtonText}>Edit Profile</Text>
         </TouchableOpacity>
+        </View>
+      <View style={styles.centerContainer}>
+        
         <Text style={styles.fullName}>Portfolio</Text>
         <View style={styles.contentContainer}>
           <TouchableOpacity style={styles.foodItem}>
@@ -76,8 +86,8 @@ const ChefScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    // justifyContent: "center",
+    // alignItems: "center",
     backgroundColor: "#fff",
   },
   centerContainer: {
@@ -151,10 +161,13 @@ const styles = StyleSheet.create({
   },
 
   profilePictureContainer: {
-    width: 40,
+    width: 70,
     height: 40,
     backgroundColor: "#ccc",
     overflow: "hidden",
+  },
+  topButtons: {
+    flexDirection:'row'
   },
 });
 

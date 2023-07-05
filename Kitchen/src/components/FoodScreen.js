@@ -3,14 +3,23 @@ import { View, Text, FlatList, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AntDesign } from "@expo/vector-icons";
 import { Button, Image } from "react-native-elements";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import { FontAwesome } from "@expo/vector-icons";
+import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "@react-navigation/native";
 import axios from "axios";  
+import { useDispatch } from "react-redux";
+import { logout } from "../features/UserSlice";
+
+
+const Drawer = createDrawerNavigator();
 
 const FoodScreen = ({ navigation }) => {
   const [foods, setFoods] = useState([]);
   const [profilePicture, setProfilePicture] = useState("");
   const [kitchenName, setKitchenName] = useState("");
+  const dispatch = useDispatch();
 
   const getFoods = () => {
     console.log("get foods method called");
@@ -54,6 +63,79 @@ const FoodScreen = ({ navigation }) => {
     navigation.navigate("OrderDisplay",{kitchenName});
   };
 
+  
+    const Sidebar = () => {
+    const [profilePicture, setProfilePicture] = useState("");
+    const [customerName, setCustomerName] = useState("");
+  
+    useEffect(() => {
+      fetchProfilePicture();
+    }, []);
+  
+    const fetchProfilePicture = async () => {
+      try {
+        const userId = await AsyncStorage.getItem("userId");
+        const response = await axios.get(`http://localhost:3500/user/${userId}`);
+        const profilePicture = response.data.image;
+        const customerName = response.data.fullName;
+        setProfilePicture(profilePicture);
+        setCustomerName(customerName);
+      } catch (error) {
+        console.log("Error fetching profile Picture:", error);
+      }
+    };
+  
+    const navigateToEditProfile = async () => {
+      const userId = await AsyncStorage.getItem("userId");
+      navigation.navigate("EditProfile", { userId });
+    };
+  
+    // const navigateToChefScreen = () => {
+    //   navigation.navigate("ChefDisplay");
+    // };
+  
+    return (
+      <View style={styles.sidebarContainer}>
+       
+        
+        <Image
+          source={{ uri: profilePicture }}
+          style={styles.profilePicture}
+        />
+        <Text style={styles.customerName}>{customerName}</Text>
+
+        <TouchableOpacity
+          style={styles.sidebarItem}
+          onPress={() => navigateToEditProfile()}
+        >
+          <Text>Edit Profile</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.sidebarItem}
+          onPress={() => navigateToOrderScreen()}
+        >
+          
+          <Text>Orders</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity
+          style={styles.sidebarItem}
+          onPress={async () => {
+            dispatch(logout());
+            navigation.navigate("Home");
+            await AsyncStorage.clear();
+          }}
+        >
+          <Text>Logout</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  };
+  
+  
+  
+  
+  
   const fetchProfilePicture = async () => {
     try {
       const userId = await AsyncStorage.getItem("userId");
@@ -69,7 +151,7 @@ const FoodScreen = ({ navigation }) => {
     }
   };
 
-
+   
   const renderFoodItem = ({ item: food }) => {
     return (
       <TouchableOpacity style={styles.foodItem}>
@@ -101,8 +183,18 @@ const FoodScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <Drawer.Navigator 
+      drawerContent={Sidebar}>
+        <Drawer.Screen name="Kitchen">
+          {()=>(
+            <View style={styles.container}>
+
+    
+      
+
       <View style={styles.header}>
+        
+        
         <TouchableOpacity
           style={styles.profilePictureContainer}
           onPress={() => navigateToEditProfile()}
@@ -131,6 +223,10 @@ const FoodScreen = ({ navigation }) => {
         <AntDesign name="plus" size={24} color="white" />
       </TouchableOpacity>
     </View>
+          )}
+        </Drawer.Screen>
+      </Drawer.Navigator>
+    
   );
 };
 
@@ -196,6 +292,24 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderRadius: 8,
   },
+  sidebarContainer: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: "#fff",
+  },
+  sidebarItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 16,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    backgroundColor: "#f0f0f0",
+  },
+  sidebarItemText: {
+    marginLeft: 8,
+  },
+
   fab: {
     position: "absolute",
     bottom: 16,
@@ -222,8 +336,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   profilePicture: {
-    width: "100%",
-    height: "100%",
+    width: 40,
+    height: 40,
   },
   chefButton: {
     backgroundColor: "#333",
