@@ -35,7 +35,9 @@ const ChefScreen = ({ navigation }) => {
 
   const navigateToEditProfile = async () => {
     const userId = await AsyncStorage.getItem("userId");
-    navigation.navigate("EditProfile", (userId));
+    console.log(userId)
+    navigation.navigate("EditProfile", {userId});
+    
   };
 
   return (

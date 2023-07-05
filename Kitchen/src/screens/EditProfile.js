@@ -20,6 +20,7 @@ const EditProfile = ({ route }) => {
   
     useEffect(() => {
       fetchUserProfile();
+      console.log("we are in edit profile screen" + id)
     }, []);
   
     const fetchUserProfile = async () => {
