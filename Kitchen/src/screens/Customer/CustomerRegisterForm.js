@@ -9,7 +9,6 @@ import {
   Image,
   TouchableOpacity,
   Alert,
-  ScrollView,
 } from "react-native";
 
 const CustomerRegisterForm = ({ navigation }) => {
@@ -19,17 +18,20 @@ const CustomerRegisterForm = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
   const [image, setImage] = useState("");
-  const [emailErr, setEmailErr] = useState("");
-  const [nameErr, setNameErr] = useState("");
-  const [addressErr, setAddressErr] = useState("");
-  const [phoneNumberErr, setPhoneNumberErr] = useState("");
-  const [passwordErr, setPasswordErr] = useState("");
-  const [imageErr, setImageErr] = useState("");
+  const [emailErr,setEmailErr] = useState("");
+  const [nameErr,setNameErr]  = useState("");
+  const [addressErr,setAddressErr] = useState("");
+  const [phoneNumberErr,setPhoneNumberErr] = useState("");
+  const [passwordErr,setPasswordErr] = useState("");
+  const [imageErr,setImageErr] = useState("");
+
 
   const pickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      Alert.alert("Sorry, we need camera roll permissions to make this work!");
+      Alert.alert(
+        "Sorry, we need camera roll permissions to make this work!"
+      );
       return;
     }
 
@@ -46,36 +48,47 @@ const CustomerRegisterForm = ({ navigation }) => {
     }
   };
 
-  const handleRegistration = async () => {
-    if (fullName.length < 3) {
-      setNameErr("Name should be at least 3 characters long");
-      return;
+  const handleRegistration = async() => {
+  if(fullName.length < 3){
+    setNameErr("Name should be at least 3 characters long");
+    return;
     }
-    if (!email) {
+    if(!email){
       setEmailErr("Email is required");
       return;
     }
-    if (!email.includes("@") || !email.includes(".")) {
+    if(!email.includes("@") || !email.includes(".")){
       setEmailErr(`Email must include "@" and a "."`);
       return;
     }
-    if (!address) {
+    if(!address){
       setAddressErr("Address is required.");
       return;
     }
-    if (!phoneNumber) {
+    // if(address.length < 3){
+    //   setAddressErr("Address should be at least 3 characters long");
+    //   return;
+    //   }
+    if(!phoneNumber){
       setPhoneNumberErr("Phone number is required.");
       return;
-    }
-    if (!password) {
+      }
+      // if(phoneNumber){
+      //   setPhoneNumberErr("Phone number should be at least 3 characters long");
+      //   return;
+      //   }
+
+    if(!password){
       setPasswordErr("Password is required.");
       return;
-    }
-    if (password.length < 8) {
+      }
+
+    if(password.length < 8){
       setPasswordErr("Password should be at least 8 characters long");
       return;
-    }
-    if (!image) {
+      }
+
+    if(!image){
       setImageErr("Image is required.");
       return;
     }
@@ -90,94 +103,83 @@ const CustomerRegisterForm = ({ navigation }) => {
       image,
     };
 
-    try {
-      const response = await axios.post(
-        "http://localhost:3500/user/register",
-        customerData
-      );
-      console.log(response);
-      navigation.navigate("CustomerLogin");
-    } catch (error) {
-      console.log(error.message);
+    try{
+      const response = await axios.post("http://localhost:3500/user/register", customerData)
+       console.log(response)
+       navigation.navigate("CustomerLogin")
+    }catch(error){
+    console.log(error.message)
     }
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.upperContainer}>
-        <Text style={styles.title}>Customer Registration</Text>
+      <Text style={styles.title}>Customer Registration</Text>
       </View>
 
-      <ScrollView contentContainerStyle={styles.lowerContainer}>
+      <View style={styles.lowerContainer}>
         <Text style={styles.label}>Full Name:</Text>
         <TextInput
           placeholder="Full Name"
           value={fullName}
-          onChangeText={(fullName) => {
-            setFullName(fullName);
-            setNameErr("");
-          }}
+          onChangeText={(fullName)=>{setFullName(fullName);
+          setNameErr("")}}
           style={styles.input}
         />
-        {nameErr ? <Text style={styles.errText}>{nameErr}</Text> : null}
+        {nameErr ? <Text style={styles.errText}>{nameErr}</Text>:null}
 
         <Text style={styles.label}>Email:</Text>
         <TextInput
           placeholder="Email"
           value={email}
-          onChangeText={(email) => {
-            setEmail(email);
-            setEmailErr("");
-          }}
+          onChangeText={(email)=>{setEmail(email);
+            setEmailErr("")}}
           style={styles.input}
         />
-        {emailErr ? <Text style={styles.errText}>{emailErr}</Text> : null}
+        {emailErr ? <Text style={styles.errText}>{emailErr}</Text>:null}
 
         <Text style={styles.label}>Address:</Text>
         <TextInput
           placeholder="Address"
           value={address}
-          onChangeText={(address) => {
-            setAddress(address);
-            setAddressErr("");
-          }}
+          onChangeText={(address)=>{setAddress(address);
+            setAddressErr("")}}
           style={styles.input}
         />
-        {addressErr ? <Text style={styles.errText}>{addressErr}</Text> : null}
-
+  {addressErr ? <Text style={styles.errText}>{addressErr}</Text>:null}
         <Text style={styles.label}>Phone Number:</Text>
         <TextInput
           placeholder="Phone Number"
           value={phoneNumber}
           keyboardType="numeric"
-          onChangeText={(phoneNumber) => {
-            setPhoneNumber(phoneNumber);
-            setPhoneNumberErr("");
-          }}
+          onChangeText={(phoneNumber)=>{setPhoneNumber(phoneNumber);
+            setPhoneNumberErr("")}}
           style={styles.input}
         />
-        {phoneNumberErr ? (
-          <Text style={styles.errText}>{phoneNumberErr}</Text>
-        ) : null}
+        {phoneNumberErr ? <Text style={styles.errText}>{phoneNumberErr}</Text>:null}
 
         <Text style={styles.label}>Password:</Text>
         <TextInput
           placeholder="Password"
           secureTextEntry
           value={password}
-          onChangeText={(password) => {
-            setPassword(password);
-            setPasswordErr("");
-          }}
+          onChangeText={(password)=>{setPassword(password);
+          setPasswordErr("")}}
           style={styles.input}
         />
-        {passwordErr ? <Text style={styles.errText}>{passwordErr}</Text> : null}
-
-        <TouchableOpacity style={styles.selectButton} onPress={pickImage}>
+        {passwordErr ? <Text style={styles.errText}>{passwordErr}</Text>:null}
+        <TouchableOpacity
+          style={styles.selectButton}
+          onPress={pickImage}
+        >
+          
           <Text style={styles.buttonText}>Select Profile Picture</Text>
         </TouchableOpacity>
-        {imageErr ? <Text style={styles.errText}>{imageErr}</Text> : null}
-        {image && <Image source={{ uri: image }} style={styles.image} />}
+        {imageErr ? <Text style={styles.errText}>{imageErr}</Text>:null}
+        {image && (
+          <Image source={{ uri: image }} style={styles.image} />
+        )}
 
         <TouchableOpacity
           style={styles.registerButton}
@@ -191,11 +193,9 @@ const CustomerRegisterForm = ({ navigation }) => {
             navigation.navigate("CustomerLogin");
           }}
         >
-          <Text style={styles.loginText}>
-            Already have an account? Login!
-          </Text>
+          <Text style={styles.loginText}>Already have an account? Login!</Text>
         </TouchableOpacity>
-      </ScrollView>
+     </View>
     </View>
   );
 };
@@ -203,6 +203,7 @@ const CustomerRegisterForm = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    //padding: 20,
     backgroundColor: "#09605e",
   },
   upperContainer: {
@@ -212,12 +213,11 @@ const styles = StyleSheet.create({
   },
 
   lowerContainer: {
-    flexGrow: 1,
+    flex: 4,
     borderTopLeftRadius: 90,
     borderTopRightRadius: 90,
     backgroundColor: "white",
     justifyContent: "center",
-    padding: 20,
   },
   title: {
     fontSize: 24,
@@ -230,27 +230,36 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 5,
     color: "#333",
+    marginLeft:40,
+    marginRight:40
   },
   input: {
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 4,
-    padding: 10,
-    marginBottom: 10,
+    padding: 10, 
+    marginBottom: 10, 
     backgroundColor: "#fff",
     color: "#333",
+    marginLeft:40,
+    marginRight:40
   },
   selectButton: {
     backgroundColor: "#09605e",
     paddingVertical: 12,
     borderRadius: 8,
     marginBottom: 10,
+    marginLeft:40,
+    marginRight:40
+  
   },
   registerButton: {
     backgroundColor: "#09605e",
     paddingVertical: 12,
     borderRadius: 8,
     marginBottom: 10,
+    marginLeft:40,
+    marginRight:40
   },
   buttonText: {
     color: "#fff",
@@ -269,10 +278,19 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#888",
   },
+  error: {
+    color: "red",
+    marginTop: 8,
+    textAlign: "center",
+  },
   errText: {
     color: "red",
-    marginLeft: 40,
-    marginRight: 40,
+  },
+  resetText: {
+    margin: 10,
+    marginRight:40,
+    textAlign: "right",
+    color: "#888",
   },
 });
 
