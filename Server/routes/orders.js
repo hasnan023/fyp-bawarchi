@@ -51,6 +51,26 @@ router.delete("/", async (req, res) => {
   }
 });
 
+router.delete("/:orderId", async (req, res) => {
+  try {
+    const orderId = req.params.orderId;
+
+    // Check if the order exists
+    const order = await Order.findById(orderId);
+    if (!order) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    // Delete the order
+    await Order.findByIdAndDelete(orderId);
+
+    res.json({ message: "Order deleted" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+
 // Middleware to get a specific order by ID
 async function getOrder(req, res, next) {
   let order;

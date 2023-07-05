@@ -1,11 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
+import { removeFromCart } from '../../features/BasketSlice';
 import Icon from "react-native-vector-icons/MaterialIcons";
+import axios from "axios";
 
 const CartScreen = ({ navigation }) => {
   const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const [cartItems, setCartItems] = useState(state.cart.items);
+
+  const deleteItem = (orderId)=>{
+
+    setCartItems(cartItems.filter((item) => item.id !== orderId));
+    dispatch(removeFromCart({ id: orderId }));
+  }
 
   // const deleteItem = (id) => {
   //   deleteDoc(doc(db, "cart", `${id}`));
@@ -32,9 +41,10 @@ const CartScreen = ({ navigation }) => {
               </View>
               <TouchableOpacity
                   style={{ width: "10%" }}
-                  // onPress={() => {
-                  //   deleteItem(item._id);
-                  // }}
+                  onPress={() => {
+                    console.log(item)
+                    deleteItem(item.id);
+                  }}
                 >
                   <Icon name="delete" size={28} />
                 </TouchableOpacity>
