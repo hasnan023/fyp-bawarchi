@@ -4,10 +4,15 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { logout } from "../../features/UserSlice";
+
+
+
 
 const ChefScreen = ({ navigation }) => {
   const [user, setChef] = useState([]);
-
+  const dispatch = useDispatch();
   const getChef = async () => {
     console.log("get chef details called");
 
@@ -48,14 +53,27 @@ const ChefScreen = ({ navigation }) => {
           style={styles.profilePictureContainer}
           onPress ={() => navigateToEditProfile()}
         >
-          <Text style={styles.editProfileButtonText}>Edit Profile</Text>
+           <Image
+          source={{ uri: user.image }}
+          style={styles.profilePicture}
+        />
+          {/* <Text style={styles.editProfileButtonText}>Edit Profile</Text> */}
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.profilePictureContainer}
-          onPress ={() => navigateToEditProfile()}
+      
+         <TouchableOpacity
+          style={styles.logoutBtn}
+          onPress={async () => {
+            dispatch(logout());
+            navigation.navigate("Home");
+            await AsyncStorage.clear();
+          }}
         >
-          <Text style={styles.editProfileButtonText}>Edit Profile</Text>
+          <Text style>Logout</Text>
+   
         </TouchableOpacity>
+
+        
+
         </View>
       <View style={styles.centerContainer}>
         
@@ -160,15 +178,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 
-  profilePictureContainer: {
-    width: 70,
-    height: 40,
-    backgroundColor: "#ccc",
-    overflow: "hidden",
-  },
+
   topButtons: {
-    flexDirection:'row'
+    marginTop:20,
+    flexDirection:'row',
+    justifyContent:'space-around',
+    alignItems:'center'
   },
+  profilePicture:{
+    // margin: 20,
+    width:40,
+    height:40,
+    borderRadius:"50%"
+
+  },
+  logoutBtn:{
+    // margin: 20,
+    // backgroundColor:'grey'
+  }
 });
 
 export default ChefScreen;
