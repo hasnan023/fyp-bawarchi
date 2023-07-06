@@ -25,7 +25,7 @@ router.post("/register", async (req, res) => {
       vehicleNumber,
       status
     } = req.body;
-
+console.log(req.body.cnic)
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
@@ -33,6 +33,7 @@ router.post("/register", async (req, res) => {
 
     // Encrypt password
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log(hashedPassword)
 
     // Create a new user instance
     if(userType==="customer"){

@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   button: {
-    backgroundColor: '#FF6F61',
+    backgroundColor: '#09605e',
   },
 });
 

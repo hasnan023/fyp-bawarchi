@@ -61,7 +61,7 @@ const RiderLoginForm = ({ navigation, userId }) => {
     <View style={styles.container}>
       <View style={styles.upperContainer}>
        
-       <Text style={styles.title}>Kitchen Login</Text>
+       <Text style={styles.title}>Rider Login</Text>
      
    </View>
    <View style={styles.lowerContainer}>
