@@ -22,6 +22,7 @@ const RiderLoginForm = ({ navigation, userId }) => {
     const data = {
       email: email,
       password: password,
+      userType: "rider"
     };
     if(!email){
       setEmailError("Email is required");
@@ -49,6 +50,8 @@ const RiderLoginForm = ({ navigation, userId }) => {
           if (error.response.data.message === "Invalid login credentials") {
             setError( error.response.data.message); 
           } else if (error.response.data.message === "Account send for approval") {
+            setError( error.response.data.message);  
+          }else if (error.response.data.message === "You are not registered as a customer") {
             setError( error.response.data.message);  
           }
         }

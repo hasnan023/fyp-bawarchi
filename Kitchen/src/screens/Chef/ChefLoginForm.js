@@ -23,6 +23,7 @@ const ChefLoginForm = ({ navigation, userId }) => {
     const data = {
       email: email,
       password: password,
+      userType: "chef"
     };
     if (!email) {
       setEmailError("Email is required");
@@ -53,6 +54,8 @@ const ChefLoginForm = ({ navigation, userId }) => {
               error.response.data.message === "Account send for approval"
             ) {
               setError(error.response.data.message);
+            }else if (error.response.data.message === "You are not registered as a chef") {
+              setError( error.response.data.message);  
             }
           }
         } else {

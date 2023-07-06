@@ -23,6 +23,7 @@ const KitchenLoginForm = ({ navigation }) => {
     const data = {
       email: email,
       password: password,
+      userType: "kitchen"
     };
     if(!email){
       setEmailError("Email is required");
@@ -50,6 +51,8 @@ const KitchenLoginForm = ({ navigation }) => {
             if (error.response.data.message === "Invalid login credentials") {
               setError( error.response.data.message); 
             } else if (error.response.data.message === "Account send for approval") {
+              setError( error.response.data.message);  
+            }else if (error.response.data.message === "You are not registered as a kitchen") {
               setError( error.response.data.message);  
             }
           }
@@ -110,8 +113,9 @@ const KitchenLoginForm = ({ navigation }) => {
         }}
       >
         <Text style={styles.registerText}> New to Bawarchi? Register!</Text>
+        {error ? <Text style={styles.error}>{error}</Text> : null}
       </TouchableOpacity>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      
     </View>
     </View>
   );
@@ -198,6 +202,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
     color: "#888",
   },
+   
 });
 
 export default KitchenLoginForm;
