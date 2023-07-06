@@ -36,8 +36,9 @@ app.use(express.static(path.join(__dirname, "public")));
 //connect mongoose to database
 //avoid warning : use parser statement
 mongoose.connect(
-  // "mongodb+srv://itxhaxnan:bawarchi@cluster0.wumonv7.mongodb.net/?retryWrites=true&w=majority",
+   //"mongodb+srv://itxhaxnan:bawarchi@cluster0.wumonv7.mongodb.net/?retryWrites=true&w=majority",
   "mongodb://localhost/bawarhi",
+  //"mongodb://localhost/bawarhi",
   { useNewUrlParser: true }
 );
 

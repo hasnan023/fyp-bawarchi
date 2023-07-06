@@ -51,6 +51,23 @@ router.delete("/", async (req, res) => {
   }
 });
 
+// router.delete(":id", async (req, res) => {
+//   const pickup = await Pickup.findByIdAndDelete(req.params.id);
+  
+//   try{
+//     if (pickup) {
+//     res.json("Order Deleted");
+//     console.log("Order Deleted");
+//   } else {
+//     res.status(404).json({ message: "Order not found" });
+//   }
+//  } catch (error) {
+//   res.status(500).json({ message: "Error deleting order", error: error });
+//   console.log("Can't delete order: " + error);
+// }
+// });
+
+
 router.delete("/:orderId", async (req, res) => {
   try {
     const orderId = req.params.orderId;

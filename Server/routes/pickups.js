@@ -23,8 +23,8 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.delete(":id", async (req, res) => {
-  const order = await Order.findById(req.params.id);
+router.delete("/:id", async (req, res) => {
+  const order = await Pickup.findById(req.params.id);
   
   order.remove((err) => {
     if (err) {

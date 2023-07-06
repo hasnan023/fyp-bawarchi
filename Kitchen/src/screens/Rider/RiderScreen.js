@@ -47,7 +47,9 @@ const RiderScreen = ({ navigation }) => {
     try{
       const status = "Delivered"
       const response = await axios.put(`http://localhost:3500/orders/${orderId}`, {status});
+      console.log(orderId)
       console.log("Order status updated successfully");
+      
     } catch (error) {
       console.log("Error updating order status:", error);
     }
