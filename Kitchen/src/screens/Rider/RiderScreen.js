@@ -11,6 +11,7 @@ const RiderScreen = ({ navigation }) => {
   const [orders, setOrders] = useState([]);
   const [profilePicture, setProfilePicture] = useState("");
   const [customerName, setCustomerName] = useState("");
+  //const [customerNumber, setCustomerNumber] = useState("");
 
   const dispatch = useDispatch();
 

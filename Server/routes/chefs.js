@@ -3,7 +3,7 @@ const router = express.Router();
 const Chef = require("../structure/approve");
 
 router.get("/", async (req, res) => {
-    //fetch all kithcens and send
+    //fetch all and send
     try {
       const chef = await Chef.find({ userType: "chef" });
       //send in json format.. .send will send in text form
