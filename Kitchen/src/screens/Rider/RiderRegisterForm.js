@@ -294,6 +294,8 @@ const styles = StyleSheet.create({
   },
   errText: {
     color: "red",
+    marginLeft:40,
+    marginRight:40
   },
   resetText: {
     margin: 10,

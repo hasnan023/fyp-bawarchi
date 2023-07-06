@@ -8,6 +8,7 @@ const AdminPanel = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [requests, setRequests] = useState([]);
   const [approvedUser, setApprovedUser] = useState([]);
+  const userType= "admin";
 
   useEffect(() => {
     setRequests([]);
@@ -19,6 +20,7 @@ const AdminPanel = () => {
       .post('http://localhost:3500/user/login', {
         email,
         password,
+        userType
       })
       .then((response) => {
         // Handle successful login

@@ -192,9 +192,12 @@ const styles = StyleSheet.create({
     color: "red",
     marginTop: 8,
     textAlign: "center",
+    
   },
   errText: {
     color: "red",
+    marginLeft:40,
+    marginRight:40
   },
   resetText: {
     margin: 10,
