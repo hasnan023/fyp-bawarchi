@@ -13,8 +13,8 @@ import { useDispatch } from "react-redux";
 import { login } from "../../features/UserSlice";
 
 const CustomerLoginForm = ({ navigation, userId }) => {
-  const [email, setEmail] = useState("marwakhalid558@gmail.com");
-  const [password, setPassword] = useState("22222222");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passError,setPassError] = useState("");
   const dispatch = useDispatch();

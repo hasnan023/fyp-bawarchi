@@ -4,11 +4,15 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Image } from "react-native-elements";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { logout } from "../../features/UserSlice";
 
 const RiderScreen = ({ navigation }) => {
   const [orders, setOrders] = useState([]);
   const [profilePicture, setProfilePicture] = useState("");
   const [customerName, setCustomerName] = useState("");
+
+  const dispatch = useDispatch();
 
   const navigateToEditProfile = async () => {
     const userId = await AsyncStorage.getItem("userId");
@@ -85,7 +89,7 @@ const RiderScreen = ({ navigation }) => {
               <Text>Accept</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
+            {/* <TouchableOpacity
               style = {{backgroundColor: "red",
               padding: 8,
               alignItems:"flex-center" ,
@@ -94,7 +98,7 @@ const RiderScreen = ({ navigation }) => {
               onPress={() => deleteOrder(item._id)}
               >
               <Text>Reject</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           <TouchableOpacity
               style = {styles.delivered}
               onPress={() => delivered(item._id)}>
@@ -118,6 +122,21 @@ const RiderScreen = ({ navigation }) => {
         </TouchableOpacity>
         <Text style={styles.welcomeText}>Welcome, {customerName}</Text>
       </View>
+     
+     <View>
+      <TouchableOpacity
+          style={styles.logoutBtn}
+          onPress={async () => {
+            dispatch(logout());
+            navigation.navigate("Home");
+            await AsyncStorage.clear();
+          }}
+        >
+          <Text style>Logout</Text>
+   
+        </TouchableOpacity>
+        </View>
+
     <Text style={styles.heading}>Orders ready for pickup</Text>
     <FlatList
       data={orders}
@@ -179,8 +198,8 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   profilePicture: {
-    width: "100%",
-    height: "100%",
+    width: 50,
+    height: 50,
   },
   delivered: {
     backgroundColor: "#09605e",
@@ -189,6 +208,10 @@ const styles = StyleSheet.create({
     marginLeft: 180,
     width:100
   },
+  logoutBtn:{
+    flexDirection:'row',
+    justifyContent:'flex-end'
+  }
 });
 
 export default RiderScreen;

@@ -205,12 +205,12 @@ const FoodScreen = ({ navigation }) => {
           />
         </TouchableOpacity>
         <Text style={styles.welcomeText}>Welcome, {kitchenName}</Text>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.chefButton}
           onPress={() => navigateToOrderScreen()}
         >
           <Text style={styles.chefButtonText}>Orders</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <Text style={styles.heading}>Food items in your Kitchen</Text>
       <FlatList
@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 16,
-    justifyContent: "space-between",
+    
   },
   profilePictureContainer: {
     width: 40,
