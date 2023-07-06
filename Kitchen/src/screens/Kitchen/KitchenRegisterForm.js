@@ -60,7 +60,7 @@ const KitchenRegisterForm = ({ navigation }) => {
         return;
       }
       if(!expertise){
-        setEmailErr("Expertise is required");
+        setExpertiseErr("Expertise is required");
         return;
       }
       if(!email.includes("@") || !email.includes(".")){
@@ -291,13 +291,8 @@ const styles = StyleSheet.create({
   errText:{
     color:"red",
     marginTop: 8,
-    textAlign: "center",
     marginLeft:40,
     marginRight:40
-  },
-  
-  errText: {
-    color: "red",
   },
   resetText: {
     margin: 10,
