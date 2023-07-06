@@ -112,6 +112,10 @@ router.post("/login", async (req, res) => {
     return res.status(401).json({ message: "Invalid login credentials" });
   }
 
+  if (userType !== user.userType) {
+    return res.status(401).json({ message: `You are not registered as a ${userType}` });
+  }
+
   // Create and send JWT token
   let token = jwt.sign({ _id: user._id, email: email }, "PrivateKey");
   const userId = user._id;

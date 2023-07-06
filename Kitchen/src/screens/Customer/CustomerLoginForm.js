@@ -17,12 +17,15 @@ const CustomerLoginForm = ({ navigation, userId }) => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passError,setPassError] = useState("");
+  const [error,setError] = useState("");
+
   const dispatch = useDispatch();
 
   const handleLogin = async () => {
     const data = {
       email: email,
       password: password,
+      userType: "customer"
     };
     if(!email){
       setEmailError("Email is required");
@@ -41,9 +44,21 @@ const CustomerLoginForm = ({ navigation, userId }) => {
       await AsyncStorage.setItem("userId", res.data.userId);
 
       navigation.navigate("CustomerScreen");
-    } catch (err) {
-      console.log("error: " + err.message);
-    }
+    }catch(error){
+        if (error.response) {
+          if (error.response.status === 401) {
+            if (error.response.data.message === "Invalid login credentials") {
+              setError( error.response.data.message); 
+            } else if (error.response.data.message === "Account send for approval") {
+              setError( error.response.data.message);  
+            }else if (error.response.data.message === "You are not registered as a customer") {
+              setError( error.response.data.message);  
+            }
+          }
+        } else {
+          console.error('Error:', error.message);
+        }
+      };
   };
 
   return (
@@ -94,6 +109,7 @@ const CustomerLoginForm = ({ navigation, userId }) => {
         }}
       >
         <Text style={styles.registerText}>New to Bawarchi? Register!</Text>
+        {error ? <Text style={styles.error}>{error}</Text> : null}
       </TouchableOpacity>
     </View>
     </View>
@@ -122,6 +138,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 80,
     backgroundColor: "white",
     justifyContent: "center",
+  },
+  error: {
+    color: "red",
+    marginTop: 8,
+    textAlign: "center",
   },
   title: {
     fontSize: 24,
