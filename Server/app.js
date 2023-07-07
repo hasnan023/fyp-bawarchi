@@ -36,7 +36,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //connect mongoose to database
 //avoid warning : use parser statement
 mongoose.connect(
-   "mongodb://marwakhalid:marwakhalid123@marwa-shard-00-00.x9zjp.mongodb.net:27017,marwa-shard-00-01.x9zjp.mongodb.net:27017,marwa-shard-00-02.x9zjp.mongodb.net:27017/reactApp?ssl=true&replicaSet=atlas-6szo5v-shard-0&authSource=admin&retryWrites=true&w=majority",
+   "mongodb+srv://itxhaxnan:bawarchi@cluster0.wumonv7.mongodb.net/?retryWrites=true&w=majority",
   //"mongodb://localhost/bawarhi",
   { useNewUrlParser: true }
 );
